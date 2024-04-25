@@ -1,0 +1,9 @@
+git init
+git add .
+git commit -m "nodejs server added, contacts accessed, added card"
+git branch -M main
+git remote add origin https://github.com/alokjha2/flutterGame.git
+git push -u origin main
+
+
+git push origin main --force

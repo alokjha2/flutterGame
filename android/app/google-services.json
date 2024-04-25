@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1094877042640",
+    "project_id": "reshuffle-b787f",
+    "storage_bucket": "reshuffle-b787f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094877042640:android:daba169957972f461dcbd5",
+        "android_client_info": {
+          "package_name": "com.example.game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6JFBORNJkrl02mYHBfCYckXyeeqqEoDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

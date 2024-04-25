@@ -1,0 +1,41 @@
+name: game
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  assets_audio_player: ^3.1.1
+  confetti: ^0.7.0
+  cupertino_icons: 
+  flame: ^1.17.0
+  flip_card: 
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  glossy: ^0.0.4
+  lottie: 
+  firebase_core: 
+  cloud_firestore: 
+  flutter_contacts: ^1.1.7+1
+  permission_handler:
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/.
+    - assets/sounds/.
+    - assets/brain_animation.json
+  #   - images/a_dot_ham.jpeg
