@@ -25,6 +25,7 @@ dependencies:
   cloud_firestore: 
   flutter_contacts: ^1.1.7+1
   permission_handler:
+  socket_io_client: ^2.0.3+1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

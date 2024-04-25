@@ -4,4 +4,5 @@ class AppRoutes {
   static const winGamePage = '/winGamePage';
   static const selectMatrix = '/selectMatrix';
   static const multiPlayer = '/multiPlayer';
+  static const contacts = '/contacts';
 }

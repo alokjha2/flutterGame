@@ -1,6 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:game/routes.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:socket_io_client/socket_io_client.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class ContactsScreen extends StatefulWidget {
   @override
@@ -16,6 +22,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
     super.initState();
     // Request permissions when the screen is first opened
     _requestPermissions();
+    }
+
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   Future<void> _requestPermissions() async {
@@ -72,7 +84,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
       leading: CircleAvatar(
         child: Text(contact.displayName[0]),
       ),
-      trailing: TextButton(child: Text("Play"),onPressed: (){},),
+      trailing: TextButton(child: Text("Play"),
+      onPressed: (){
+        Get.toNamed(AppRoutes.multiPlayer);
+      },),
       title: Text(contact.displayName),
       subtitle: Text(contact.phones.isNotEmpty ? contact.phones.first.number : ''),
     ),
@@ -95,5 +110,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
               ),
             ),
     );
+  }
+
+  void play(){
+    Get.toNamed(AppRoutes.multiPlayer);
   }
 }

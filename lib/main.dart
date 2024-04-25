@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:game/screens/contacts_screen.dart';
+import 'package:game/screens/multiPlayer.dart';
 
 import 'exports.dart';
 
@@ -11,6 +12,7 @@ void main() async{
    await Firebase.initializeApp();
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,7 +31,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.gamePage, page: () => GamePage()),
         GetPage(name: AppRoutes.winGamePage, page: () => GameOverScreen(duration: 0,)),
         GetPage(name: AppRoutes.selectMatrix, page: () => MatrixSelection()),
-        GetPage(name: AppRoutes.multiPlayer, page: () => ContactsScreen()),
+        GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
+        GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
       ],
     );
   }
