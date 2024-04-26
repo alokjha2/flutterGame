@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
+import 'package:game/components/invitationCard.dart';
 import 'package:game/routes.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -86,7 +87,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
       ),
       trailing: TextButton(child: Text("Play"),
       onPressed: (){
-        Get.toNamed(AppRoutes.multiPlayer);
+       play();
       },),
       title: Text(contact.displayName),
       subtitle: Text(contact.phones.isNotEmpty ? contact.phones.first.number : ''),
@@ -114,5 +115,34 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   void play(){
     Get.toNamed(AppRoutes.multiPlayer);
+    showSnackBar(context);
+    showDialog(
+  context: context,
+  builder: (BuildContext context) {
+    return InvitationDialog(
+      message: 'You have received an invitation to play!',
+      onAccept: () {
+        // Handle the "Accept" button action
+        Navigator.of(context).pop();
+        // Call the function to accept the invitation
+      },
+      onDecline: () {
+        // Handle the "Decline" button action
+        Navigator.of(context).pop();
+        // Call the function to decline the invitation
+      },
+    );
+  },
+);
+
   }
+  void showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Hi, Flutter developers'),
+      backgroundColor: Colors.teal,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  
 }

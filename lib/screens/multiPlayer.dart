@@ -5,7 +5,7 @@ import "package:game/controller/countDownController.dart";
 import "package:game/controller/gameTimerController.dart";
 import "package:game/exports.dart";
 import "package:get/get.dart";
-
+import "package:socket_io_client/socket_io_client.dart" as io;
 
 int _previousIndex = -1;
 // int _time = 3;
@@ -154,6 +154,11 @@ onFlip(index){
     _left = (_data.length ~/ 2);
     _isFinished = false;
   }
+
+   final socketapp = io.io('http://localhost:8080'); // Replace with your server URL and port
+
+    // socket.connect();
+    
 
   @override
   void initState() {

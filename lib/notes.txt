@@ -1,6 +1,6 @@
 git init
 git add .
-git commit -m "added some dependency"
+git commit -m "invitation dialog added"
 git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main
@@ -8,3 +8,4 @@ git push -u origin main
 
 git push origin main --force
 node server.js
+nodemon server.js (for refresh)
