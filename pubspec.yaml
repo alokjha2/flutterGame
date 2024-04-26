@@ -29,6 +29,7 @@ dependencies:
   firebase_database:
   firebase_auth: 
   firebase_messaging: ^14.9.1
+  contacts_service: ^0.6.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

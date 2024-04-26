@@ -11,9 +11,9 @@ import 'exports.dart';
 
 
 void main() async{
-   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp();
-   initializeFirebaseMessaging(); // Call the function here
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  initializeFirebaseMessaging(); // Call the function here
   runApp(const MyApp());
 }
 

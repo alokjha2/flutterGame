@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:contacts_service/contacts_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
+// import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:game/components/invitationCard.dart';
 import 'package:game/invitation.dart';
 import 'package:game/routes.dart';
@@ -18,12 +20,14 @@ class ContactsScreen extends StatefulWidget {
 class _ContactsScreenState extends State<ContactsScreen> {
   List<Contact> _contacts = [];
   bool _isPermissionGranted = false;
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
     super.initState();
-    // Request permissions when the screen is first opened
     _requestPermissions();
+    Invitation().listenForInvitations(user!.phoneNumber.toString(), context);
+    // Request permissions when the screen is first opened
     }
 
 
@@ -49,7 +53,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   Future<void> _getContacts() async {
-    List<Contact> contacts = await FlutterContacts.getContacts();
+   List<Contact> contacts = await ContactsService.getContacts();  
+
     setState(() {
       _contacts = contacts;
     });
@@ -84,14 +89,17 @@ class _ContactsScreenState extends State<ContactsScreen> {
     ),
     child: ListTile(
       leading: CircleAvatar(
-        child: Text(contact.displayName[0]),
+        child: Text(contact.displayName![0]),
       ),
       trailing: TextButton(child: Text("Play"),
       onPressed: (){
-       play(contact);
-      },),
-      title: Text(contact.displayName),
-      subtitle: Text(contact.phones.isNotEmpty ? contact.phones.first.number : ''),
+        play(contact.phones!.isNotEmpty ? contact.phones![0].value : '');
+
+      // print(contact.phones![0]);
+
+      },
+    ),
+      title: Text(contact.displayName!),
     ),
   ),
 );
@@ -114,31 +122,24 @@ class _ContactsScreenState extends State<ContactsScreen> {
     );
   }
 
-  void play(contact) async{
+  String generateRoomId() {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+  // String randomString = generateRandomString(6); // Example: "ABC123"
+  return '$userId-$timestamp';
+}
 
-    await Invitation().sendInvitation(contact);
+
+   play(phone) async{
+    
+
+    print("${phone}");
+    // await Invitation().sendInvitation(phone);
+    // await Invitation().inviteUserToGameRoom("122345", phone.toString());
+    await Invitation().sendInvitation(phone, generateRoomId(), context);
     Get.toNamed(AppRoutes.multiPlayer);
-    print("${contact.phones}");
-    showSnackBar(context);
-    showDialog(
-  context: context,
-  builder: (BuildContext context) {
-    return InvitationDialog(
-      message: 'You have received an invitation to play!',
-      onAccept: () {
-        // Handle the "Accept" button action
-        Navigator.of(context).pop();
-        // Call the function to accept the invitation
-      },
-      onDecline: () {
-        // Handle the "Decline" button action
-        Navigator.of(context).pop();
-        // Call the function to decline the invitation
-      },
-    );
-  },
-);
-
+    // showSnackBar(context);
+  
   }
   void showSnackBar(BuildContext context) {
     final snackBar = SnackBar(

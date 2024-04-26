@@ -1,98 +1,90 @@
-
-
-// Example code to send an invitation to a contact
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_contacts/contact.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:game/exports.dart';
 
 class Invitation {
-  
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<void> sendInvitation(recipientPhoneNumber) async {
-  try {
-    // Get the FCM token for the recipient user
-    final recipientSnapshot = await _firestore
-        .collection('users')
-        .where('phoneNumber', isEqualTo: recipientPhoneNumber)
-        .get();
+  // Firebase Realtime Database reference
+  final DatabaseReference _database = FirebaseDatabase.instance.reference();
 
-    if (recipientSnapshot.docs.isNotEmpty) {
-      final recipientFcmToken = recipientSnapshot.docs.first['fcmToken'];
+  // Send invitation
+  Future<void> sendInvitation(String recipientPhoneNumber, String roomId, context) async {
+    // Prepare invitation data
+    Map<String, dynamic> invitationData = {
+      'senderUserId': FirebaseAuth.instance.currentUser!.uid,
+      'receiverPhoneNumber': recipientPhoneNumber,
+      'roomId': roomId,
+    };
 
-     if (recipientFcmToken != null) {
-  Map<String, String> innerData = {
-    'senderName': 'player',
-    'senderPhoneNumber': 'YOUR_PHONE_NUMBER',
-  };
+    // Store the invitation in the database
+    await _database.child('invitations').push().set(invitationData);
+    showSnackBar(context);
 
-  Map<String, String> data = {
-    'invitation': innerData.toString(),
-  };
-
-  await FirebaseMessaging.instance.sendMessage(
-    to: recipientFcmToken,
-    data: data,
-  );
-
-
-        print('Invitation sent successfully');
-      } else {
-        print('Recipient FCM token not found');
-      }
-    } else {
-      print('Recipient user not found');
-    }
-  } catch (e) {
-    print('Failed to send invitation: $e');
   }
-}
+     void showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Invitation sent'),
+      backgroundColor: Colors.teal,
+      behavior: SnackBarBehavior.floating,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+ 
 
-// void listenForInvitations() {
-//   databaseReference.child('invitations').onChildAdded.listen((event) {
-//     Map<String, dynamic> invitationData = event.snapshot.value;
-//     // Check if the invitation is for the current user
-//     if (invitationData['receiverContactNumber'] == currentUserContactNumber) {
-//       // Show dialog box to notify the user about the invitation
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             title: Text('Invitation Received'),
-//             content: Text('You have received an invitation from ${invitationData['senderUserId']}'),
-//             actions: <Widget>[
-//               FlatButton(
-//                 child: Text('Accept'),
-//                 onPressed: () {
-//                   // Handle invitation acceptance
-//                   acceptInvitation(event.snapshot.key);
-//                   Navigator.of(context).pop();
-//                 },
-//               ),
-//               FlatButton(
-//                 child: Text('Decline'),
-//                 onPressed: () {
-//                   // Handle invitation rejection
-//                   declineInvitation(event.snapshot.key);
-//                   Navigator.of(context).pop();
-//                 },
-//               ),
-//             ],
-//           );
-//         },
-//       );
-//     }
-//   });
-// }
+  // Listen for invitations
+  void listenForInvitations(phone, BuildContext context) {
+    DatabaseReference invitationsRef = _database.child('invitations');
+    invitationsRef.onChildAdded.listen((event) {
+      Map<dynamic, dynamic> invitationData = event.snapshot.value as Map;
 
-// Example code to accept an invitation
-void acceptInvitation(invitation) {
-  // Start the multiplayer memory card game session
-}
+      // Check if the invitation is for the current user
+      if (invitationData['receiverPhoneNumber'] == phone) {
+        // Show dialog to accept or decline the invitation
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Invitation Received'),
+              content: Text('You have received an invitation to play!'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Accept'),
+                  onPressed: () {
+                    // Handle invitation acceptance
+                    acceptInvitation(event.snapshot.key!, invitationData['roomId']);
+                    // Navigator.of(context).pop();
+                    
+                  },
+                ),
+                TextButton(
+                  child: Text('Decline'),
+                  onPressed: () {
+                    // Handle invitation rejection
+                    declineInvitation(event.snapshot.key!);
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    });
+  }
 
-// Example code to decline an invitation
-void declineInvitation(invitation) {
-  // Remove the invitation from the database
-}
+  // Accept invitation
+  void acceptInvitation(String invitationId, String roomId) {
+    // Add the user to the game room
+    _database.child('gameRooms').child(roomId).child('players').update({
+      FirebaseAuth.instance.currentUser!.uid: true,
+    });
 
+    // Remove the invitation from the database
+    _database.child('invitations').child(invitationId).remove();
+  }
+
+  // Decline invitation
+  void declineInvitation(String invitationId) {
+    // Remove the invitation from the database
+    _database.child('invitations').child(invitationId).remove();
+  }
 }
