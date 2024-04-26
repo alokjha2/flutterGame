@@ -8,15 +8,12 @@ import "package:get/get.dart";
 import "package:socket_io_client/socket_io_client.dart" as io;
 
 int _previousIndex = -1;
-// int _time = 3;
-// int gameDuration = -3;
 bool _flip = false;
 bool _start = false;
 bool _wait = false;
 late bool _isFinished;
-// late Timer _timer;
-// late Timer _durationTimer;
 late int _left;
+bool _isPlayer1Turn = true; 
 late List _data;
 late List<bool> _cardFlips;
 late List<GlobalKey<FlipCardState>> _cardStateKeys;
@@ -86,58 +83,68 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
     );
   }
 
-
-onFlip(index){
+onFlip(index) {
   player.open(
-                Audio("assets/sounds/flip.mp3"),
-              );
-              if (!_flip) {
-                _flip = true;
-                _previousIndex = index;
-              } else {
-                _flip = false;
-                if (_previousIndex != index) {
-                  if (_data[_previousIndex] != _data[index]) {
-                    _wait = true;
+    Audio("assets/sounds/flip.mp3"),
+  );
 
-                    Future.delayed(const Duration(milliseconds: 1500), () {
-                      _cardStateKeys[_previousIndex].currentState!.toggleCard();
-                      _previousIndex = index;
-                      _cardStateKeys[_previousIndex].currentState!.toggleCard();
+  if (!_flip) {
+    _flip = true;
+    _previousIndex = index;
+  } else {
+    _flip = false;
+    if (_previousIndex != index) {
+      if (_data[_previousIndex] != _data[index]) {
+        _wait = true;
 
-                      Future.delayed(const Duration(milliseconds: 160), () {
-                        setState(() {
-                          _wait = false;
-                        });
-                      });
-                    });
-                  } else {
-                    player.open(
-                      Audio("assets/sounds/90s-game-ui-7-185100.mp3"), // Play sound on match
-                      // Audio("assets/sounds/start.mp3"), // Play sound on match
-                    );
-                    _cardFlips[_previousIndex] = false;
-                    _cardFlips[index] = false;
-                    setState(() {
-                      _left -= 1;
-                    });
+        Future.delayed(const Duration(milliseconds: 1500), () {
+          _cardStateKeys[_previousIndex].currentState!.toggleCard();
+          _previousIndex = index;
+          _cardStateKeys[_previousIndex].currentState!.toggleCard();
 
+          Future.delayed(const Duration(milliseconds: 160), () {
+            setState(() {
+              _wait = false;
+            });
+          });
+        });
+      } else {
+        player.open(
+          Audio("assets/sounds/90s-game-ui-7-185100.mp3"), // Play sound on match
+        );
+        _cardFlips[_previousIndex] = false;
+        _cardFlips[index] = false;
+        setState(() {
+          _left -= 1;
+        });
 
-                    if (_cardFlips.every((t) => t == false)) {
-                      debugPrint("Won");
-                      Future.delayed(const Duration(milliseconds: 160), () {
-                        setState(() {
-                          _isFinished = true;
-                          _start = false;
-                        });
-                      });
-                    }
-                  }
-                }
-              }
-              setState(() {});
+        if (_cardFlips.every((t) => t == false)) {
+          debugPrint("Won");
+          Future.delayed(const Duration(milliseconds: 160), () {
+            setState(() {
+              _isFinished = true;
+              _start = false;
+            });
+          });
+        }
+
+        // Check if the player can get another chance
+        if (_data[_previousIndex] == _data[index]) {
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('You matched a pair! You get one more chance.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
+      }
+    }
+  }
+  setState(() {});
 }
-  
+
 
   void _startGame() {
     _start = true;
@@ -157,7 +164,6 @@ onFlip(index){
 
    final socketapp = io.io('http://localhost:8080'); // Replace with your server URL and port
 
-    // socket.connect();
     
 
   @override
@@ -202,15 +208,15 @@ onFlip(index){
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                            Padding(
-  padding: const EdgeInsets.all(30.0),
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      _buildPlayerContainer("Player 1", 3, Colors.red),
-      _buildPlayerContainer("Player 2", 8, Colors.green),
-    ],
-  ),
-),
+                              padding: const EdgeInsets.all(30.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _buildPlayerContainer("Player 1", 3, Colors.red),
+                                  _buildPlayerContainer("Player 2", 8, Colors.green),
+                                ],
+                              ),
+                            ),
                             const SizedBox(
                               height: 50,
                             ),
@@ -245,8 +251,6 @@ onFlip(index){
   },
 )
 
-                      // if (!_start && countDownController.countdown > 0)
-                      // Obx(() =>   CountdownOverlay(timerValue: countDownController.countdown.value),)
                     ],
                   ),
                 ),
@@ -268,17 +272,16 @@ onFlip(index){
       children: [
         Text(
           playerName,
-          // style: theme.bodyMedium.copyWith(fontWeight: FontWeight.bold), // Player name
         ),
         SizedBox(height: 10),
         Text(
           'Points: $points',
-          // style: theme.bodyMedium,
+        
         ),
         Obx(() => 
           Text(
             'Duration: ${gameTimerController.gameDuration.value}s',
-            // style: theme.bodyMedium,
+           
           ),
         ),
       ],
@@ -286,29 +289,3 @@ onFlip(index){
   );
 } 
 }
-
-
-// class GameTimer extends GetxController{
-
-//   void startTimer() {
-//     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
-//       // setState(() {
-//       //   _time = (_time - 1);
-//       //   if (_time == 0) {
-//       //     _startGame();
-//       //     _timer.cancel();
-//       //   }
-//       // });
-//     });
-//   }
-
-//   void startDuration() {
-//     _durationTimer = Timer.periodic(const Duration(seconds: 1), (t) {
-//     //   setState(() {
-//     //     gameDuration = (gameDuration + 1);
-//     //   });
-//     });
-//   }
-    
-//   }
-

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:game/components/invitationCard.dart';
+import 'package:game/invitation.dart';
 import 'package:game/routes.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -113,7 +114,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
     );
   }
 
-  void play(contact){
+  void play(contact) async{
+
+    await Invitation().sendInvitation(contact);
     Get.toNamed(AppRoutes.multiPlayer);
     print("${contact.phones}");
     showSnackBar(context);

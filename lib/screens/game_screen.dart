@@ -144,14 +144,6 @@ onFlip(index){
     gameTimerController.startDuration();
   }
 
-  // void startGameAfterDelay() {
-  //   Future.delayed(const Duration(seconds: 1), () {
-  //     setState(() {
-  //     GameTimerController().startDuration(); // Start the timer after the countdown
-  //     });
-  //   });
-  // }
-
   void initializeGameData() {
     _data = createShuffledListFromImageSource();
     _cardFlips = getInitialItemStateList();
@@ -254,7 +246,7 @@ onFlip(index){
   },
 )
 
-                      // if (!_start && countDownController.countdown > 0)
+
                       // Obx(() =>   CountdownOverlay(timerValue: countDownController.countdown.value),)
                     ],
                   ),
@@ -265,29 +257,3 @@ onFlip(index){
   }
   
 }
-
-
-// class GameTimer extends GetxController{
-
-//   void startTimer() {
-//     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
-//       // setState(() {
-//       //   _time = (_time - 1);
-//       //   if (_time == 0) {
-//       //     _startGame();
-//       //     _timer.cancel();
-//       //   }
-//       // });
-//     });
-//   }
-
-//   void startDuration() {
-//     _durationTimer = Timer.periodic(const Duration(seconds: 1), (t) {
-//     //   setState(() {
-//     //     gameDuration = (gameDuration + 1);
-//     //   });
-//     });
-//   }
-    
-//   }
-
