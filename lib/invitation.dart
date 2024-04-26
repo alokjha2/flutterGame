@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:game/components/invitationCard.dart';
 import 'package:game/exports.dart';
+import 'package:get/get.dart';
 
 class Invitation {
   // Firebase Realtime Database reference
@@ -24,7 +25,7 @@ class Invitation {
      void showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('Invitation sent'),
-      backgroundColor: Colors.teal,
+      backgroundColor: Colors.green,
       behavior: SnackBarBehavior.floating,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -47,16 +48,14 @@ class Invitation {
       message: 'You have received an invitation to play!',
       onAccept: () {
         // Handle the "Accept" button action
-                    acceptInvitation(event.snapshot.key!, invitationData['roomId']);
         Navigator.of(context).pop();
+        acceptInvitation(event.snapshot.key!, invitationData['roomId']);
+        Get.toNamed(AppRoutes.multiPlayer);
         // Call the function to accept the invitation
       },
       onDecline: () {
                     declineInvitation(event.snapshot.key!);
                     Navigator.of(context).pop();
-        // Handle the "Decline" button action
-        Navigator.of(context).pop();
-        // Call the function to decline the invitation
           },
         );
       },
@@ -74,8 +73,10 @@ class Invitation {
       FirebaseAuth.instance.currentUser!.uid: true,
     });
 
+    Get.toNamed(AppRoutes.multiPlayer, arguments: roomId);
+
     // Remove the invitation from the database
-    _database.child('invitations').child(invitationId).remove();
+    // _database.child('invitations').child(invitationId).remove();
   }
 
   // Decline invitation

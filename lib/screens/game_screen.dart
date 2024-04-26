@@ -247,7 +247,6 @@ onFlip(index){
 )
 
 
-                      // Obx(() =>   CountdownOverlay(timerValue: countDownController.countdown.value),)
                     ],
                   ),
                 ),

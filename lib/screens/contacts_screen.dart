@@ -131,23 +131,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
 
    play(phone) async{
-    
-
-    print("${phone}");
-    // await Invitation().sendInvitation(phone);
-    // await Invitation().inviteUserToGameRoom("122345", phone.toString());
-    await Invitation().sendInvitation(phone, generateRoomId(), context);
-    Get.toNamed(AppRoutes.multiPlayer);
-    // showSnackBar(context);
-  
+    Get.toNamed(AppRoutes.multiPlayer, arguments: generateRoomId());
+    await Invitation().sendInvitation(phone, generateRoomId(), context);  
   }
-  // void showSnackBar(BuildContext context) {
-  //   final snackBar = SnackBar(
-  //     content: Text('Hi, Flutter developers'),
-  //     backgroundColor: Colors.teal,
-  //     behavior: SnackBarBehavior.floating,
-  //   );
-  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  // }
-  
 }

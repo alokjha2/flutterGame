@@ -29,6 +29,9 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
 
   final gameTimerController = Get.put(GameTimerController());
   final countDownController = Get.put(CountDownController());
+   String passedString = Get.arguments;
+  final _showWaitingRoom = true;
+ 
 
   Widget getItem(int index) {
     return Container(
@@ -249,7 +252,19 @@ onFlip(index) {
       return Container();
     }
   },
-)
+),
+if (_showWaitingRoom)
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child:
+                           Text('Waiting for other players...'),
+                        ),
+                      ),
 
                     ],
                   ),
