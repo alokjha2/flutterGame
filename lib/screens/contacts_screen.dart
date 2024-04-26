@@ -141,13 +141,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
     // showSnackBar(context);
   
   }
-  void showSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text('Hi, Flutter developers'),
-      backgroundColor: Colors.teal,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  // void showSnackBar(BuildContext context) {
+  //   final snackBar = SnackBar(
+  //     content: Text('Hi, Flutter developers'),
+  //     backgroundColor: Colors.teal,
+  //     behavior: SnackBarBehavior.floating,
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // }
   
 }

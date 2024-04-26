@@ -1,6 +1,6 @@
 git init
 git add .
-git commit -m "invitation sent, invitation recieved, now working on accepting it, making waiting room"
+git commit -m "dialog updated"
 git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main

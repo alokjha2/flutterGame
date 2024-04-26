@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:game/components/invitationCard.dart';
 import 'package:game/exports.dart';
 
 class Invitation {
@@ -39,37 +40,32 @@ class Invitation {
       // Check if the invitation is for the current user
       if (invitationData['receiverPhoneNumber'] == phone) {
         // Show dialog to accept or decline the invitation
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Invitation Received'),
-              content: Text('You have received an invitation to play!'),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('Accept'),
-                  onPressed: () {
-                    // Handle invitation acceptance
+       showDialog(
+  context: context,
+  builder: (BuildContext context) {
+    return InvitationDialog(
+      message: 'You have received an invitation to play!',
+      onAccept: () {
+        // Handle the "Accept" button action
                     acceptInvitation(event.snapshot.key!, invitationData['roomId']);
-                    // Navigator.of(context).pop();
-                    
-                  },
-                ),
-                TextButton(
-                  child: Text('Decline'),
-                  onPressed: () {
-                    // Handle invitation rejection
+        Navigator.of(context).pop();
+        // Call the function to accept the invitation
+      },
+      onDecline: () {
                     declineInvitation(event.snapshot.key!);
                     Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
+        // Handle the "Decline" button action
+        Navigator.of(context).pop();
+        // Call the function to decline the invitation
           },
         );
-      }
-    });
+      },
+    );
   }
+  });
+  }
+      
+
 
   // Accept invitation
   void acceptInvitation(String invitationId, String roomId) {
