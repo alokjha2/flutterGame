@@ -5,4 +5,6 @@ class AppRoutes {
   static const selectMatrix = '/selectMatrix';
   static const multiPlayer = '/multiPlayer';
   static const contacts = '/contacts';
+  static const login = '/login';
+  static const Auth = '/auth';
 }

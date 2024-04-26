@@ -87,7 +87,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
       ),
       trailing: TextButton(child: Text("Play"),
       onPressed: (){
-       play();
+       play(contact);
       },),
       title: Text(contact.displayName),
       subtitle: Text(contact.phones.isNotEmpty ? contact.phones.first.number : ''),
@@ -113,8 +113,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
     );
   }
 
-  void play(){
+  void play(contact){
     Get.toNamed(AppRoutes.multiPlayer);
+    print("${contact.phones}");
     showSnackBar(context);
     showDialog(
   context: context,

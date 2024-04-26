@@ -1,7 +1,9 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:game/firebase/auth_checker.dart';
 import 'package:game/screens/contacts_screen.dart';
+import 'package:game/screens/loginScreen.dart';
 import 'package:game/screens/multiPlayer.dart';
 
 import 'exports.dart';
@@ -33,6 +35,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.selectMatrix, page: () => MatrixSelection()),
         GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
         GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
+        GetPage(name: AppRoutes.login, page: () => LoginScreen()),
+        GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
       ],
     );
   }

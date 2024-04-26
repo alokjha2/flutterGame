@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.blue,
                   text: 'MultiPlayer',
                   onPressed: () {
-                     Get.toNamed(AppRoutes.contacts);
+                     Get.toNamed(AppRoutes.Auth);
                     
                     // Action for Button 1
                   },
@@ -90,8 +90,9 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20), // Adjust spacing between buttons
                 RectangleButton(
                   color: Colors.green,
-                  text: 'Button 2',
+                  text: 'Login',
                   onPressed: () {
+                     Get.toNamed(AppRoutes.login);
                     // Action for Button 2
                   },
                 ),
