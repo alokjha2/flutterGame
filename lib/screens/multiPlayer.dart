@@ -33,7 +33,7 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
   final countDownController = Get.put(CountDownController());
  final WaitingScreenController waitingScreenController = Get.put(WaitingScreenController());
 
-  //  String passedString = Get.arguments;
+   String roomId = Get.arguments;
   // final _showWaitingRoom = true;
  
 
@@ -177,7 +177,7 @@ onFlip(index) {
     super.initState();
     countDownController.startCountdown();
     initializeGameData();
-    // Invitation().listenToPlayers(passedString);
+    Invitation().listenToPlayers(roomId);
 
   }
 

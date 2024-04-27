@@ -91,36 +91,23 @@ void showSnackBar(BuildContext context, String message) {
   });
   }
 
- listenToPlayers(String roomId) {
+  
+listenToPlayers(String roomId) {
   final WaitingScreenController waitingScreenController = Get.put(WaitingScreenController());
-  _database.child('gameRooms').child(roomId).child('players').onValue.listen((event) {
-    // Handle changes to the players node
-    var playersSnapshot = event.snapshot;
-    if (playersSnapshot.value != null) {
-      // Cast the value to Map<String, dynamic>
-      Map<String, dynamic>? players = playersSnapshot.value as Map<String, dynamic>?;
-
-      if (players != null) {
-        players.forEach((playerId, _) {
-
-
-          Get.find<WaitingScreenController>().hideWaitingScreen();
-          void showSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text('User joined'),
-      backgroundColor: Colors.green,
-      behavior: SnackBarBehavior.floating,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          }
-           
-          
-        });
-      }
+  final playersRef = _database.child('gameRooms').child(roomId).child('players');
+  
+  playersRef.onValue.listen((event) {
+    DataSnapshot snapshot = event.snapshot;
+    Map<dynamic, dynamic>? players = snapshot.value as Map<dynamic, dynamic>?;
+    
+    // Check if there are 2 players in the room
+    if (players != null && players.length == 2) {
+      // Hide the waiting screen
+      waitingScreenController.hideWaitingScreen();
     }
   });
-        // return true;
-   }
+}
+
 
       
 // Accept invitation
@@ -172,6 +159,9 @@ createRoom(roomId){
   _database.child('gameRooms').child(roomId).child('players').set({
     FirebaseAuth.instance.currentUser!.uid: true,
   }).then((_) {
+  //    WaitingScreenController waitingScreenController = Get.find<WaitingScreenController>();
+  // // Call the hideWaitingScreen() method to hide the waiting screen
+  //       waitingScreenController.hideWaitingScreen();
   }).catchError((error) {
     // Handle error if user addition fails
     
