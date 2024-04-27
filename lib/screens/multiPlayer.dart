@@ -4,6 +4,7 @@
 import "package:game/controller/countDownController.dart";
 import "package:game/controller/gameTimerController.dart";
 import "package:game/exports.dart";
+import "package:game/invitation.dart";
 import "package:get/get.dart";
 import "package:socket_io_client/socket_io_client.dart" as io;
 
@@ -174,6 +175,7 @@ onFlip(index) {
     super.initState();
     countDownController.startCountdown();
     initializeGameData();
+    Invitation().listenToPlayers(passedString);
   }
 
   @override
@@ -247,7 +249,6 @@ onFlip(index) {
     if (!_start && countDownController.countdown.value > 0) {
       return CountdownOverlay(timerValue: countDownController.countdown.value);
     } else {
-      // Countdown reached 0, start the game and return an empty container or null to remove the countdown from the screen
       _startGame();
       return Container();
     }
