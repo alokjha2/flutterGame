@@ -137,7 +137,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   if (isRecipientRegistered) {
     // If recipient is registered, send invitation and push user to game screen
     await Invitation().sendInvitation(phone, generateRoomId(), context).then((value) {
-      Get.toNamed(AppRoutes.multiPlayer, arguments: generateRoomId());
+      Get.toNamed(AppRoutes.multiPlayer, arguments: generateRoomId);
     });
   } else {
     // If recipient is not registered, show a message to the user

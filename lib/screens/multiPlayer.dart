@@ -3,6 +3,7 @@
 
 import "package:game/controller/countDownController.dart";
 import "package:game/controller/gameTimerController.dart";
+import "package:game/controller/waitingScreen.dart";
 import "package:game/exports.dart";
 import "package:game/invitation.dart";
 import "package:get/get.dart";
@@ -30,8 +31,10 @@ class _MultiPlayerScreenState extends State<MultiPlayerScreen> {
 
   final gameTimerController = Get.put(GameTimerController());
   final countDownController = Get.put(CountDownController());
-   String passedString = Get.arguments;
-  final _showWaitingRoom = true;
+ final WaitingScreenController waitingScreenController = Get.put(WaitingScreenController());
+
+  //  String passedString = Get.arguments;
+  // final _showWaitingRoom = true;
  
 
   Widget getItem(int index) {
@@ -166,7 +169,6 @@ onFlip(index) {
     _isFinished = false;
   }
 
-   final socketapp = io.io('http://localhost:8080'); // Replace with your server URL and port
 
     
 
@@ -175,7 +177,8 @@ onFlip(index) {
     super.initState();
     countDownController.startCountdown();
     initializeGameData();
-    Invitation().listenToPlayers(passedString);
+    // Invitation().listenToPlayers(passedString);
+
   }
 
   @override
@@ -193,8 +196,26 @@ onFlip(index) {
         ? GameOverScreen(
             duration: gameTimerController.gameDuration.value,
           )
-        : Scaffold(
-            body: Center(
+        : 
+        
+        Scaffold(
+            body: 
+            
+        Obx(
+        () => Center(
+          child: waitingScreenController.showWaitingScreen.value == true
+              ? Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text('Waiting for other players...'),
+                  ),
+                )
+              :
+            Center(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 1, // Adjust width factor as needed
                 height: MediaQuery.of(context).size.height * 1, // Adjust height factor as needed
@@ -254,24 +275,12 @@ onFlip(index) {
     }
   },
 ),
-if (_showWaitingRoom)
-                      Center(
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child:
-                           Text('Waiting for other players...'),
-                        ),
-                      ),
 
                     ],
                   ),
                 ),
               ),
-            ),
+            ),))
           );
   }
  Widget _buildPlayerContainer(String playerName, int points, color) {
@@ -294,12 +303,12 @@ if (_showWaitingRoom)
           'Points: $points',
         
         ),
-        Obx(() => 
-          Text(
-            'Duration: ${gameTimerController.gameDuration.value}s',
+        // Obx(() => 
+        //   Text(
+        //     'Duration: ${gameTimerController.gameDuration.value}s',
            
-          ),
-        ),
+        //   ),
+        // ),
       ],
     ),
   );

@@ -57,12 +57,12 @@ class _GameOverScreenState extends State<GameOverScreen> {
                 RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                    text: "Congratulations! ",
+                    text: "Congratulations! \n",
                     style: theme.bodyLarge,
                     children: [
                       TextSpan(
                           text:
-                              "You've successfully completed the Flutter memory game. Your sharp memory and quick thinking have helped you emerge victorious. Keep up the good work and keep challenging yourself as you learn Flutter and continue to improve your skills.",
+                              "I think I had given you enough reasons to hire me. And there is one more reason for you to hire me. I built this in 9-10 hours over 2-3 days. Along with this I started building one AI tools to get job in an AI startup. We can together build something for elders of society",
                           style: theme.bodySmall,
                           
                           ),

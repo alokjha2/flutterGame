@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           ),
           // Purple overlay
           Container(
-            color: Colors.purpleAccent.shade100.withOpacity(0.5), // Semi-transparent purple color
+            color: Colors.purpleAccent.shade100.withOpacity(0.5),
           ),
 
           RainAnimation(screenSize: size),

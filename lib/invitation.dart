@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:game/components/invitationCard.dart';
+import 'package:game/controller/waitingScreen.dart';
 import 'package:game/exports.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +23,8 @@ Future<void> sendInvitation(String recipientPhoneNumber, String roomId, context)
 
     // Store the invitation in the database
     await _database.child('invitations').push().set(invitationData);
+    createRoom(roomId);
+
     showSnackBar(context, 'Invitation sent');
   } else {
     showSnackBar(context, 'Recipient is not registered on the app');
@@ -78,7 +81,7 @@ void showSnackBar(BuildContext context, String message) {
         // Call the function to accept the invitation
       },
       onDecline: () {
-                    declineInvitation(event.snapshot.key!);
+                    declineInvitation(event.snapshot.key!, invitationData["roomId"]);
                     Navigator.of(context).pop();
           },
         );
@@ -88,7 +91,8 @@ void showSnackBar(BuildContext context, String message) {
   });
   }
 
- void listenToPlayers(String roomId) {
+ listenToPlayers(String roomId) {
+  final WaitingScreenController waitingScreenController = Get.put(WaitingScreenController());
   _database.child('gameRooms').child(roomId).child('players').onValue.listen((event) {
     // Handle changes to the players node
     var playersSnapshot = event.snapshot;
@@ -99,6 +103,8 @@ void showSnackBar(BuildContext context, String message) {
       if (players != null) {
         players.forEach((playerId, _) {
 
+
+          Get.find<WaitingScreenController>().hideWaitingScreen();
           void showSnackBar(BuildContext context) {
     final snackBar = SnackBar(
       content: Text('User joined'),
@@ -107,29 +113,45 @@ void showSnackBar(BuildContext context, String message) {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
+           
           
-          // print('Player $playerId joined the game room $roomId');
-
-          // You can perform any action here, such as updating UI or sending notifications
         });
       }
     }
   });
+        // return true;
    }
 
       
-
-
-  // Accept invitation
-  void acceptInvitation(String invitationId, String roomId) {
+// Accept invitation
+void acceptInvitation(String invitationId, String roomId) {
+  final playersRef = _database.child('gameRooms').child(roomId).child('players');
+  
   // Add the user to the game room
-  _database.child('gameRooms').child(roomId).child('players').update({
+  playersRef.update({
     FirebaseAuth.instance.currentUser!.uid: true,
   }).then((_) {
-    // User added successfully, navigate to multiplayer screen
+    // Listen to changes in the players node to check the number of players in the room
+    playersRef.onValue.listen((event) {
+      DataSnapshot snapshot = event.snapshot;
+      Map<dynamic, dynamic>? players = snapshot.value as Map<dynamic, dynamic>?;
+      if (players != null && players.length == 2) {
+        // Two players have joined, start the game
+        // startGame(roomId);
+
+         WaitingScreenController waitingScreenController = Get.find<WaitingScreenController>();
+  // Call the hideWaitingScreen() method to hide the waiting screen
+        waitingScreenController.hideWaitingScreen();
+        
+        // Stop listening to further changes in the players node
+        playersRef.onValue.listen(null);
+      }
+    });
+    
+    // Navigate to multiplayer screen
     Get.toNamed(AppRoutes.multiPlayer, arguments: roomId);
 
-    // Remove the invitation from the database
+    // Remove the invitation from the database 
     _database.child('invitations').child(invitationId).remove();
   }).catchError((error) {
     // Handle error if user addition fails
@@ -140,8 +162,35 @@ void showSnackBar(BuildContext context, String message) {
 
 
 
+
+joinRoom(){
+
+}
+
+createRoom(roomId){
+
+  _database.child('gameRooms').child(roomId).child('players').set({
+    FirebaseAuth.instance.currentUser!.uid: true,
+  }).then((_) {
+  }).catchError((error) {
+    // Handle error if user addition fails
+    
+    // print('Failed to accept invitation: $error');
+    // Optionally, show an error message to the user
+  });
+
+}
+
+leaveRoom(roomId, uid){
+
+}
+
+
   // Decline invitation
-  void declineInvitation(String invitationId) {
+  void declineInvitation(String invitationId, String roomId) {
+    _database.child('gameRooms').child(roomId).child('players').update({
+    FirebaseAuth.instance.currentUser!.uid: false,
+    }).then((_) {
   // Remove the invitation document from the database
   _database.child('invitations').child(invitationId).remove()
     .then((_) {
@@ -163,6 +212,11 @@ void showSnackBar(BuildContext context, String message) {
       print('Failed to decline invitation: $error');
       // Optionally, show an error message to the user
     });
-}
 
+ }).catchError((error) {
+    // Handle error if user addition fails
+    print('Failed to accept invitation: $error');
+    // Optionally, show an error message to the user
+  });
+}
 }
