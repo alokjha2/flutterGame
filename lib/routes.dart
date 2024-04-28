@@ -7,4 +7,5 @@ class AppRoutes {
   static const contacts = '/contacts';
   static const login = '/login';
   static const Auth = '/auth';
+  static const phoneMultiPlayer = '/phoneMultiPlayer';
 }

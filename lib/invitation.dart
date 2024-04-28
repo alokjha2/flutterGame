@@ -91,7 +91,7 @@ void showSnackBar(BuildContext context, String message) {
   });
   }
 
-  
+
 listenToPlayers(String roomId) {
   final WaitingScreenController waitingScreenController = Get.put(WaitingScreenController());
   final playersRef = _database.child('gameRooms').child(roomId).child('players');
@@ -125,21 +125,22 @@ void acceptInvitation(String invitationId, String roomId) {
       if (players != null && players.length == 2) {
         // Two players have joined, start the game
         // startGame(roomId);
+          Get.toNamed(AppRoutes.multiPlayer, arguments: roomId);
 
          WaitingScreenController waitingScreenController = Get.find<WaitingScreenController>();
   // Call the hideWaitingScreen() method to hide the waiting screen
         waitingScreenController.hideWaitingScreen();
         
         // Stop listening to further changes in the players node
-        playersRef.onValue.listen(null);
+        // playersRef.onValue.listen(null);
       }
     });
     
     // Navigate to multiplayer screen
-    Get.toNamed(AppRoutes.multiPlayer, arguments: roomId);
+    // Get.toNamed(AppRoutes.multiPlayer, arguments: roomId);
 
     // Remove the invitation from the database 
-    _database.child('invitations').child(invitationId).remove();
+    // _database.child('invitations').child(invitationId).remove();
   }).catchError((error) {
     // Handle error if user addition fails
     print('Failed to accept invitation: $error');

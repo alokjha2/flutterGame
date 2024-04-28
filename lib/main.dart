@@ -6,6 +6,7 @@ import 'package:game/firebase/notify_handler.dart';
 import 'package:game/screens/contacts_screen.dart';
 import 'package:game/screens/loginScreen.dart';
 import 'package:game/screens/multiPlayer.dart';
+import 'package:game/screens/phoneMultiplayer.dart';
 
 import 'exports.dart';
 
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
         GetPage(name: AppRoutes.login, page: () => LoginScreen()),
         GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
+        GetPage(name: AppRoutes.phoneMultiPlayer, page: () => PhoneMultiPlayer()),
       ],
     );
   }

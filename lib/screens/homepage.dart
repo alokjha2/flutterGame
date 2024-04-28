@@ -80,7 +80,18 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20), // Adjust spacing between buttons
                 RectangleButton(
                   color: Colors.blue,
-                  text: 'MultiPlayer',
+                  text: 'Play with friend',
+                  onPressed: () {
+                     Get.toNamed(AppRoutes.Auth);
+                    
+                    // Action for Button 1
+                  },
+                ),
+                SizedBox(height: 20), // Adjust spacing between buttons
+
+                RectangleButton(
+                  color: Colors.purple,
+                  text: 'Phone MultiPlayer',
                   onPressed: () {
                      Get.toNamed(AppRoutes.Auth);
                     
