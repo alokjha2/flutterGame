@@ -1,23 +1,27 @@
-import "package:game/controller/countDownController.dart";
-import "package:game/controller/gameTimerController.dart";
-import "package:game/exports.dart";
-import "package:get/get.dart";
-
+import 'package:flutter/material.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:get/get.dart';
+import 'package:game/controller/countDownController.dart';
+import 'package:game/controller/gameTimerController.dart';
+import 'package:game/exports.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 int _previousIndex = -1;
-// int _time = 3;
-// int gameDuration = -3;
 bool _flip = false;
 bool _start = false;
 bool _wait = false;
-late bool _isFinished;
-// late Timer _timer;
-// late Timer _durationTimer;
-late int _left;
-late List _data;
-late List<bool> _cardFlips;
-late List<GlobalKey<FlipCardState>> _cardStateKeys;
+bool _isFinished = false;
+int _left = 0;
+List _data = [];
+List<bool> _cardFlips = [];
+List<GlobalKey<FlipCardState>> _cardStateKeys = [];
+int _player1Points = 0;
+int _player2Points = 0;
+int _currentPlayer = 1;
+int _chancesLeft = 2;
+
 final player = AssetsAudioPlayer();
+
 class PhoneMultiPlayer extends StatefulWidget {
   const PhoneMultiPlayer({Key? key});
 
@@ -26,9 +30,23 @@ class PhoneMultiPlayer extends StatefulWidget {
 }
 
 class _PhoneMultiPlayerState extends State<PhoneMultiPlayer> {
-
   final gameTimerController = Get.put(GameTimerController());
   final countDownController = Get.put(CountDownController());
+
+  @override
+  void initState() {
+    super.initState();
+    countDownController.startCountdown();
+    initializeGameData();
+  }
+
+  void initializeGameData() {
+    _data = createShuffledListFromImageSource();
+    _cardFlips = getInitialItemStateList();
+    _cardStateKeys = createFlipCardStateKeysList();
+    _left = (_data.length ~/ 2);
+    _isFinished = false;
+  }
 
   Widget getItem(int index) {
     return Container(
@@ -53,7 +71,7 @@ class _PhoneMultiPlayerState extends State<PhoneMultiPlayer> {
         child: Center(
           child: FlipCard(
             key: _cardStateKeys[index],
-            onFlip: ()=>onFlip(index),
+            onFlip: () => onFlip(index),
             flipOnTouch: _wait ? false : _cardFlips[index],
             direction: FlipDirection.HORIZONTAL,
             front: Container(
@@ -64,8 +82,8 @@ class _PhoneMultiPlayerState extends State<PhoneMultiPlayer> {
                   fit: BoxFit.cover,
                 ),
               ),
-              width: 100, // Adjust width to fit your design
-              height: 200, // Adjust height to fit your design
+              width: 100,
+              height: 200,
             ),
             back: Container(
               decoration: BoxDecoration(
@@ -83,80 +101,63 @@ class _PhoneMultiPlayerState extends State<PhoneMultiPlayer> {
     );
   }
 
+  onFlip(int index) {
+    player.open(Audio("assets/sounds/flip.mp3"));
+    if (!_flip && _chancesLeft > 0) {
+      _flip = true;
+      _previousIndex = index;
+      _chancesLeft--;
+    } else {
+      _flip = false;
+      if (_previousIndex != index) {
+        if (_data[_previousIndex] != _data[index]) {
+          _wait = true;
 
-onFlip(index){
-  player.open(
-                Audio("assets/sounds/flip.mp3"),
-              );
-              if (!_flip) {
-                _flip = true;
-                _previousIndex = index;
-              } else {
-                _flip = false;
-                if (_previousIndex != index) {
-                  if (_data[_previousIndex] != _data[index]) {
-                    _wait = true;
+          Future.delayed(const Duration(milliseconds: 1500), () {
+            _cardStateKeys[_previousIndex].currentState!.toggleCard();
+            _previousIndex = index;
+            _cardStateKeys[_previousIndex].currentState!.toggleCard();
 
-                    Future.delayed(const Duration(milliseconds: 1500), () {
-                      _cardStateKeys[_previousIndex].currentState!.toggleCard();
-                      _previousIndex = index;
-                      _cardStateKeys[_previousIndex].currentState!.toggleCard();
+            Future.delayed(const Duration(milliseconds: 160), () {
+              setState(() {
+                _wait = false;
+                _chancesLeft = 2;
+                switchPlayer();
+              });
+            });
+          });
+        } else {
+          player.open(Audio("assets/sounds/90s-game-ui-7-185100.mp3"));
+          _cardFlips[_previousIndex] = false;
+          _cardFlips[index] = false;
+          setState(() {
+            _left -= 1;
+            if (_currentPlayer == 1) {
+              _player1Points++;
+            } else {
+              _player2Points++;
+            }
+            if (_cardFlips.every((t) => t == false)) {
+              _isFinished = true;
+              _start = false;
+            }
+            _chancesLeft = 2;
+            switchPlayer();
+          });
+        }
+      }
+    }
+    setState(() {});
+  }
 
-                      Future.delayed(const Duration(milliseconds: 160), () {
-                        setState(() {
-                          _wait = false;
-                        });
-                      });
-                    });
-                  } else {
-                    player.open(
-                      Audio("assets/sounds/90s-game-ui-7-185100.mp3"), // Play sound on match
-                      // Audio("assets/sounds/start.mp3"), // Play sound on match
-                    );
-                    _cardFlips[_previousIndex] = false;
-                    _cardFlips[index] = false;
-                    setState(() {
-                      _left -= 1;
-                    });
-
-
-                    if (_cardFlips.every((t) => t == false)) {
-                      debugPrint("Won");
-                      Future.delayed(const Duration(milliseconds: 160), () {
-                        setState(() {
-                          _isFinished = true;
-                          _start = false;
-                        });
-                      });
-                    }
-                  }
-                }
-              }
-              setState(() {});
-}
-  
+  void switchPlayer() {
+    _currentPlayer = _currentPlayer == 1 ? 2 : 1;
+  }
 
   void _startGame() {
     _start = true;
-    player.open(
-      Audio("assets/sounds/start.mp3"),
-    );
+    player.open(Audio("assets/sounds/start.mp3"));
     gameTimerController.startDuration();
-  }
-
-  void initializeGameData() {
-    _data = createShuffledListFromImageSource();
-    _cardFlips = getInitialItemStateList();
-    _cardStateKeys = createFlipCardStateKeysList();
-    _left = (_data.length ~/ 2);
-    _isFinished = false;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    countDownController.startCountdown();
-    initializeGameData();
   }
 
   @override
@@ -166,25 +167,26 @@ onFlip(index){
     gameTimerController;
   }
 
-  
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return _isFinished
         ? GameOverScreen(
             duration: gameTimerController.gameDuration.value,
+            player1Points: _player1Points,
+            player2Points: _player2Points,
           )
         : Scaffold(
             body: Center(
               child: SizedBox(
-                width: MediaQuery.of(context).size.width * 1, // Adjust width factor as needed
-                height: MediaQuery.of(context).size.height * 1, // Adjust height factor as needed
+                width: MediaQuery.of(context).size.width * 1,
+                height: MediaQuery.of(context).size.height * 1,
                 child: Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/images/bg.jpg"),
-                      fit: BoxFit.cover,
-                    ),
+                    // image: DecorationImage(
+                    //   image: AssetImage("assets/images/bg.jpg"),
+                    //   fit: BoxFit.cover,
+                    // ),
                   ),
                   child: Stack(
                     alignment: Alignment.center,
@@ -199,15 +201,28 @@ onFlip(index){
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Text(
-                                      'Remaining: $_left',
-                                      style: theme.bodyMedium,
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: _currentPlayer == 1 ? Colors.green : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        'Player 1 Points: $_player1Points',
+                                        style: theme.bodyMedium,
+                                      ),
                                     ),
-                                    Obx(() => 
-                                    Text(
-                                      'Duration: ${gameTimerController.gameDuration.value}s',
-                                      style: theme.bodyMedium,
-                                    ),)
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: _currentPlayer == 2 ? Colors.green : Colors.transparent,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        'Player 2 Points: $_player2Points',
+                                        style: theme.bodyMedium,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -225,9 +240,7 @@ onFlip(index){
                               ),
                               itemBuilder: (context, index) => Padding(
                                 padding: const EdgeInsets.all(4.0),
-                                child: _start
-                                    ? getItem(index)
-                                    : getItem(index),
+                                child: _start ? getItem(index) : getItem(index),
                               ),
                               itemCount: _data.length,
                             ),
@@ -235,18 +248,15 @@ onFlip(index){
                         ),
                       ),
                       Obx(
-  () {
-    if (!_start && countDownController.countdown.value > 0) {
-      return CountdownOverlay(timerValue: countDownController.countdown.value);
-    } else {
-      // Countdown reached 0, start the game and return an empty container or null to remove the countdown from the screen
-      _startGame();
-      return Container();
-    }
-  },
-)
-
-
+                        () {
+                          if (!_start && countDownController.countdown.value > 0) {
+                            return CountdownOverlay(timerValue: countDownController.countdown.value);
+                          } else {
+                            _startGame();
+                            return Container();
+                          }
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -254,5 +264,4 @@ onFlip(index){
             ),
           );
   }
-  
 }

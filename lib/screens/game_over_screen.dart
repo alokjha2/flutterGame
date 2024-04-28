@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 class GameOverScreen extends StatefulWidget {
   final int duration;
-  const GameOverScreen({super.key, required this.duration});
+  final player2Points;
+  final player1Points;
+
+  const GameOverScreen({super.key, required this.duration, this.player2Points, this.player1Points});
 
   @override
   State<GameOverScreen> createState() => _GameOverScreenState();
@@ -14,6 +17,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
   final _confettiController = ConfettiController(
     duration: const Duration(seconds: 12),
   );
+  
 
   @override
   void initState() {
@@ -66,6 +70,12 @@ class _GameOverScreenState extends State<GameOverScreen> {
                           style: theme.bodySmall,
                           
                           ),
+
+                          TextSpan(
+                            text: "\n Player 1 Point : ${widget.player1Points!=null? widget.player1Points : ''} "),
+
+                          TextSpan(
+                            text: "\n Player 2 Point : ${widget.player2Points!=null? widget.player2Points : ''} "),
                     ],
                   ),
                 ),

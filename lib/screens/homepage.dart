@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.purple,
                   text: 'Phone MultiPlayer',
                   onPressed: () {
-                     Get.toNamed(AppRoutes.Auth);
+                     Get.toNamed(AppRoutes.phoneMultiPlayer);
                     
                     // Action for Button 1
                   },
