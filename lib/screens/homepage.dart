@@ -78,36 +78,36 @@ class HomeScreen extends StatelessWidget {
 
 
                 SizedBox(height: 20), // Adjust spacing between buttons
-                RectangleButton(
-                  color: Colors.blue,
-                  text: 'Play with friend',
-                  onPressed: () {
-                     Get.toNamed(AppRoutes.Auth);
+                // RectangleButton(
+                //   color: Colors.blue,
+                //   text: 'Play with friend',
+                //   onPressed: () {
+                //      Get.toNamed(AppRoutes.Auth);
                     
-                    // Action for Button 1
-                  },
-                ),
-                SizedBox(height: 20), // Adjust spacing between buttons
+                //     // Action for Button 1
+                //   },
+                // ),
+                // SizedBox(height: 20), // Adjust spacing between buttons
 
-                RectangleButton(
-                  color: Colors.purple,
-                  text: 'Phone MultiPlayer',
-                  onPressed: () {
-                     Get.toNamed(AppRoutes.phoneMultiPlayer);
+                // RectangleButton(
+                //   color: Colors.purple,
+                //   text: 'Phone MultiPlayer',
+                //   onPressed: () {
+                //     //  Get.toNamed(AppRoutes.phoneMultiPlayer);
                     
-                    // Action for Button 1
-                  },
-                ),
-                SizedBox(height: 20), // Adjust spacing between buttons
-                RectangleButton(
-                  color: Colors.green,
-                  text: 'Login',
-                  onPressed: () {
-                     Get.toNamed(AppRoutes.login);
-                    // Action for Button 2
-                  },
-                ),
-                SizedBox(height: 20), // Adjust spacing between buttons
+                //     // Action for Button 1
+                //   },
+                // ),
+                // SizedBox(height: 20), // Adjust spacing between buttons
+                // RectangleButton(
+                //   color: Colors.green,
+                //   text: 'Login',
+                //   onPressed: () {
+                //      Get.toNamed(AppRoutes.login);
+                //     // Action for Button 2
+                //   },
+                // ),
+                // SizedBox(height: 20), // Adjust spacing between buttons
                 BeatingHeartButton(),
               ],
             ),

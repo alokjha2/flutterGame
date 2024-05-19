@@ -1,6 +1,6 @@
 git init
 git add .
-git commit -m "phone multiplayer done"
+git commit -m "added keystores etc etc"
 git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main
@@ -9,3 +9,12 @@ git push -u origin main
 git push origin main --force
 node server.js
 nodemon server.js (for refresh)
+
+989730
+alok
+caremate
+caremate
+meerut
+delhi
+91
+989730
