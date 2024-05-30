@@ -22,7 +22,10 @@ dependencies:
   glossy: ^0.0.4
   lottie: 
   firebase_core: 
+  auto_route_generator: 
   cloud_firestore: 
+  logger: 
+  flutter_webrtc: 
   flutter_contacts: ^1.1.7+1
   permission_handler:
   socket_io_client: ^2.0.3+1
