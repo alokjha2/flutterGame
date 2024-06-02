@@ -7,6 +7,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   firebase_auth
   firebase_core
+  flutter_webrtc
   permission_handler_windows
   zego_express_engine
   zego_zim

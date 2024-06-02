@@ -20,21 +20,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   initializeFirebaseMessaging(); // Call the function here
-//  FlutterError.onError = (FlutterErrorDetails details) {
-//     // Log the error
-//     FlutterError.dumpErrorToConsole(details);
-
-//     // Navigate to the error screen
-//     Get.to(() => ErrorScreen(errorMessage: details.exceptionAsString()));
-//   };
-
-  // runZonedGuarded(() {
-    runApp(MyApp());
-  // }, (error, stackTrace) {
-    // Handle any errors that are not caught by Flutter's framework
-  //   Get.to(() => ErrorScreen(errorMessage: error.toString()));
-  // });
-
+  runApp(const MyApp());
 }
 
 
