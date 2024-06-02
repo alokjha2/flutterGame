@@ -5,6 +5,12 @@ git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main
 
+git init
+git add .
+git commit -m "added game screen, added quiz screen"
+git push -u origin development
+
+git checkout development
 
 git push origin main --force
 node server.js
