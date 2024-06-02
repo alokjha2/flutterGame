@@ -81,4 +81,5 @@ final List<String> multiplayerGames = [
   'Pictionary',
   'Scrabble',
   'Tic Tac Toe',
+  "Binod", 
 ];
