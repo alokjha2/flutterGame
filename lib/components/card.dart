@@ -37,7 +37,8 @@ class _RainDrop extends StatefulWidget {
 }
 
 class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixin {
-  late double dx, dy, length, z, vy;
+  late double dx, dy, length, z, vy, vx;
+  late Color cardColor; // Added color variable
 
   final random = Random();
 
@@ -47,6 +48,7 @@ class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixi
     randomizeValues();
     final _ticker = createTicker((elapsed) {
       dy += vy;
+      dx += vx;
       if (dy >= widget.screenHeight + 100) {
         randomizeValues();
       }
@@ -66,6 +68,10 @@ class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixi
     z = random.nextDouble() * 20;
     length = rangeMap(z, 0, 20, 10, 20);
     vy = rangeMap(z, 0, 20, 15, 5);
+    vx = random.nextDouble() * 6 - 3;
+
+    // Randomly choose card color
+    cardColor = random.nextBool() ? Colors.red : Colors.black;
   }
 
   @override
@@ -73,30 +79,37 @@ class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixi
     return Transform.translate(
       offset: Offset(dx, dy),
       child: Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                   image: DecorationImage(
-                          image: AssetImage("assets/images/card.jpg"),
-                          fit: BoxFit.cover,
-                        ),
-                
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.4),
-                      spreadRadius: 4,
-                      blurRadius: 9,
-                      offset: Offset(-10, 20),
-                    ),
-                  ],
-                ),
-              ),
+        width: 100.0,
+        height: 100.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              spreadRadius: 4,
+              blurRadius: 9,
+              offset: Offset(-10, 20),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10), // Apply circular border to the clip
+          child: ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              cardColor == Colors.red ? Colors.red : Colors.blue,
+              BlendMode.srcATop,
+            ),
+            child: Image.asset(
+              "assets/images/card.jpg",
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
 
 double rangeMap(
     double x, double inMin, double inMax, double outMin, double outMax) {
