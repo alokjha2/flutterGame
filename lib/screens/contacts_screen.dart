@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:game/components/invitationCard.dart';
 import 'package:game/invitation.dart';
-import 'package:game/routes.dart';
+import 'package:game/presentation/router/routes.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:socket_io_client/socket_io_client.dart';

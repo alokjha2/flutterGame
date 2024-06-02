@@ -1,7 +1,7 @@
 export 'package:flutter/material.dart';
 export 'package:game/components/card.dart';
 export 'package:game/archieve/cardRain.dart';
-export 'package:game/routes.dart';
+export 'package:game/presentation/router/routes.dart';
 export 'package:game/screens/homepage.dart';
 export 'package:game/archieve/start_game_screen.dart';
 export 'package:get/get_navigation/src/root/get_material_app.dart';

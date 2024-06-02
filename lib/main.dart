@@ -1,11 +1,11 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:game/binod/binod.dart';
+import 'package:game/presentation/games/binod/binod.dart';
 import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
-import 'package:game/quiz/category.dart';
-import 'package:game/quiz/quizScreen.dart';
+import 'package:game/presentation/games/quiz/category.dart';
+import 'package:game/presentation/games/quiz/quizScreen.dart';
 import 'package:game/screens/contacts_screen.dart';
 import 'package:game/screens/error.dart';
 import 'package:game/screens/games.dart';

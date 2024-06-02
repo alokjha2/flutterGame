@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:game/routes.dart';
+import 'package:game/presentation/router/routes.dart';
 import 'package:game/screens/game_screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';

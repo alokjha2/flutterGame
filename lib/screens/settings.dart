@@ -1,8 +1,8 @@
 // lib/screens/settings_screen.dart
 import 'package:flutter/material.dart';
-import 'package:game/screens/account.dart';
-import 'package:game/screens/help.dart';
-import 'package:game/screens/notification.dart';
+import 'package:game/presentation/screens/account.dart';
+import 'package:game/presentation/screens/help.dart';
+import 'package:game/presentation/screens/notification.dart';
 import 'package:game/screens/privacy.dart';
 import 'package:game/screens/security.dart';
 import 'package:get/get.dart';
