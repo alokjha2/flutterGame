@@ -3,11 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-<<<<<<< HEAD
   audioplayers_linux
-=======
   flutter_webrtc
->>>>>>> a72d6def696f72c3e1e8b17dce97952510488ea3
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

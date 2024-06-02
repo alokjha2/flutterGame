@@ -32,6 +32,15 @@ class SettingsScreen extends StatelessWidget {
               Get.to(() => NotificationsScreen());
             },
           ),
+
+          ListTile(
+            title: Text('Share Ling'),
+            subtitle: Text('Sharing ling can help us alot'),
+            leading: Icon(Icons.notifications),
+            onTap: () {
+              // Get.to(() => NotificationsScreen());
+            },
+          ),
           ListTile(
             title: Text('Privacy'),
             subtitle: Text('Manage your privacy settings'),

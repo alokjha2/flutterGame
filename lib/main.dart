@@ -1,6 +1,7 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:game/binod/binod.dart';
 import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
 import 'package:game/quiz/category.dart';
@@ -35,7 +36,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Games(),
+      home: 
+      Binod()
+      // Games(),
       // initialRoute: AppRoutes.homePage,
       
       // getPages: [
