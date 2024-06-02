@@ -35,6 +35,7 @@ dependencies:
   firebase_auth: 
   firebase_messaging: ^14.9.1
   contacts_service: ^0.6.3
+  nice_buttons: ^0.0.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

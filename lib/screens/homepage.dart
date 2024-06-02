@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:game/components/homepage_btn.dart';
 import 'package:game/exports.dart';
 import 'package:game/screens/settings.dart';
+import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   @override
@@ -82,6 +83,8 @@ class HomeScreen extends StatelessWidget {
 
 
                 SizedBox(height: 20), // Adjust spacing between buttons
+
+                HomeFancyButton(text: 'Games', color: Colors.purple, onPressed: (){},),
                 RectangleButton(
                   color: Colors.blue,
                   text: 'Play with friend',

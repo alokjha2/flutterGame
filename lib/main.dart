@@ -36,24 +36,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: 
-      Binod()
+      // home: 
+      // Binod()
       // Games(),
-      // initialRoute: AppRoutes.homePage,
+      initialRoute: AppRoutes.homePage,
       
-      // getPages: [
-      //   GetPage(name: AppRoutes.homePage, page: () => HomeScreen()),
-      //   GetPage(name: AppRoutes.gamePage, page: () => GamePage()),
-      //   GetPage(name: AppRoutes.winGamePage, page: () => GameOverScreen(duration: 0,)),
-      //   GetPage(name: AppRoutes.selectMatrix, page: () => MatrixSelection()),
-      //   GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
-      //   GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
-      //   GetPage(name: AppRoutes.login, page: () => LoginScreen()),
-      //   GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
-      //   GetPage(name: AppRoutes.quiz, page: () => QuizScreen()),
-      //   GetPage(name: AppRoutes.phoneMultiPlayer, page: () => PhoneMultiPlayer()),
-      //   GetPage(name: AppRoutes.category, page: () => CategoryScreen()),
-      // ],
+      getPages: [
+        GetPage(name: AppRoutes.homePage, page: () => HomeScreen()),
+        GetPage(name: AppRoutes.gamePage, page: () => GamePage()),
+        GetPage(name: AppRoutes.winGamePage, page: () => GameOverScreen(duration: 0,)),
+        GetPage(name: AppRoutes.selectMatrix, page: () => MatrixSelection()),
+        GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
+        GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
+        GetPage(name: AppRoutes.login, page: () => LoginScreen()),
+        GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
+        GetPage(name: AppRoutes.quiz, page: () => QuizScreen()),
+        GetPage(name: AppRoutes.phoneMultiPlayer, page: () => PhoneMultiPlayer()),
+        GetPage(name: AppRoutes.category, page: () => CategoryScreen()),
+      ],
       
       
     );

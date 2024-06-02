@@ -824,6 +824,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  nice_buttons:
+    dependency: "direct main"
+    description:
+      name: nice_buttons
+      sha256: "280bcd1e7aa236f7f9acb213e75a6f9375d12094cc4aed03abb25ef0845331ce"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   octo_image:
     dependency: transitive
     description:

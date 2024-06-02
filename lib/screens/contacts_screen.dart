@@ -89,7 +89,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
     ),
     child: ListTile(
       leading: CircleAvatar(
-        child: Text(contact.displayName![0]),
+        // child: Text(
+          // contact.displayName![0]),
       ),
       trailing: TextButton(child: Text("Play"),
       onPressed: (){
@@ -99,7 +100,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
       },
     ),
-      title: Text(contact.displayName!),
+      title: Text(
+        contact.displayName == null? "Contact not fetched" : 
+        contact.displayName!),
     ),
   ),
 );
