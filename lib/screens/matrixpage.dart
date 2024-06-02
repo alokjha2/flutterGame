@@ -30,52 +30,56 @@ class MatrixSelection extends StatelessWidget {
           Positioned(
 
             bottom: 100,
-            left: 10,
+            left: 0,
             child: Container(
               height: 400,
               width: 400,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Adjust the number of columns as needed
-                  mainAxisSpacing: 20.0,
-                  crossAxisSpacing: 10.0,
-                  childAspectRatio: 2.5, // Adjust the aspect ratio as needed
-                ),
-                itemCount: 6, // Adjust the number of grid items as needed
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: (){
-                       Get.toNamed(AppRoutes.gamePage);
-                    },
-                    child: FractionallySizedBox(       
-                      widthFactor: 0.8,
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.9),
-                              spreadRadius: 4,
-                              blurRadius: 5,
-                              offset: Offset(-1, 12),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            Image.asset("assets/images/pick.png"),
-                            Text(
-                              '${(index + 2)}x${(index + 2)}', // Change the text as needed
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                          ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Adjust the number of columns as needed
+                    mainAxisSpacing: 20.0,
+                    crossAxisSpacing: 10.0,
+                    childAspectRatio: 2.5, // Adjust the aspect ratio as needed
+                  ),
+                  itemCount: 6, // Adjust the number of grid items as needed
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: (){
+                        
+                         Get.toNamed(AppRoutes.gamePage);
+                      },
+                      child: FractionallySizedBox(       
+                        widthFactor: 0.8,
+                        child: Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.9),
+                                spreadRadius: 4,
+                                blurRadius: 5,
+                                offset: Offset(-1, 12),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Image.asset("assets/images/pick.png"),
+                              Text(
+                                '${(index + 2)}x${(index + 2)}', // Change the text as needed
+                                style: TextStyle(fontSize: 20.0),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
@@ -157,6 +161,7 @@ class MatrixSelection extends StatelessWidget {
               ),
               child: IconButton(
                 onPressed: () {
+                   Get.back();
                   // Implement action for the button
                 },
                 icon: Icon(Icons.arrow_back),

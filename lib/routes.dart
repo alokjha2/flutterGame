@@ -7,5 +7,7 @@ class AppRoutes {
   static const contacts = '/contacts';
   static const login = '/login';
   static const Auth = '/auth';
+  static const quiz = '/quizScreen';
+  static const category = '/quizCategoryScreen';
   static const phoneMultiPlayer = '/phoneMultiPlayer';
 }

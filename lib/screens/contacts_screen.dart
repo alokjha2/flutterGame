@@ -26,7 +26,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   void initState() {
     super.initState();
     _requestPermissions();
-    Invitation().listenForInvitations(user!.phoneNumber.toString(), context);
+    // Invitation().listenForInvitations(user!.phoneNumber.toString(), context);
     // Request permissions when the screen is first opened
     }
 

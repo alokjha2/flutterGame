@@ -160,11 +160,12 @@ onFlip(index){
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    countDownController;
-    gameTimerController;
-  }
+void dispose() {
+  // Dispose of the controllers properly
+  countDownController.dispose();
+  gameTimerController.dispose();
+  super.dispose();
+}
 
   
   @override
@@ -199,6 +200,17 @@ onFlip(index){
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
+
+                                    IconButton(onPressed: (){
+      
+                                    }, icon: Icon(Icons.mic)),
+                                    IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        // Navigate back when the back button is pressed
+        Get.back();
+      },
+    ),
                                     Text(
                                       'Remaining: $_left',
                                       style: theme.bodyMedium,
