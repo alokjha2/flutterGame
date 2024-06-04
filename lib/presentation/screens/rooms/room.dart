@@ -9,9 +9,11 @@ class RoomPage extends StatefulWidget {
 
 class _RoomPageState extends State<RoomPage> {
   bool isCreatingRoom = false;
+  bool isJoiningRoom = false;
   String roomName = '';
   bool isPrivate = true;
   String roomId = '';
+  String joinRoomId = '';
 
   void _createRoom() {
     setState(() {
@@ -20,12 +22,20 @@ class _RoomPageState extends State<RoomPage> {
     });
   }
 
+  void _joinRoom() {
+    setState(() {
+      isJoiningRoom = true;
+    });
+  }
+
   void _closeCreateRoom() {
     setState(() {
       isCreatingRoom = false;
+      isJoiningRoom = false;
       roomName = '';
       isPrivate = true;
       roomId = '';
+      joinRoomId = '';
     });
   }
 
@@ -59,15 +69,15 @@ class _RoomPageState extends State<RoomPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Four Cards in a Row
+              // Two Cards in a Row
               SizedBox(
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: 2,
                   itemBuilder: (context, index) {
-                    // First card for "Create Room"
                     if (index == 0) {
+                      // "Create Room" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -100,20 +110,41 @@ class _RoomPageState extends State<RoomPage> {
                           ),
                         ),
                       );
-                    }
-                    // Other cards
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        child: Container(
-                          width: 150,
-                          height: 150,
-                          child: Center(
-                            child: Text('Card ${index}'),
+                    } else {
+                      // "Join Room" card
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 200,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Join Room',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  ElevatedButton(
+                                    onPressed: _joinRoom,
+                                    style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(),
+                                      padding: EdgeInsets.all(16),
+                                    ),
+                                    child: Icon(Icons.join_full),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
                 ),
               ),
@@ -148,31 +179,37 @@ class _RoomPageState extends State<RoomPage> {
                         if (isPrivate)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    'Room ID: $roomId (Share this Room ID with friends and ask them to join the room using this ID)',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                      ClipboardData(text: roomId),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Room ID copied to clipboard'),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Room ID: $roomId',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    );
-                                  },
-                                  icon: Icon(Icons.copy),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: roomId),
+                                        );
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Room ID copied to clipboard'),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(Icons.copy),
+                                    ),
+                                  ],
                                 ),
+                                Text("Share this Room ID with friends and ask them to join the room using this ID")
                               ],
                             ),
                           ),
@@ -213,14 +250,51 @@ class _RoomPageState extends State<RoomPage> {
                                     ),
                                   ],
                                 ),
-                                Text("Anyone with the link can join")
-                              ],
-                            ),
-                          ),
-                        SizedBox(height: 10),
+                                SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: _closeCreateRoom,
                           child: Text('Next'),
+                        ),
+                      ],
+                    ),
+                  ),
+            ]),)),
+              // Join Room Card
+              if (isJoiningRoom)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Your Name',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              roomName = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Room ID',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              joinRoomId = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Join room logic here
+                            print('Joining room with ID: $joinRoomId');
+                            _closeCreateRoom();
+                          },
+                          child: Text('Join Room'),
                         ),
                       ],
                     ),
