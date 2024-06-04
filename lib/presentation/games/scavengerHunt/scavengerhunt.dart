@@ -1,10 +1,7 @@
-
-
 import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
 
 class ScavengerHuntScreen extends StatefulWidget {
   @override
@@ -99,7 +96,12 @@ class _ScavengerHuntScreenState extends State<ScavengerHuntScreen> {
               onTap: () => _onImageTap(targetImage),
               child: Container(
                 alignment: Alignment.center,
-                child: Image.network(targetImage),
+                child: InteractiveViewer(
+                  panEnabled: true,
+                  minScale: 0.5,
+                  maxScale: 4.0,
+                  child: Image.network(targetImage),
+                ),
               ),
             ),
           ),
