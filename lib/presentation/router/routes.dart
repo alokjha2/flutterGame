@@ -14,4 +14,5 @@ class AppRoutes {
   static const phoneMultiPlayer = '/phoneMultiPlayer';
   static const snapHunt = '/game/snapHunt';
   static const room = '/rooms';
+  static const hunt = '/ScavengerHuntScreen';
 }

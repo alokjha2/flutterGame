@@ -6,6 +6,7 @@ import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
 import 'package:game/presentation/games/quiz/category.dart';
 import 'package:game/presentation/games/quiz/quizScreen.dart';
+import 'package:game/presentation/games/scavengerHunt/scavengerhunt.dart';
 import 'package:game/presentation/games/snapHunt/snaphunt.dart';
 import 'package:game/presentation/screens/rooms/room.dart';
 import 'package:game/screens/contacts_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.category, page: () => CategoryScreen()),
         GetPage(name: AppRoutes.gamesCategory, page: () => GamesCategory()),
         GetPage(name: AppRoutes.binod, page: () => Binod()),
+        GetPage(name: AppRoutes.hunt, page: () => ScavengerHuntScreen()),
         GetPage(
           name: AppRoutes.room,
           page: () => RoomPage(),

@@ -13,8 +13,13 @@ class ScavengerHuntScreen extends StatefulWidget {
 
 class _ScavengerHuntScreenState extends State<ScavengerHuntScreen> {
   List<String> images = [
-    'assets/image1.jpg',
-    'assets/image2.jpg',
+    // 'gs://reshuffle-b787f.appspot.com/scavengerhunt/hunt1.jpg',
+    'https://firebasestorage.googleapis.com/v0/b/reshuffle-b787f.appspot.com/o/scavengerhunt%2Fhunt1.jpg?alt=media&token=e1704b54-1184-4c00-8ff9-0eeaf5256b0e',
+    // 'assets/image2.jpg',
+    "https://firebasestorage.googleapis.com/v0/b/reshuffle-b787f.appspot.com/o/scavengerhunt%2Fwaldo.jpg?alt=media&token=96630346-99d1-4574-a7f6-0a20633e6558",
+    "https://firebasestorage.googleapis.com/v0/b/reshuffle-b787f.appspot.com/o/scavengerhunt%2Froom.jpg?alt=media&token=6844fe78-a720-4617-abbb-0d870d3e453e",
+    "https://firebasestorage.googleapis.com/v0/b/reshuffle-b787f.appspot.com/o/scavengerhunt%2Fhunt3.jpg?alt=media&token=5733112e-4b7d-4d68-b431-faf4c9277243",
+    "https://firebasestorage.googleapis.com/v0/b/reshuffle-b787f.appspot.com/o/scavengerhunt%2Fhunt2.jpg?alt=media&token=5f617367-05ee-417f-b6f7-53b56a041be9"
     // Add more images here...
   ];
 
@@ -94,7 +99,7 @@ class _ScavengerHuntScreenState extends State<ScavengerHuntScreen> {
               onTap: () => _onImageTap(targetImage),
               child: Container(
                 alignment: Alignment.center,
-                child: Image.asset(targetImage),
+                child: Image.network(targetImage),
               ),
             ),
           ),

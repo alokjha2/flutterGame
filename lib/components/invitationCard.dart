@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 
 class InvitationDialog extends StatelessWidget {
   final String message;
+  // final String accept;
+  // final String decline;
   final VoidCallback onAccept;
   final VoidCallback onDecline;
 
   InvitationDialog({
     required this.message,
     required this.onAccept,
+    // required this.accept,
+    // required this.decline,
     required this.onDecline,
   });
 
@@ -37,7 +41,7 @@ class InvitationDialog extends StatelessWidget {
               TextButton(
                 onPressed: onAccept,
                 child: Text(
-                  'Accept',
+                  "accept",
                   style: TextStyle(
                     color: Colors.green,
                     fontSize: 16.0,
@@ -48,7 +52,7 @@ class InvitationDialog extends StatelessWidget {
               TextButton(
                 onPressed: onDecline,
                 child: Text(
-                  'Decline',
+                  "decline",
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 16.0,

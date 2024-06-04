@@ -72,6 +72,8 @@ void showSnackBar(BuildContext context, String message) {
   context: context,
   builder: (BuildContext context) {
     return InvitationDialog(
+      // accept: "Accept",
+      // decline: "Decline",
       message: 'You have received an invitation to play!',
       onAccept: () {
         // Handle the "Accept" button action

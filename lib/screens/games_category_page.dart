@@ -78,7 +78,7 @@ class GameGridView extends StatelessWidget {
         Get.toNamed(AppRoutes.room);
       break;
       case 'Hunt':
-        // Get.toNamed(AppRoutes.);
+        Get.toNamed(AppRoutes.hunt);
       break;
       case 'snapHunt':
         // Get.toNamed(AppRoutes.);

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
+import 'package:game/components/invitationCard.dart';
+
 class RoomPage extends StatefulWidget {
   @override
   _RoomPageState createState() => _RoomPageState();
@@ -69,12 +71,12 @@ class _RoomPageState extends State<RoomPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Two Cards in a Row
+              // More Cards in a Row
               SizedBox(
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  itemCount: 4, // Increase the count to add more cards
                   itemBuilder: (context, index) {
                     if (index == 0) {
                       // "Create Room" card
@@ -110,7 +112,7 @@ class _RoomPageState extends State<RoomPage> {
                           ),
                         ),
                       );
-                    } else {
+                    } else if (index == 1) {
                       // "Join Room" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -137,6 +139,78 @@ class _RoomPageState extends State<RoomPage> {
                                       padding: EdgeInsets.all(16),
                                     ),
                                     child: Icon(Icons.join_full),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else if (index == 2) {
+                      // "Settings" card
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 200,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Settings',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      // Settings logic here
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(),
+                                      padding: EdgeInsets.all(16),
+                                    ),
+                                    child: Icon(Icons.settings),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      // "Help" card
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 200,
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Help',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      // Help logic here
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      shape: CircleBorder(),
+                                      padding: EdgeInsets.all(16),
+                                    ),
+                                    child: Icon(Icons.help),
                                   ),
                                 ],
                               ),
@@ -251,14 +325,17 @@ class _RoomPageState extends State<RoomPage> {
                                   ],
                                 ),
                                 SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: _closeCreateRoom,
-                          child: Text('Next'),
-                        ),
+                                ElevatedButton(
+                                  onPressed: _closeCreateRoom,
+                                  child: Text('Next'),
+                                ),
+                              ],
+                            ),
+                          ),
                       ],
                     ),
                   ),
-            ]),)),
+                ),
               // Join Room Card
               if (isJoiningRoom)
                 Card(
@@ -312,13 +389,40 @@ class _RoomPageState extends State<RoomPage> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: rooms.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        child: Text(rooms[index]['name']![0]),
+                  return InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return InvitationDialog(
+      // accept: "Accept",
+      // decline: "Decline",
+      message: 'Do you want to join?',
+      onAccept: () {
+        // Handle the "Accept" button action
+        Navigator.of(context).pop();
+        // acceptInvitation(event.snapshot.key!, invitationData['roomId']);
+        // Get.toNamed(AppRoutes.multiPlayer);
+        // Call the function to accept the invitation
+      },
+      onDecline: () {
+                    // declineInvitation(event.snapshot.key!, invitationData["roomId"]);
+                    Navigator.of(context).pop();
+          },
+        );
+      },
+    );
+                        
+                      
+                },
+                    child: Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Text(rooms[index]['name']![0]),
+                        ),
+                        title: Text(rooms[index]['name']!),
+                        subtitle: Text(rooms[index]['participants']!),
                       ),
-                      title: Text(rooms[index]['name']!),
-                      subtitle: Text(rooms[index]['participants']!),
                     ),
                   );
                 },
