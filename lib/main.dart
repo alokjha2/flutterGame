@@ -6,9 +6,11 @@ import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
 import 'package:game/presentation/games/quiz/category.dart';
 import 'package:game/presentation/games/quiz/quizScreen.dart';
+import 'package:game/presentation/games/snapHunt/snaphunt.dart';
+import 'package:game/presentation/screens/rooms/room.dart';
 import 'package:game/screens/contacts_screen.dart';
 import 'package:game/screens/error.dart';
-import 'package:game/screens/games.dart';
+import 'package:game/screens/games_category_page.dart';
 import 'package:game/screens/loginScreen.dart';
 import 'package:game/screens/multiPlayer.dart';
 import 'package:game/screens/phoneMultiplayer.dart';
@@ -19,8 +21,8 @@ import 'exports.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  initializeFirebaseMessaging(); // Call the function here
+  // await Firebase.initializeApp();
+  // initializeFirebaseMessaging(); // Call the function here
   runApp(const MyApp());
 }
 
@@ -53,6 +55,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.quiz, page: () => QuizScreen()),
         GetPage(name: AppRoutes.phoneMultiPlayer, page: () => PhoneMultiPlayer()),
         GetPage(name: AppRoutes.category, page: () => CategoryScreen()),
+        GetPage(name: AppRoutes.gamesCategory, page: () => GamesCategory()),
+        GetPage(name: AppRoutes.binod, page: () => Binod()),
+        GetPage(
+          name: AppRoutes.room,
+          page: () => RoomPage(),
+        ),
+        GetPage(name: '/game/quiz', page: () => QuizScreen()), 
+        GetPage(name: '/game/snaphunt', page: () => SnapHunt()), 
+        GetPage(name: '/game/memory', page: () => PhoneMultiPlayer()), 
+        // GetPage(name: AppRoutes.snapHunt, page: () => SnapHunt()), 
       ],
       
       

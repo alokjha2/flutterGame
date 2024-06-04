@@ -71,7 +71,7 @@ class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixi
     vx = random.nextDouble() * 6 - 3;
 
     // Randomly choose card color
-    cardColor = random.nextBool() ? Colors.red : Colors.black;
+    cardColor = random.nextBool() ? Colors.deepOrange.shade600 : Colors.blue;
   }
 
   @override
@@ -96,7 +96,7 @@ class _RainDropState extends State<_RainDrop> with SingleTickerProviderStateMixi
           borderRadius: BorderRadius.circular(10), // Apply circular border to the clip
           child: ColorFiltered(
             colorFilter: ColorFilter.mode(
-              cardColor == Colors.red ? Colors.red : Colors.blue,
+              cardColor == Colors.deepOrange.shade600 ? Colors.deepOrange.shade600 : Colors.blue,
               BlendMode.srcATop,
             ),
             child: Image.asset(

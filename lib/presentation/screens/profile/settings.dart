@@ -1,10 +1,10 @@
 // lib/screens/settings_screen.dart
 import 'package:flutter/material.dart';
-import 'package:game/presentation/screens/account.dart';
-import 'package:game/presentation/screens/help.dart';
-import 'package:game/presentation/screens/notification.dart';
-import 'package:game/screens/privacy.dart';
-import 'package:game/screens/security.dart';
+import 'package:game/presentation/screens/profile/account.dart';
+import 'package:game/presentation/screens/profile/help.dart';
+import 'package:game/presentation/screens/profile/notification.dart';
+import 'package:game/presentation/screens/profile/privacy.dart';
+import 'package:game/presentation/screens/profile/security.dart';
 import 'package:get/get.dart';
 
 class SettingsScreen extends StatelessWidget {

@@ -2,7 +2,7 @@ export 'package:flutter/material.dart';
 export 'package:game/components/card.dart';
 export 'package:game/archieve/cardRain.dart';
 export 'package:game/presentation/router/routes.dart';
-export 'package:game/screens/homepage.dart';
+export 'package:game/presentation/screens/homepage.dart';
 export 'package:game/archieve/start_game_screen.dart';
 export 'package:get/get_navigation/src/root/get_material_app.dart';
 export 'package:get/get_navigation/src/routes/get_route.dart';
@@ -23,6 +23,6 @@ export 'package:get/get_state_manager/src/simple/get_controllers.dart';
 // export 'dart:ui';
 
 export 'package:flutter/material.dart';
-export 'package:game/components/heartBtn.dart';
+export 'package:game/widgets/playBtn.dart';
 export 'package:game/components/card.dart';
 export 'package:glossy/glossy.dart';

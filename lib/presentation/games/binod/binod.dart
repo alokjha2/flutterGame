@@ -6,6 +6,7 @@ class Binod extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Who is Binod?'),
+        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.help))],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

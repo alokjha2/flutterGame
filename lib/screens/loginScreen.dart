@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:game/exports.dart';
-import 'package:game/screens/homepage.dart';
+import 'package:game/presentation/screens/homepage.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {

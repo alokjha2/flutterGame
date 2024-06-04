@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -9,18 +8,29 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   String _selectedOption = '';
+
   void _checkAnswer(String selectedOption) {
     setState(() {
       _selectedOption = selectedOption;
     });
   }
 
+  void _shareLink() {
+    final link = 'https://reshuffle.netlify.app/#/game/quiz';
+    Share.share('Check out this quiz: $link');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Quiz'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.share),
+            onPressed: _shareLink,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -104,4 +114,3 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 }
-

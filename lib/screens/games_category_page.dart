@@ -1,19 +1,16 @@
-
-
-
-
 import 'package:flutter/material.dart';
+import 'package:game/presentation/router/routes.dart';
+import 'package:get/get.dart';
+// import 'app_routes.dart'; // Import your AppRoutes class
 
-
-
-class Games extends StatelessWidget {
+class GamesCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Game Selector'),
+          title: Text('Games'),
           bottom: TabBar(
             tabs: [
               Tab(text: 'Single Player'),
@@ -50,12 +47,17 @@ class GameGridView extends StatelessWidget {
         ),
         itemCount: games.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: Center(
-              child: Text(
-                games[index],
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
+          return GestureDetector(
+            onTap: () {
+              navigateToGame(context, games[index]);
+            },
+            child: Card(
+              child: Center(
+                child: Text(
+                  games[index],
+                  style: TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           );
@@ -63,23 +65,39 @@ class GameGridView extends StatelessWidget {
       ),
     );
   }
+
+  void navigateToGame(BuildContext context, String gameName) {
+    switch (gameName) {
+      case 'Quiz':
+        Get.toNamed(AppRoutes.quiz); // Use AppRoutes to get the route name
+        break;
+      case 'Memory Game':
+        // Get.toNamed(AppRoutes.);
+      break;
+      case 'Who is Binod?':
+        Get.toNamed(AppRoutes.room);
+      break;
+      case 'Hunt':
+        // Get.toNamed(AppRoutes.);
+      break;
+      case 'snapHunt':
+        // Get.toNamed(AppRoutes.);
+      break;
+      // Add cases for other games if needed
+    }
+  }
 }
 
 final List<String> singlePlayerGames = [
+  'Quiz',
+  'Hunt',
   'Memory Game',
-  'Puzzle Game',
-  'Hunt Game',
-  'Maze Runner',
-  'Sudoku',
-  'Word Search',
 ];
 
 final List<String> multiplayerGames = [
-  'Chess',
-  'Checkers',
-  'Battleship',
-  'Pictionary',
-  'Scrabble',
-  'Tic Tac Toe',
-  "Binod", 
+  'Who is Binod?',
+  'Quiz',
+  'Hunt',
+  'Memory Game',
+  "snapHunt"
 ];

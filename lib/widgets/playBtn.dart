@@ -38,7 +38,7 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
       height: 90,
       child: ElevatedButton(
         onPressed: (){
-           Get.toNamed(AppRoutes.selectMatrix);
+           Get.toNamed(AppRoutes.gamesCategory);
         },
         style: ElevatedButton.styleFrom(
           // backgroundColor: Colors.amber,
