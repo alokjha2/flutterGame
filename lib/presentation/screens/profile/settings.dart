@@ -29,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
             subtitle: Text('Manage notification settings'),
             leading: Icon(Icons.notifications),
             onTap: () {
-              Get.to(() => NotificationsScreen());
+              Get.to(() => NotificationScreen());
             },
           ),
 
