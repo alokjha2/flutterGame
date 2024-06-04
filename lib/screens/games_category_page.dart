@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game/presentation/router/routes.dart';
 import 'package:get/get.dart';
-// import 'app_routes.dart'; // Import your AppRoutes class
 
 class GamesCategory extends StatelessWidget {
   @override
@@ -40,11 +39,10 @@ class GameGridView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8.0,
-          mainAxisSpacing: 8.0,
-          childAspectRatio: 1.6
-        ),
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+            childAspectRatio: 1.6),
         itemCount: games.length,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -67,23 +65,53 @@ class GameGridView extends StatelessWidget {
   }
 
   void navigateToGame(BuildContext context, String gameName) {
-    switch (gameName) {
-      case 'Quiz':
-        Get.toNamed(AppRoutes.quiz); // Use AppRoutes to get the route name
-        break;
-      case 'Memory Game':
-        // Get.toNamed(AppRoutes.);
-      break;
-      case 'Who is Binod?':
+    // Get the current TabController
+    TabController? tabController = DefaultTabController.of(context);
+    int currentIndex = tabController?.index ?? 0;
+
+    // Check the current tab index
+    if (currentIndex == 0) {
+      // Single Player tab
+      switch (gameName) {
+        case 'Quiz':
+          Get.toNamed(AppRoutes.quiz);
+          break;
+        case 'Memory Game':
+          // Navigate to the Memory Game screen or do nothing
+          // Get.toNamed(AppRoutes.memoryGame);
+          break;
+        case 'Hunt':
+          Get.toNamed(AppRoutes.hunt);
+          break;
+        // Add cases for other single-player games if needed
+        default:
+          // Do nothing or show a message
+          print('Game not found or not implemented yet.');
+      }
+    } else {
+      // Multiplayer tab
+      if (multiplayerGames.contains(gameName)) {
+        // This is a multiplayer game, navigate to the room screen
         Get.toNamed(AppRoutes.room);
-      break;
-      case 'Hunt':
-        Get.toNamed(AppRoutes.hunt);
-      break;
-      case 'snapHunt':
-        // Get.toNamed(AppRoutes.);
-      break;
-      // Add cases for other games if needed
+      } else {
+        // This is a single-player game, handle it as before
+        switch (gameName) {
+          case 'Quiz':
+            Get.toNamed(AppRoutes.quiz);
+            break;
+          case 'Memory Game':
+            // Navigate to the Memory Game screen or do nothing
+            // Get.toNamed(AppRoutes.memoryGame);
+            break;
+          case 'Hunt':
+            Get.toNamed(AppRoutes.hunt);
+            break;
+          // Add cases for other single-player games if needed
+          default:
+            // Do nothing or show a message
+            print('Game not found or not implemented yet.');
+        }
+      }
     }
   }
 }

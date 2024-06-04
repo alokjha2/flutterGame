@@ -1,6 +1,6 @@
 git init
 git add .
-git commit -m "quiz game UI updated"
+git commit -m "routing done for games, rooms"
 git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main
