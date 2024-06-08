@@ -1,6 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:game/providers/article_providers.dart';
 import 'package:game/quizGenerate.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:provider/provider.dart';
+
 import 'package:share_plus/share_plus.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -29,6 +36,7 @@ class _QuizScreenState extends State<QuizScreen> {
     super.dispose();
   }
 
+ 
   void startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (timeLeft > 0) {
@@ -82,6 +90,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+     final provider = Provider.of<ArticleProvider>(context);
     return Scaffold(
       body: 
       _isStarted ?
@@ -160,7 +169,8 @@ class _QuizScreenState extends State<QuizScreen> {
       child: ElevatedButton(
         onPressed: () {
           // sendMessage();
-          runPythonScript();
+          // runPythonScript();
+          // _scrapeArticle();
           setState(() {
             _isStarted = true;
           });

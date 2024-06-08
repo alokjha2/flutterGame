@@ -1,9 +1,8 @@
 name: game
 description: A new Flutter project.
 
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+publish_to: "none" 
 
 version: 1.0.0+3
 
@@ -21,6 +20,7 @@ dependencies:
   get: ^4.6.6
   glossy: ^0.0.4
   lottie: 
+  provider:
   
   flutter_gemini: 
   http:
