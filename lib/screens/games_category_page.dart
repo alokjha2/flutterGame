@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game/presentation/router/routes.dart';
+import 'package:game/quizGenerate.dart';
 import 'package:get/get.dart';
 
 class GamesCategory extends StatelessWidget {
@@ -92,7 +93,7 @@ class GameGridView extends StatelessWidget {
       // Multiplayer tab
       if (multiplayerGames.contains(gameName)) {
         // This is a multiplayer game, navigate to the room screen
-        Get.toNamed(AppRoutes.room);
+        Get.toNamed(AppRoutes.room, arguments: gameName);
       } else {
         // This is a single-player game, handle it as before
         switch (gameName) {

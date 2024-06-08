@@ -21,6 +21,8 @@ dependencies:
   get: ^4.6.6
   glossy: ^0.0.4
   lottie: 
+  
+  flutter_gemini: 
   http:
   zego_uikit_prebuilt_call:
   firebase_core: 

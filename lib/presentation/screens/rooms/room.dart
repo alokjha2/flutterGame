@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
-
 import 'package:game/components/invitationCard.dart';
+import 'package:game/presentation/router/routes.dart';
+import 'package:get/get.dart';
 
 class RoomPage extends StatefulWidget {
   @override
@@ -16,7 +17,15 @@ class _RoomPageState extends State<RoomPage> {
   bool isPrivate = true;
   String roomId = '';
   String joinRoomId = '';
-  String userName = ''; // Add a variable to hold the user's name
+  String userName = '';
+   String gameName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Get the game name argument from the previous screen
+    gameName = Get.arguments as String;
+  }
 
   void _createRoom() {
     setState(() {
@@ -39,7 +48,7 @@ class _RoomPageState extends State<RoomPage> {
       isPrivate = true;
       roomId = '';
       joinRoomId = '';
-      userName = ''; // Reset the user's name
+      userName = '';
     });
   }
 
@@ -52,17 +61,36 @@ class _RoomPageState extends State<RoomPage> {
     return buffer.toString();
   }
 
-  // Add a validation function
   bool _isValidInput() {
     return roomName.isNotEmpty && userName.isNotEmpty;
   }
 
   void _handleNextButtonClick() {
     if (_isValidInput()) {
-      // Proceed to the next step (join room, create room, etc.)
+      switch (gameName) {
+        case 'Who is Binod?':
+        
+          Navigator.pushNamed(context, AppRoutes.binod, arguments: {
+            'roomName': roomName,
+            'roomId': roomId,
+            'userName': userName,
+            'isPrivate': isPrivate,
+          });
+          break;
+        case 'Quiz':
+          Navigator.pushNamed(context, AppRoutes.quiz, arguments: {
+            'roomName': roomName,
+            'roomId': roomId,
+            'userName': userName,
+            'isPrivate': isPrivate,
+          });
+          break;
+        // Add cases for other games if needed
+        default:
+          print('Game not found or not implemented yet.');
+      }
       _closeCreateRoom();
     } else {
-      // Show an error message or perform any other desired action
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Please enter room name and user name'),
@@ -73,7 +101,6 @@ class _RoomPageState extends State<RoomPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Sample room data
     List<Map<String, String>> rooms = List.generate(
       20,
       (index) => {
@@ -92,15 +119,13 @@ class _RoomPageState extends State<RoomPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // More Cards in a Row
               SizedBox(
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4, // Increase the count to add more cards
+                  itemCount: 4,
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      // "Create Room" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -134,7 +159,6 @@ class _RoomPageState extends State<RoomPage> {
                         ),
                       );
                     } else if (index == 1) {
-                      // "Join Room" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -168,7 +192,6 @@ class _RoomPageState extends State<RoomPage> {
                         ),
                       );
                     } else if (index == 2) {
-                      // "Settings" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -204,7 +227,6 @@ class _RoomPageState extends State<RoomPage> {
                         ),
                       );
                     } else {
-                      // "Help" card
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
@@ -244,7 +266,6 @@ class _RoomPageState extends State<RoomPage> {
                 ),
               ),
               SizedBox(height: 20),
-              // Create Room Card
               if (isCreatingRoom)
                 Card(
                   child: Padding(
@@ -253,218 +274,216 @@ class _RoomPageState extends State<RoomPage> {
                       children: [
                         TextField(
                           decoration: InputDecoration(
-labelText: 'Room Name',
-),
-onChanged: (value) {
-setState(() {
-roomName = value;
-});
-},
-),
-TextField(
-decoration: InputDecoration(
-labelText: 'Your Name',
-),
-onChanged: (value) {
-setState(() {
-userName = value; // Update the user's name
-});
-},
-),
-SwitchListTile(
-title: Text('Private Room'),
-value: isPrivate,
-onChanged: (value) {
-setState(() {
-isPrivate = value;
-});
-},
-),
-SizedBox(height: 10),
-if (isPrivate)
-Padding(
-padding: const EdgeInsets.symmetric(vertical: 8.0),
-child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
-children: [
-Row(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-Expanded(
-child: Text(
-'Room ID: $roomId',
-style: TextStyle(
-fontSize: 16,
-fontWeight: FontWeight.bold,
-),
-),
-),
-IconButton(
-onPressed: () {
-Clipboard.setData(
-ClipboardData(text: roomId),
-);
-ScaffoldMessenger.of(context).showSnackBar(
-SnackBar(
-content: Text('Room ID copied to clipboard'),
-),
-);
-},
-icon: Icon(Icons.copy),
-),
-],
-),
-Text("Share this Room ID with friends and ask them to join the room using this ID"),
-SizedBox(height: 10),
-ElevatedButton(
-onPressed: _isValidInput() ? _handleNextButtonClick : null, // Call the new function
-child: Text('Next'),
-),
-],
-),
-),
-if (!isPrivate)
-Padding(
-padding: const EdgeInsets.symmetric(vertical: 8.0),
-child: Column(
-mainAxisAlignment: MainAxisAlignment.start,
-crossAxisAlignment: CrossAxisAlignment.start,
-children: [
-Row(
-mainAxisAlignment: MainAxisAlignment.center,
-children: [
-Expanded(
-child: Text(
-'https://example.com/room/$roomId',
-style: TextStyle(
-fontSize: 12,
-fontWeight: FontWeight.bold,
-color: Colors.blue,
-),
-),
-),
-IconButton(
-onPressed: () {
-Clipboard.setData(
-ClipboardData(
-text: 'https://example.com/room/$roomId',
-),
-);
-ScaffoldMessenger.of(context).showSnackBar(
-SnackBar(
-content: Text('Room link copied to clipboard'),
-),
-);
-},
-icon: Icon(Icons.copy),
-),
-],
-),
-SizedBox(height: 10),
-ElevatedButton(
-onPressed: _isValidInput() ? _handleNextButtonClick : null, // Call the new function
-child: Text('Next'),
-),
-],
-),
-),
-],
-),
-),
-),
-// Join Room Card
-if (isJoiningRoom)
-Card(
-child: Padding(
-padding: const EdgeInsets.all(16.0),
-child: Column(
-children: [
-TextField(
-decoration: InputDecoration(
-labelText: 'Your Name',
-),
-onChanged: (value) {
-setState(() {
-roomName = value;
-});
-},
-),
-SizedBox(height: 16.0),
-TextField(
-decoration: InputDecoration(
-labelText: 'Room ID',
-),
-onChanged: (value) {
-setState(() {
-joinRoomId = value;
-});
-},
-),
-SizedBox(height: 16.0),
-ElevatedButton(
-onPressed: () {
-// Join room logic here
-print('Joining room with ID: $joinRoomId');
-_closeCreateRoom();
-},
-child: Text('Join Room'),
-),
-],
-),
-),
-),
-SizedBox(height: 20),
-// Active Rooms Section
-Text(
-'Active Rooms',
-style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-),
-SizedBox(height: 10),
-ListView.builder(
-shrinkWrap: true,
-physics: NeverScrollableScrollPhysics(),
-itemCount: rooms.length,
-itemBuilder: (context, index) {
-return InkWell(
-onTap: () {
-showDialog(
-context: context,
-builder: (BuildContext context) {
-return InvitationDialog(
-// accept: "Accept",
-// decline: "Decline",
-message: 'Do you want to join?',
-onAccept: () {
-// Handle the "Accept" button action
-Navigator.of(context).pop();
-// acceptInvitation(event.snapshot.key!, invitationData['roomId']);
-// Get.toNamed(AppRoutes.multiPlayer);
-// Call the function to accept the invitation
-},
-onDecline: () {
-// declineInvitation(event.snapshot.key!, invitationData["roomId"]);
-Navigator.of(context).pop();
-},
-);
-},
-);
-},
-child: Card(
-child: ListTile(
-leading: CircleAvatar(
-child: Text(rooms[index]['name']![0]),
-),
-title: Text(rooms[index]['name']!),
-subtitle: Text(rooms[index]['participants']!),
-),
-),
-);
-},
-),
-],
-),
-),
-),
-);
-}
+                            labelText: 'Room Name',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              roomName = value;
+                            });
+                          },
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Your Name',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              userName = value;
+                            });
+                          },
+                        ),
+                        SwitchListTile(
+                          title: Text('Private Room'),
+                          value: isPrivate,
+                          onChanged: (value) {
+                            setState(() {
+                              isPrivate = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 10),
+                        if (isPrivate)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Room ID: $roomId',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                            ClipboardData(text: roomId));
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Room ID copied to clipboard'),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(Icons.copy),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                    "Share this Room ID with friends and ask them to join the room using this ID"),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: _isValidInput()
+                                      ? _handleNextButtonClick
+                                      : null,
+                                  child: Text('Next'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (!isPrivate)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'https://elderquest.netlify.app/games/binod',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(
+                                              text:
+                                                  'https://example.com/room/$roomId'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Room link copied to clipboard'),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(Icons.copy),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 10),
+                                ElevatedButton(
+                                  onPressed: _isValidInput()
+                                      ? _handleNextButtonClick
+                                      : null,
+                                  child: Text('Next'),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+              if (isJoiningRoom)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Your Name',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              roomName = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        TextField(
+                          decoration: InputDecoration(
+                            labelText: 'Room ID',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              joinRoomId = value;
+                            });
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            print('Joining room with ID: $joinRoomId');
+                            _closeCreateRoom();
+                          },
+                          child: Text('Join Room'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              SizedBox(height: 20),
+              Text(
+                'Active Rooms',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: rooms.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return InvitationDialog(
+                            message: 'Do you want to join?',
+                            onAccept: () {
+                              Navigator.of(context).pop();
+                            },
+                            onDecline: () {
+                              Navigator.of(context).pop();
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Text(rooms[index]['name']![0]),
+                        ),
+                        title: Text(rooms[index]['name']!),
+                        subtitle: Text(rooms[index]['participants']!),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

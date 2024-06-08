@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:game/quizGenerate.dart';
 import 'package:share_plus/share_plus.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class _QuizScreenState extends State<QuizScreen> {
   int diamonds = 500;
   int hearts = 1; // Assume 1 heart to represent lives
   int coins = 29;
+  bool _isStarted = false;
 
   @override
   void initState() {
@@ -81,7 +83,9 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: 
+      _isStarted ?
+      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -131,7 +135,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
           ],
         ),
-      ),
+      )  : _buildStartButton()
     );
   }
 
@@ -147,6 +151,21 @@ class _QuizScreenState extends State<QuizScreen> {
             style: TextStyle(fontSize: 20, color: Colors.purple, fontWeight: FontWeight.bold),
           ),
         ],
+      ),
+    );
+  }
+
+   Widget _buildStartButton() {
+    return Center(
+      child: ElevatedButton(
+        onPressed: () {
+          // sendMessage();
+          runPythonScript();
+          setState(() {
+            _isStarted = true;
+          });
+        },
+        child: Text('Start'),
       ),
     );
   }

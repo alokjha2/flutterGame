@@ -1,0 +1,114 @@
+
+
+
+import 'dart:convert';
+import 'package:game/exports.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
+
+void main() {
+  Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Article Scraper'),
+        ),
+        body: ArticleScraper(),
+      ),
+    );
+  }
+}
+
+class ArticleScraper extends StatefulWidget {
+  @override
+  _ArticleScraperState createState() => _ArticleScraperState();
+}
+
+class _ArticleScraperState extends State<ArticleScraper> {
+  final TextEditingController _controller = TextEditingController();
+  String _articleContent = 'No quiz question yet';
+  final gemini = Gemini.instance;
+  
+
+  
+
+  Future<void> _scrapeArticle() async {
+    final response = await http.post(
+  Uri.parse('http://192.168.3.240:5000/scrape'),  // Replace with your machine's IP address
+  headers: <String, String>{
+    'Content-Type': 'application/json; charset=UTF-8',
+  },
+  body: jsonEncode(<String, String>{
+    'url': "https://medium.com/@ttejasvani/five-natural-stages-of-relationship-eb8bfad3095d",
+  }),
+);
+
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print("data scraped");
+      mcq(data["content"]);
+      // setState(() {
+      //   _articleContent = data['content'];
+      // });
+    } else {
+      setState(() {
+        _articleContent = 'Failed to scrape the article.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                labelText: 'Enter article URL',
+              ),
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                _scrapeArticle();
+              },
+              child: Text('Scrape Article'),
+            ),
+            SizedBox(height: 16.0),
+            Container(
+              child: SingleChildScrollView(
+                child: Text(_articleContent),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  mcq(scrappedData){
+     gemini.streamGenerateContent("Here is the scrapped data $scrappedData, generate interesting amazing 10 quiz question with 4 options and correct answer, this is just the article content, anyway generate any 10 questions if you can generate, then generate random 10 questions").listen(
+
+    (value) {
+      setState(() {
+      _articleContent = value.output!;
+        
+      });
+
+      },
+      onError: (e) {
+        _articleContent = "sorry we cant generate quiz";
+      },
+    );
+  }
+}

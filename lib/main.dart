@@ -1,6 +1,7 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:game/presentation/games/binod/binod.dart';
 import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
@@ -24,6 +25,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
   // initializeFirebaseMessaging(); // Call the function here
+  Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
   runApp(const MyApp());
 }
 
@@ -63,9 +65,9 @@ class MyApp extends StatelessWidget {
           name: AppRoutes.room,
           page: () => RoomPage(),
         ),
-        GetPage(name: '/game/quiz', page: () => QuizScreen()), 
-        GetPage(name: '/game/snaphunt', page: () => SnapHunt()), 
-        GetPage(name: '/game/memory', page: () => PhoneMultiPlayer()), 
+        // GetPage(name: '/game/quiz', page: () => QuizScreen()), 
+        // GetPage(name: '/game/snaphunt', page: () => SnapHunt()), 
+        // GetPage(name: '/game/memory', page: () => PhoneMultiPlayer()), 
         // GetPage(name: AppRoutes.snapHunt, page: () => SnapHunt()), 
       ],
       
@@ -73,3 +75,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+

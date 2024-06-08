@@ -1,9 +1,11 @@
 git init
 git add .
-git commit -m "added notification UI"
+git commit -m "added code to scrap the data, pass that data to gemini and then generate 10 quizzes on the basis of it"
 git branch -M main
 git remote add origin https://github.com/alokjha2/flutterGame.git
 git push -u origin main
+
+python api.py
 
 git init
 git add .
