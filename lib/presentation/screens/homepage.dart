@@ -1,11 +1,77 @@
 import 'dart:ui';
 
+import 'package:flutter_autoupdate/flutter_autoupdate.dart';
 import 'package:game/components/homepage_btn.dart';
 import 'package:game/exports.dart';
 import 'package:game/presentation/screens/profile/settings.dart';
 import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
-class HomeScreen extends StatelessWidget {
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:version/version.dart';
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  PackageInfo? packageInfo;
+  UpdateResult? _result;
+  var _startTime = 0;
+  
+  var _bytesPerSec;
+  
+  var _download;
+
+@override
+void initState() {
+  super.initState();
+  getPackageInfoData();
+  initPlatformState();
+}
+
+Future<void> getPackageInfoData() async {
+  setState(() async {
+    packageInfo = await PackageInfo.fromPlatform();
+  });
+}
+
+Future<void> initPlatformState() async {
+  UpdateResult? result;
+  
+  String versionUrl = 'https://github.com/alokjha2/version/blob/main/main.json'; 
+  var manager = UpdateManager(versionUrl: versionUrl);
+    
+  try {
+    result = await manager.fetchUpdates();
+    
+    setState(() {
+      _result = result;
+    });
+
+    if (packageInfo != null) {
+      if (Version.parse(packageInfo!.version) < result?.latestVersion) {
+        var controller = await result?.initializeUpdate();
+        controller?.stream.listen((event) async {
+          setState(() {
+            if (DateTime.now().millisecondsSinceEpoch - _startTime >= 1000) {
+              _startTime = DateTime.now().millisecondsSinceEpoch;
+              _bytesPerSec = event.receivedBytes - _bytesPerSec;
+            }
+            _download = event;
+          });
+
+          if (event.completed) {
+            await controller.close();
+            await result?.runUpdate(event.path, autoExit: true);
+          }
+        });
+      }
+    }
+  } on Exception {
+    // Handle exceptions
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

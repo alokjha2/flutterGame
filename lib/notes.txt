@@ -7,6 +7,9 @@ git push -u origin main
 
 python api.py
 
+python scrape_image.py
+python fetch_blog_link.py
+
 git init
 git add .
 git commit -m "added game screen, added quiz screen"

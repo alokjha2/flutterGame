@@ -1,15 +1,16 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
+// import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:game/presentation/games/binod/binod.dart';
 import 'package:game/firebase/auth_checker.dart';
 import 'package:game/firebase/notify_handler.dart';
-import 'package:game/presentation/games/quiz/category.dart';
+import 'package:game/presentation/games/quiz/widgets/category.dart';
 import 'package:game/presentation/games/quiz/quizScreen.dart';
 import 'package:game/presentation/games/scavengerHunt/scavengerhunt.dart';
 import 'package:game/presentation/games/snapHunt/snaphunt.dart';
 import 'package:game/presentation/screens/rooms/room.dart';
+import 'package:game/providers/article_providers.dart';
 import 'package:game/screens/contacts_screen.dart';
 import 'package:game/screens/error.dart';
 import 'package:game/screens/games_category_page.dart';
@@ -17,6 +18,7 @@ import 'package:game/screens/loginScreen.dart';
 import 'package:game/screens/multiPlayer.dart';
 import 'package:game/screens/phoneMultiplayer.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import 'exports.dart';
 
@@ -25,7 +27,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
   // initializeFirebaseMessaging(); // Call the function here
-  Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
+  // Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
   runApp(const MyApp());
 }
 
@@ -35,15 +37,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return 
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ArticleProvider()),
+      ],
+      child : 
+    GetMaterialApp(
       title: 'ElderQuest',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: 
-      // Binod()
-      // Games(),
       initialRoute: AppRoutes.homePage,
       
       getPages: [
@@ -71,7 +76,7 @@ class MyApp extends StatelessWidget {
         // GetPage(name: AppRoutes.snapHunt, page: () => SnapHunt()), 
       ],
       
-      
+    )
     );
   }
 }

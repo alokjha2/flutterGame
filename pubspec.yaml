@@ -4,25 +4,29 @@ description: A new Flutter project.
 
 publish_to: "none" 
 
-version: 1.0.0+3
+version: 0.0.2
 
 environment:
   sdk: '>=3.3.4 <4.0.0'
 
 dependencies:
-  assets_audio_player: ^3.1.1
-  confetti: ^0.7.0
+  assets_audio_player: 
+  confetti: 
   cupertino_icons: 
-  flame: ^1.17.0
+  flame: 
   flip_card: 
   flutter:
     sdk: flutter
-  get: ^4.6.6
-  glossy: ^0.0.4
+  get: 
+  glossy: 
   lottie: 
   provider:
+  build_runner: 
+  freezed: 
+  injectable_generator: 
+  hive_generator: 
   
-  flutter_gemini: 
+  # flutter_gemini: 
   http:
   zego_uikit_prebuilt_call:
   firebase_core: 
@@ -30,15 +34,19 @@ dependencies:
   cloud_firestore: 
   logger: 
   flutter_webrtc: 
-  flutter_contacts: ^1.1.7+1
+  flutter_contacts: 
   permission_handler:
-  socket_io_client: ^2.0.3+1
+  socket_io_client:
   firebase_database:
   firebase_auth: 
-  firebase_messaging: ^14.9.1
-  contacts_service: ^0.6.3
-  nice_buttons: ^0.0.3
-  share_plus: ^9.0.0
+  firebase_messaging: 
+  contacts_service: 
+  nice_buttons: 
+  share_plus: 
+  flutter_hooks: 
+  version: 
+  package_info_plus: 
+  flutter_autoupdate: ^1.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

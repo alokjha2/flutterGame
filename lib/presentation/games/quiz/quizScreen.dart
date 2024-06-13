@@ -1,176 +1,110 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:game/providers/article_providers.dart';
-import 'package:game/quizGenerate.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:provider/provider.dart';
-
 import 'package:share_plus/share_plus.dart';
 
 class QuizScreen extends StatefulWidget {
+  // final String articleUrl;
+
+  // QuizScreen({required this.articleUrl});
+
   @override
   _QuizScreenState createState() => _QuizScreenState();
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  String _selectedOption = '';
-  int timeLeft = 60; // Timer set to 60 seconds
-  Timer? _timer;
-  int diamonds = 500;
-  int hearts = 1; // Assume 1 heart to represent lives
-  int coins = 29;
+  int _countdown = 3;
+  Timer? _countdownTimer;
   bool _isStarted = false;
+  String _selectedOption = '';
+  bool _isAnswerChecked = false;
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    _startCountdown();
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _countdownTimer?.cancel();
     super.dispose();
   }
 
- 
-  void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if (timeLeft > 0) {
+  void _startCountdown() {
+    _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_countdown > 0) {
         setState(() {
-          timeLeft--;
+          _countdown--;
         });
       } else {
         timer.cancel();
-        // Timer ends, you can add your game over logic here
+        setState(() {
+          _isStarted = true;
+        });
+        _startQuiz();
       }
     });
   }
 
-  void _checkAnswer(String selectedOption) {
-    setState(() {
-      _selectedOption = selectedOption;
-    });
+  void _startQuiz() {
+    Provider.of<ArticleProvider>(context, listen: false)
+        .scrapeAndGenerateQuiz("https://medium.com/@vkhosla/where-ai-meets-copyright-law-present-and-future-4ff2259b8f18");
   }
-
-  void _shareLink() {
-    final link = 'https://elderquest.netlify.app/#/game/quiz';
-    Share.share('Check out this quiz: $link');
-  }
-
-  // void _showUserDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: Text('Participants'),
-  //         content: SingleChildScrollView(
-  //           child: ListBody(
-  //             children: <Widget>[
-  //               Text('Peckish Human'),
-  //               // Add more participants as needed
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: Text('Close'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
-     final provider = Provider.of<ArticleProvider>(context);
     return Scaffold(
-      body: 
-      _isStarted ?
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Consumer<ArticleProvider>(
+        builder: (context, provider, child) {
+          if (_countdown > 0 && !_isStarted) {
+            return Center(
+              child: Text(
+                'Quiz starting in $_countdown seconds...',
+                style: TextStyle(fontSize: 24),
+              ),
+            );
+          }
+
+          if (provider.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (!_isStarted) {
+            return _buildStartButton();
+          }
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _buildInfoIcon(Icons.timer, '$timeLeft'),
-                _buildInfoIcon(Icons.favorite, '$hearts'),
-                _buildInfoIcon(Icons.account_circle_rounded, '$diamonds', () => _showUserDialog(context)),
-                _buildInfoIcon(Icons.exit_to_app, '$coins'),
+                SizedBox(height: 20),
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: provider.quizQuestions.isNotEmpty
+                          ? _buildQuizContent(provider.currentQuestion)
+                          : [Text('No quiz available')],
+                    ),
+                  ),
+                ),
               ],
             ),
-            SizedBox(height: 20),
-            Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade100,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.purple, width: 2),
-                      ),
-                      child: Text(
-                        'Which golf term is defined as "club especially designed for putting"?',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    _buildOption('Divot', 'A'),
-                    _buildOption('Front Nine', 'B'),
-                    _buildOption('Bunker', 'C'),
-                    _buildOption('Putter', 'D'),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      )  : _buildStartButton()
-    );
-  }
-
-  Widget _buildInfoIcon(IconData icon, String text, [VoidCallback? onTap]) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Icon(icon, size: 30, color: Colors.purple),
-          SizedBox(width: 5),
-          Text(
-            text,
-            style: TextStyle(fontSize: 20, color: Colors.purple, fontWeight: FontWeight.bold),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
 
-   Widget _buildStartButton() {
+  Widget _buildStartButton() {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          // sendMessage();
-          // runPythonScript();
-          // _scrapeArticle();
+          _startQuiz();
           setState(() {
             _isStarted = true;
           });
@@ -180,61 +114,107 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
- void _showUserDialog(BuildContext context) async {
-  final RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
-  final position = RelativeRect.fromRect(
-    Rect.fromLTRB(
-      overlay.size.width - 50,
-      50, // Adjust this value as needed to fit your design
-      overlay.size.width,
-      0,
-    ),
-    Offset.zero & overlay.size,
-  );
-
-  String? selectedUser = await showMenu<String>(
-    context: context,
-    position: position,
-    items: [
-      PopupMenuItem<String>(
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search...',
-                prefixIcon: Icon(Icons.search),
-              ),
-              onChanged: (value) {
-                // Implement search functionality here
+  List<Widget> _buildQuizContent(Map<String, dynamic> question) {
+  final List<Widget> optionCards = question['options'].map<Widget>((option) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: InkWell(
+        onTap: _isAnswerChecked
+            ? null
+            : () {
+                setState(() {
+                  _selectedOption = option;
+                  _isAnswerChecked = true;
+                });
+                // Show if the answer is correct or wrong
+                bool isCorrect = option == question['correctAnswer'];
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      isCorrect ? 'Correct!' : 'Wrong!',
+                      style: TextStyle(color: isCorrect ? Colors.green : Colors.red),
+                    ),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+                // Move to next question after a delay
+                Future.delayed(Duration(seconds: 2), () {
+                  setState(() {
+                    _isAnswerChecked = false;
+                    Provider.of<ArticleProvider>(context, listen: false).nextQuestion();
+                  });
+                });
               },
-            ),
-            Divider(),
-          ],
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Text(
+            option,
+            style: TextStyle(fontSize: 20),
+          ),
         ),
-        enabled: false,
       ),
-      for (int i = 1; i <= 20; i++)
-        PopupMenuItem<String>(
-          value: 'user$i',
-          child: Text('User $i'),
-        ),
-    ],
-    elevation: 8,
-  );
+    );
+  }).toList();
 
-  if (selectedUser != null) {
-    // Handle the selection if needed
-  }
+  return [
+    Text(question['question'], style: TextStyle(fontSize: 22)),
+    SizedBox(height: 20),
+    ...optionCards,
+    SizedBox(height: 20),
+    Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            Provider.of<ArticleProvider>(context, listen: false).nextQuestion();
+          },
+          child: Text('Previous'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Provider.of<ArticleProvider>(context, listen: false).nextQuestion();
+          },
+          child: Text('Next'),
+        ),
+      ],
+    ),
+  ];
 }
 
 
-  Widget _buildOption(String text, String option) {
+  Widget _buildOption(String text) {
+    final provider = Provider.of<ArticleProvider>(context, listen: false);
     return GestureDetector(
-      onTap: () => _checkAnswer(option),
+      onTap: _isAnswerChecked
+          ? null
+          : () {
+              setState(() {
+                _selectedOption = text;
+                _isAnswerChecked = true;
+              });
+              // Show if the answer is correct or wrong
+              bool isCorrect = text == provider.currentQuestion['correctAnswer'];
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    isCorrect ? 'Correct!' : 'Wrong!',
+                    style: TextStyle(color: isCorrect ? Colors.green : Colors.red),
+                  ),
+                  duration: Duration(seconds: 1),
+                ),
+              );
+              // Move to next question after a delay
+              Future.delayed(Duration(seconds: 2), () {
+                setState(() {
+                  _isAnswerChecked = false;
+                  provider.nextQuestion();
+                });
+              });
+            },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
-          color: _selectedOption == option ? Colors.green : Colors.purpleAccent,
+          color: _selectedOption == text ? Colors.green : Colors.purpleAccent,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.white, width: 2),
         ),

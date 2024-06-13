@@ -66,7 +66,7 @@ class _GameOverScreenState extends State<GameOverScreen> {
                     children: [
                       TextSpan(
                           text:
-                              "I think I had given you enough reasons to hire me. And there is one more reason for you to hire me. I built this in 9-10 hours over 2-3 days. Along with this I started building one AI tools to get job in an AI startup. We can together build something for elders of society",
+                              "",
                           style: theme.bodySmall,
                           
                           ),
