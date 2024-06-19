@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-// import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:game/repository/article_repository.dart';
 
 class ArticleProvider extends ChangeNotifier {
   final ArticleRepository _articleRepository = ArticleRepository();
-  // final Gemini _gemini = Gemini.instance;
+  final Gemini _gemini = Gemini.instance;
 
   List<Map<String, dynamic>> _quizQuestions = [];
   List<Map<String, dynamic>> get quizQuestions => _quizQuestions;
@@ -38,7 +38,8 @@ class ArticleProvider extends ChangeNotifier {
 
  Future<String?> _scrapeArticle(String url) async {
   final response = await http.post(
-    Uri.parse('http://192.168.3.240:5000/scrape'),
+    Uri.parse('https://elderquestapi.vercel.app/scrape'),
+    // Uri.parse('http://192.168.3.240:5000/scrape'),
     headers: {'Content-Type': 'application/json; charset=UTF-8'},
     body: jsonEncode({'url': url}),
   );
@@ -46,9 +47,11 @@ class ArticleProvider extends ChangeNotifier {
     final data = jsonDecode(response.body);
     final scrappedData = data['content'];
     final cleanedData = preprocessArticleContent(scrappedData);
+  print("api used: ");
     return cleanedData;
   } else {
-    return null;
+    // return Text(scrappedData);
+    print("error");
   }
 }
 
@@ -99,20 +102,20 @@ String preprocessOption(String option) {
 
 
   Future<void> _generateMcqs(String scrappedData) async {
-    // _gemini.streamGenerateContent(
-    //   "Here is the scrapped data $scrappedData, generate interesting amazing 10 quiz questions with 4 options and correct answer. and give questions and answer in this format {question 1. whatever question is ? , {answers : option 1. , option 2. option 3. option 4. }, correct answer : option 3} and never ever change format. If you can't generate questions from the article, generate random 10 questions related to finance, politics, etc",
-    // ).listen(
-    //   (value) {
-    //     print(value.output);
+    _gemini.streamGenerateContent(
+      "Here is the scrapped data $scrappedData, generate interesting amazing 10 quiz questions with 4 options and correct answer. and give questions and answer in this format {question 1. whatever question is ? , {answers : option 1. , option 2. option 3. option 4. }, correct answer : option 3} and never ever change format. If you can't generate questions from the article, generate random 10 questions related to finance, politics, etc",
+    ).listen(
+      (value) {
+        print(value.output);
         
-    //     _parseQuizContent(value.output!);
-    //     notifyListeners();
-    //   },
-    //   onError: (e) {
-    //     // Handle error
-    //     notifyListeners();
-    //   },
-    // );
+        _parseQuizContent(value.output!);
+        notifyListeners();
+      },
+      onError: (e) {
+        // Handle error
+        notifyListeners();
+      },
+    );
   }
 
   // void _parseQuizContent(String content) {

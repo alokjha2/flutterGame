@@ -26,7 +26,7 @@ dependencies:
   injectable_generator: 
   hive_generator: 
   
-  # flutter_gemini: 
+  flutter_gemini: 
   http:
   zego_uikit_prebuilt_call:
   firebase_core: 
@@ -44,11 +44,11 @@ dependencies:
   nice_buttons: 
   share_plus: 
   flutter_hooks: 
-  version: 
-  # package_info_plus: 
-  flutter_autoupdate: ^1.0.0
-  new_version: 
-  in_app_update: ^4.2.3
+  # version: 
+  # # package_info_plus: 
+  # flutter_autoupdate: ^1.0.0
+  # new_version: 
+  # in_app_update: ^4.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0
