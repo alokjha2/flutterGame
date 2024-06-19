@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 class ArticleRepository {
   Future<String?> scrapeArticle(String url) async {
     final response = await http.post(
-      Uri.parse('http://192.168.3.240:5000/scrape'),
+      // Uri.parse('http://192.168.3.240:5000/scrape'),
+      Uri.parse('https://elderquestapi-osmh1da3x-alokjha2s-projects.vercel.app/scrape'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

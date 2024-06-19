@@ -33,20 +33,22 @@ dependencies:
   auto_route_generator: 
   cloud_firestore: 
   logger: 
-  flutter_webrtc: 
+  # flutter_webrtc: 
   flutter_contacts: 
   permission_handler:
-  socket_io_client:
+  # socket_io_client:
   firebase_database:
-  firebase_auth: 
+  # firebase_auth: 
   firebase_messaging: 
   contacts_service: 
   nice_buttons: 
   share_plus: 
   flutter_hooks: 
   version: 
-  package_info_plus: 
+  # package_info_plus: 
   flutter_autoupdate: ^1.0.0
+  new_version: 
+  in_app_update: ^4.2.3
 
 dev_dependencies:
   flutter_lints: ^2.0.0

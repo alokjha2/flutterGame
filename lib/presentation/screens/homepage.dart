@@ -6,72 +6,133 @@ import 'package:game/exports.dart';
 import 'package:game/presentation/screens/profile/settings.dart';
 import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:new_version/new_version.dart';
+// import 'package:package_info_plus/package_info_plus.dart';
 import 'package:version/version.dart';
+import 'package:in_app_update/in_app_update.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  PackageInfo? packageInfo;
+  // PackageInfo? packageInfo;
   UpdateResult? _result;
   var _startTime = 0;
-  
   var _bytesPerSec;
-  
   var _download;
 
-@override
-void initState() {
-  super.initState();
-  getPackageInfoData();
-  initPlatformState();
-}
+  @override
+  void initState() {
+    super.initState();
+    final Version currentVersion = new Version(1, 0, 3);
+    final Version latestVersion = Version.parse("2.1.0");
 
-Future<void> getPackageInfoData() async {
-  setState(() async {
-    packageInfo = await PackageInfo.fromPlatform();
-  });
-}
-
-Future<void> initPlatformState() async {
-  UpdateResult? result;
-  
-  String versionUrl = 'https://github.com/alokjha2/version/blob/main/main.json'; 
-  var manager = UpdateManager(versionUrl: versionUrl);
-    
-  try {
-    result = await manager.fetchUpdates();
-    
-    setState(() {
-      _result = result;
-    });
-
-    if (packageInfo != null) {
-      if (Version.parse(packageInfo!.version) < result?.latestVersion) {
-        var controller = await result?.initializeUpdate();
-        controller?.stream.listen((event) async {
-          setState(() {
-            if (DateTime.now().millisecondsSinceEpoch - _startTime >= 1000) {
-              _startTime = DateTime.now().millisecondsSinceEpoch;
-              _bytesPerSec = event.receivedBytes - _bytesPerSec;
-            }
-            _download = event;
-          });
-
-          if (event.completed) {
-            await controller.close();
-            await result?.runUpdate(event.path, autoExit: true);
-          }
-        });
-      }
+    if (latestVersion > currentVersion) {
+      print("Update is available");
     }
-  } on Exception {
-    // Handle exceptions
-  }
-}
 
+    final Version betaVersion =
+        new Version(2, 1, 0, preRelease: <String>["beta"]);
+    // Note: this test will return false, as pre-release versions are considered
+    // lesser than a non-pre-release version that otherwise has the same numbers.
+    if (betaVersion > latestVersion) {
+      print("More recent beta available");
+    }
+    update();
+    // getPackageInfoData();
+    // initPlatformState();
+  }
+
+  Future<void> checkForUpdate() async {
+     InAppUpdate.checkForUpdate().then((updateInfo) {
+     if (updateInfo.updateAvailability ==true) {
+     InAppUpdate.startFlexibleUpdate().catchError((e) => print(e));
+     }
+   });
+ }
+
+  void update() {
+    final newVersion = NewVersion(
+      // iOSId: 'com.google.Vespa',
+      androidId: 'com.peckishhuman.memorygame',
+    );
+
+    const simpleBehavior = true;
+
+    if (simpleBehavior) {
+      basicStatusCheck(newVersion);
+    } else {
+      // Add your else statement logic here
+      // For example:
+      print("simpleBehavior is false, performing alternative actions");
+      advancedStatusCheck(newVersion);
+    }
+  }
+
+  void basicStatusCheck(NewVersion newVersion) {
+    newVersion.showAlertIfNecessary(context: context);
+  }
+
+  void advancedStatusCheck(NewVersion newVersion) async {
+    final status = await newVersion.getVersionStatus();
+    if (status != null) {
+      debugPrint(status.releaseNotes);
+      debugPrint(status.appStoreLink);
+      debugPrint(status.localVersion);
+      debugPrint(status.storeVersion);
+      debugPrint(status.canUpdate.toString());
+      newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: 'Custom Title',
+        dialogText: 'Custom Text',
+      );
+    }
+  }
+
+  // Future<void> getPackageInfoData() async {
+  //   setState(() async {
+  //     packageInfo = await PackageInfo.fromPlatform();
+  //   });
+  // }
+
+  // Future<void> initPlatformState() async {
+  //   UpdateResult? result;
+  
+  //   String versionUrl = 'https://github.com/alokjha2/version/blob/main/main.json'; 
+  //   var manager = UpdateManager(versionUrl: versionUrl);
+    
+  //   try {
+  //     result = await manager.fetchUpdates();
+    
+  //     setState(() {
+  //       _result = result;
+  //     });
+
+  //     if (packageInfo != null) {
+  //       if (Version.parse(packageInfo!.version) < result?.latestVersion) {
+  //         var controller = await result?.initializeUpdate();
+  //         controller?.stream.listen((event) async {
+  //           setState(() {
+  //             if (DateTime.now().millisecondsSinceEpoch - _startTime >= 1000) {
+  //               _startTime = DateTime.now().millisecondsSinceEpoch;
+  //               _bytesPerSec = event.receivedBytes - _bytesPerSec;
+  //             }
+  //             _download = event;
+  //           });
+
+  //           if (event.completed) {
+  //             await controller.close();
+  //             await result?.runUpdate(event.path, autoExit: true);
+  //           }
+  //         });
+  //       }
+  //     }
+  //   } on Exception {
+  //     // Handle exceptions
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

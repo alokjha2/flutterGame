@@ -25,8 +25,8 @@ import 'exports.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
-  // initializeFirebaseMessaging(); // Call the function here
+  await Firebase.initializeApp();
+  initializeFirebaseMessaging(); // Call the function here
   // Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
   runApp(const MyApp());
 }
@@ -56,10 +56,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.gamePage, page: () => GamePage()),
         GetPage(name: AppRoutes.winGamePage, page: () => GameOverScreen(duration: 0,)),
         GetPage(name: AppRoutes.selectMatrix, page: () => MatrixSelection()),
-        GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
-        GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
-        GetPage(name: AppRoutes.login, page: () => LoginScreen()),
-        GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
+        // GetPage(name: AppRoutes.contacts, page: () => ContactsScreen()),
+        // GetPage(name: AppRoutes.multiPlayer, page: () => MultiPlayerScreen()),
+        // GetPage(name: AppRoutes.login, page: () => LoginScreen()),
+        // GetPage(name: AppRoutes.Auth, page: () => AuthChecker()),
         GetPage(name: AppRoutes.quiz, page: () => QuizScreen()),
         GetPage(name: AppRoutes.phoneMultiPlayer, page: () => PhoneMultiPlayer()),
         GetPage(name: AppRoutes.category, page: () => CategoryScreen()),
