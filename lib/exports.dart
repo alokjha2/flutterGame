@@ -11,7 +11,7 @@ export 'package:game/screens/game_screen.dart';
 export 'package:game/screens/matrixpage.dart';
 
 export 'dart:async';
-export 'package:assets_audio_player/assets_audio_player.dart';
+// export 'package:assets_audio_player/assets_audio_player.dart';
 export 'package:flip_card/flip_card.dart';
 export 'package:flutter/material.dart';
 export 'package:game/components/countDownOverlay.dart';

@@ -1,5 +1,6 @@
 // lib/screens/settings_screen.dart
 import 'package:flutter/material.dart';
+import 'package:game/presentation/screens/friends/friends.dart';
 import 'package:game/presentation/screens/profile/account.dart';
 import 'package:game/presentation/screens/profile/help.dart';
 import 'package:game/presentation/screens/profile/notification.dart';
@@ -24,6 +25,16 @@ class SettingsScreen extends StatelessWidget {
               Get.to(() => AccountScreen());
             },
           ),
+
+          ListTile(
+            title: Text('Friends'),
+            subtitle: Text('Manage your account settings'),
+            leading: Icon(Icons.person),
+            onTap: () {
+              Get.to(() => FriendListScreen());
+            },
+          ),
+
           ListTile(
             title: Text('Notifications'),
             subtitle: Text('Manage notification settings'),

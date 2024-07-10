@@ -4,13 +4,13 @@ class RoomService {
   final databaseReference = FirebaseDatabase.instance.reference();
 
   Future<String> createRoom(
-      String creatorUserId, String roomName, bool isPrivate) async {
+      String creatorUserId, String roomName, bool isPrivate, String gameName) async {
     try {
       // Generate a unique room ID
-      String roomId = databaseReference.child('games').child('binod').push().key ?? '';
+      String roomId = databaseReference.child('games').child(gameName).push().key ?? '';
 
       // Create the room with initial data
-      await databaseReference.child('games').child('binod').child(roomId).set({
+      await databaseReference.child('games').child(gameName).child(roomId).set({
         'roomName': roomName,
         'roomId': roomId,
         'isPrivate': isPrivate,

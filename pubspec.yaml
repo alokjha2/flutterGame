@@ -10,7 +10,7 @@ environment:
   sdk: '>=3.3.4 <4.0.0'
 
 dependencies:
-  assets_audio_player: 
+  # assets_audio_player: 
   confetti: 
   cupertino_icons: 
   flame: 
@@ -28,13 +28,13 @@ dependencies:
   
   flutter_gemini: 
   http:
-  zego_uikit_prebuilt_call:
+  # zego_uikit_prebuilt_call:
   firebase_core: 
   auto_route_generator: 
   cloud_firestore: 
   logger: 
   # flutter_webrtc: 
-  flutter_contacts: 
+  # flutter_contacts: 
   permission_handler:
   # socket_io_client:
   firebase_database:
@@ -44,6 +44,11 @@ dependencies:
   nice_buttons: 
   share_plus: 
   flutter_hooks: 
+  zoom_widget: ^2.0.1
+  # updater: ^0.2.4
+  # version_check: ^0.7.1
+  # native_updater: ^0.1.1
+  # package_info_plus: ^8.0.0
   # version: 
   # # package_info_plus: 
   # flutter_autoupdate: ^1.0.0

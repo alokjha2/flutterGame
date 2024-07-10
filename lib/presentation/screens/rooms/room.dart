@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:game/components/invitationCard.dart';
+import 'package:game/firebase/room_service.dart';
 import 'package:game/presentation/router/routes.dart';
 import 'package:get/get.dart';
 
@@ -32,6 +33,7 @@ class _RoomPageState extends State<RoomPage> {
       isCreatingRoom = true;
       roomId = _generateRoomId();
     });
+
   }
 
   void _joinRoom() {
@@ -89,7 +91,8 @@ class _RoomPageState extends State<RoomPage> {
         default:
           print('Game not found or not implemented yet.');
       }
-      _closeCreateRoom();
+      
+      // _closeCreateRoom();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -340,9 +343,12 @@ class _RoomPageState extends State<RoomPage> {
                                     "Share this Room ID with friends and ask them to join the room using this ID"),
                                 SizedBox(height: 10),
                                 ElevatedButton(
-                                  onPressed: _isValidInput()
-                                      ? _handleNextButtonClick
-                                      : null,
+                                  onPressed: (){
+                                    RoomService().createRoom(userName, roomName, isPrivate, gameName );
+                                  },
+                                  // _isValidInput() 
+                                  //     ? _handleNextButtonClick :  RoomService().createRoom(userName, roomName, isPrivate, gameName ),
+                                  //     : null,
                                   child: Text('Next'),
                                 ),
                               ],
