@@ -247,36 +247,38 @@ class QuizScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Quiz'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              currentQuestion['question'] ?? '',
-              style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16.0),
-            if (currentQuestion['options'] != null &&
-                currentQuestion['options'] is Map<int, String>)
-              ...List.generate(
-                (currentQuestion['options'] as Map<int, String>).length,
-                (index) => OptionTile(
-                  option: (currentQuestion['options'] as Map<int, String>)
-                      .entries
-                      .elementAt(index)
-                      .value,
-                  isCorrect: index == currentQuestion['correctOption'],
-                ),
-              ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: articleProvider.nextQuestion,
-              child: const Text('Next Question'),
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: Text("here quiz game"))
+       
+      //  Padding(
+      //   padding: const EdgeInsets.all(16.0),
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: [
+      //       Text(
+      //         currentQuestion['question'] ?? '',
+      //         style: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+      //       ),
+      //       const SizedBox(height: 16.0),
+      //       if (currentQuestion['options'] != null &&
+      //           currentQuestion['options'] is Map<int, String>)
+      //         ...List.generate(
+      //           (currentQuestion['options'] as Map<int, String>).length,
+      //           (index) => OptionTile(
+      //             option: (currentQuestion['options'] as Map<int, String>)
+      //                 .entries
+      //                 .elementAt(index)
+      //                 .value,
+      //             isCorrect: index == currentQuestion['correctOption'],
+      //           ),
+      //         ),
+      //       const SizedBox(height: 16.0),
+      //       ElevatedButton(
+      //         onPressed: articleProvider.nextQuestion,
+      //         child: const Text('Next Question'),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }

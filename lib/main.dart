@@ -26,7 +26,7 @@ import 'exports.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  initializeFirebaseMessaging(); // Call the function here
+  // initializeFirebaseMessaging(); // Call the function here
   Gemini.init(apiKey: "AIzaSyDztTJXIubhrH5LQ_Jejqys712iylUchwI");
   runApp(const MyApp());
 }
