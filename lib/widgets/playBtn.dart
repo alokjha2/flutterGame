@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game/gamescreen.dart';
 import 'package:game/presentation/router/routes.dart';
 import 'package:game/screens/matrixpage.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,11 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
       height: 90,
       child: ElevatedButton(
         onPressed: (){
-           Get.toNamed(AppRoutes.gamesCategory);
+          //  Get.toNamed(AppRoutes.gamesCategory);
+          // Navigator.of(context).push(GameScreen);
+          Navigator.of(context).push(
+  MaterialPageRoute(builder: (context) => GameScreen()),
+);
         },
         style: ElevatedButton.styleFrom(
           // backgroundColor: Colors.amber,
