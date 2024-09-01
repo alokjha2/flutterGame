@@ -26,13 +26,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _initializeAudioPlayer();
+    checkForUpdate();
+    // _initializeAudioPlayer();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _audioPlayer?.dispose();
+    // _audioPlayer?.dispose();
     super.dispose();
   }
 
@@ -60,78 +61,25 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   }
 
 
-  Future<void> checkForUpdate() async {
-     final snackBar = SnackBar(
-            content: Text('update available'),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change
-              },
-            ),
-          );
-
-          // Show the SnackBar
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          // print('update available');
-          
-          update();
-
+ Future<void> checkForUpdate() async {
     // print('checking for Update');
     InAppUpdate.checkForUpdate().then((info) {
       setState(() {
         if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-           final snackBar = SnackBar(
-            content: Text('update available'),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change
-              },
-            ),
-          );
-
-          // Show the SnackBar
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
           // print('update available');
-          
           update();
         }
       });
     }).catchError((e) {
-      print(e.toString());
+      // print(e.toString());
     });
   }
 
   void update() async {
-    print('Updating');
-     final snackBar = SnackBar(
-            content: Text('updating app'),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change
-              },
-            ),
-          );
-
-          // Show the SnackBar
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // print('Updating');
     await InAppUpdate.startFlexibleUpdate();
     InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
-      print(e.toString());
-       final snackBar = SnackBar(
-            content: Text("error "+ e.toString()),
-            action: SnackBarAction(
-              label: 'Undo',
-              onPressed: () {
-                // Some code to undo the change
-              },
-            ),
-          );
-
-          // Show the SnackBar
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // print(e.toString());
     });
   }
 

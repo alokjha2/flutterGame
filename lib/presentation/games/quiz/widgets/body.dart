@@ -65,14 +65,16 @@ class Body extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final question = _questionController.questions[index];
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.fromLTRB(kDefaultPadding, 0, kDefaultPadding, kDefaultPadding),
                         child: Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15)), color: Colors.white),
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                                child: Text(
+                          child: Padding(
+                           padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
                                   question['question'],
                                   style: TextStyle(
                                     fontSize: 22,
@@ -81,21 +83,21 @@ class Body extends StatelessWidget {
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                              ),
-                              SizedBox(height: 20),
-                              Expanded(
-                                child: ListView.builder(
-                                  itemCount: 4,
-                                  itemBuilder: (context, optionIndex) {
-                                    return Option(
-                                      text: question['options'][optionIndex],
-                                      index: optionIndex,
-                                      press: () => _questionController.checkAnswer(optionIndex, question),
-                                    );
-                                  },
+                                SizedBox(height: 20),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: 4,
+                                    itemBuilder: (context, optionIndex) {
+                                      return Option(
+                                        text: question['options'][optionIndex],
+                                        index: optionIndex,
+                                        press: () => _questionController.checkAnswer(optionIndex, question),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );
