@@ -1,27 +1,712 @@
 [
-    {
-      "index": 1,
-      "question": "What is the capital of France?",
-      "options": ["Paris", "London", "Berlin", "Madrid"],
-      "correct_answer": "Paris"
-    },
-    {
-      "index": 2,
-      "question": "Which planet is known as the Red Planet?",
-      "options": ["Earth", "Mars", "Jupiter", "Venus"],
-      "correct_answer": "Mars"
-    },
-    {
-      "index": 3,
-      "question": "What is the largest ocean on Earth?",
-      "options": ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-      "correct_answer": "Pacific Ocean"
-    },
-    {
-      "index": 4,
-      "question": "Who wrote 'To Kill a Mockingbird'?",
-      "options": ["Harper Lee", "Mark Twain", "Ernest Hemingway", "F. Scott Fitzgerald"],
-      "correct_answer": "Harper Lee"
-    }
-  ]
-  
+  {
+    "index": 1,
+    "question": "What is the largest planet in our Solar System?",
+    "options": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+    "correct_answer": "Jupiter",
+    "category": "Space"
+  },
+  {
+    "index": 2,
+    "question": "What galaxy is Earth located in?",
+    "options": ["Andromeda", "Milky Way", "Triangulum", "Sombrero"],
+    "correct_answer": "Milky Way",
+    "category": "Space"
+  },
+  {
+    "index": 3,
+    "question": "Which planet is known for its rings?",
+    "options": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+    "correct_answer": "Saturn",
+    "category": "Space"
+  },
+  {
+    "index": 4,
+    "question": "What is the name of the first human to walk on the Moon?",
+    "options": ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "Michael Collins"],
+    "correct_answer": "Neil Armstrong",
+    "category": "Space"
+  },
+  {
+    "index": 5,
+    "question": "What is the closest star to Earth?",
+    "options": ["Proxima Centauri", "Sirius", "Alpha Centauri", "Betelgeuse"],
+    "correct_answer": "Proxima Centauri",
+    "category": "Space"
+  },
+  {
+    "index": 6,
+    "question": "What is the name of the fourth planet from the Sun?",
+    "options": ["Venus", "Earth", "Mars", "Jupiter"],
+    "correct_answer": "Mars",
+    "category": "Space"
+  },
+  {
+    "index": 7,
+    "question": "What celestial object is the Sun classified as?",
+    "options": ["Planet", "Star", "Asteroid", "Moon"],
+    "correct_answer": "Star",
+    "category": "Space"
+  },
+  {
+    "index": 8,
+    "question": "What is the name of our Solar System's asteroid belt?",
+    "options": ["Kuiper Belt", "Oort Cloud", "Asteroid Belt", "Heliosphere"],
+    "correct_answer": "Asteroid Belt",
+    "category": "Space"
+  },
+  {
+    "index": 9,
+    "question": "Which planet has the most moons?",
+    "options": ["Mars", "Jupiter", "Saturn", "Uranus"],
+    "correct_answer": "Saturn",
+    "category": "Space"
+  },
+  {
+    "index": 10,
+    "question": "What is the largest moon of Saturn called?",
+    "options": ["Titan", "Rhea", "Iapetus", "Enceladus"],
+    "correct_answer": "Titan",
+    "category": "Space"
+  },
+
+  {
+    "index": 11,
+    "question": "Who is known as the father of the computer?",
+    "options": ["Charles Babbage", "Alan Turing", "Bill Gates", "Steve Jobs"],
+    "correct_answer": "Charles Babbage",
+    "category": "Technology"
+  },
+  {
+    "index": 12,
+    "question": "What does 'HTTP' stand for?",
+    "options": ["HyperText Transfer Protocol", "HighText Transfer Protocol", "HyperText Transport Protocol", "HighText Transport Protocol"],
+    "correct_answer": "HyperText Transfer Protocol",
+    "category": "Technology"
+  },
+  {
+    "index": 13,
+    "question": "Which company developed the first smartphone?",
+    "options": ["Apple", "Nokia", "IBM", "Samsung"],
+    "correct_answer": "IBM",
+    "category": "Technology"
+  },
+  {
+    "index": 14,
+    "question": "What year was the World Wide Web first introduced?",
+    "options": ["1989", "1991", "1995", "1998"],
+    "correct_answer": "1989",
+    "category": "Technology"
+  },
+  {
+    "index": 15,
+    "question": "What does 'USB' stand for?",
+    "options": ["Universal Serial Bus", "Universal System Bus", "Uniform Serial Bus", "Uniform System Bus"],
+    "correct_answer": "Universal Serial Bus",
+    "category": "Technology"
+  },
+  {
+    "index": 16,
+    "question": "What was the first programming language?",
+    "options": ["Python", "Fortran", "C", "Java"],
+    "correct_answer": "Fortran",
+    "category": "Technology"
+  },
+  {
+    "index": 17,
+    "question": "What is the primary function of a CPU?",
+    "options": ["Processing data", "Storing data", "Displaying data", "Transmitting data"],
+    "correct_answer": "Processing data",
+    "category": "Technology"
+  },
+  {
+    "index": 18,
+    "question": "What does 'AI' stand for in the context of technology?",
+    "options": ["Artificial Intelligence", "Automatic Integration", "Advanced Internet", "Augmented Interface"],
+    "correct_answer": "Artificial Intelligence",
+    "category": "Technology"
+  },
+  {
+    "index": 19,
+    "question": "Which technology is used to create virtual reality experiences?",
+    "options": ["VR Headsets", "AR Glasses", "Smartphones", "Tablets"],
+    "correct_answer": "VR Headsets",
+    "category": "Technology"
+  },
+  {
+    "index": 20,
+    "question": "What does 'HTML' stand for?",
+    "options": ["HyperText Markup Language", "HighText Markup Language", "HyperText Management Language", "HighText Management Language"],
+    "correct_answer": "HyperText Markup Language",
+    "category": "Technology"
+  },
+
+  {
+    "index": 21,
+    "question": "Who was the first President of India?",
+    "options": ["Dr. Rajendra Prasad", "Jawaharlal Nehru", "Mahatma Gandhi", "Sardar Patel"],
+    "correct_answer": "Dr. Rajendra Prasad",
+    "category": "Indian History"
+  },
+  {
+    "index": 22,
+    "question": "Which freedom fighter is known for the slogan 'Give me blood, and I shall give you freedom'?",
+    "options": ["Subhas Chandra Bose", "Bhagat Singh", "Mahatma Gandhi", "Jawaharlal Nehru"],
+    "correct_answer": "Subhas Chandra Bose",
+    "category": "Indian History"
+  },
+  {
+    "index": 23,
+    "question": "Who was the last Governor-General of independent India?",
+    "options": ["C. Rajagopalachari", "Lord Mountbatten", "Rajendra Prasad", "Jawaharlal Nehru"],
+    "correct_answer": "C. Rajagopalachari",
+    "category": "Indian History"
+  },
+  {
+    "index": 24,
+    "question": "Which Indian emperor is known for his policy of non-violence and religious tolerance?",
+    "options": ["Ashoka", "Akbar", "Chandragupta", "Shivaji"],
+    "correct_answer": "Ashoka",
+    "category": "Indian History"
+  },
+  {
+    "index": 25,
+    "question": "Who was the leader of the Salt March in 1930?",
+    "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Bhagat Singh"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 26,
+    "question": "Who is known as the 'Iron Man of India'?",
+    "options": ["Sardar Patel", "Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose"],
+    "correct_answer": "Sardar Patel",
+    "category": "Indian History"
+  },
+  {
+    "index": 27,
+    "question": "Which Mughal emperor commissioned the construction of the Taj Mahal?",
+    "options": ["Akbar", "Shah Jahan", "Babur", "Aurangzeb"],
+    "correct_answer": "Shah Jahan",
+    "category": "Indian History"
+  },
+  {
+    "index": 28,
+    "question": "Who was the first female Prime Minister of India?",
+    "options": ["Indira Gandhi", "Sarojini Naidu", "Pratibha Patil", "Hillary Clinton"],
+    "correct_answer": "Indira Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 29,
+    "question": "What was the main objective of the Indian National Congress when it was formed in 1885?",
+    "options": ["Seek self-rule", "Promote British interests", "Encourage trade", "Support Indian princes"],
+    "correct_answer": "Seek self-rule",
+    "category": "Indian History"
+  },
+  {
+    "index": 30,
+    "question": "Which Indian leader was known for his role in the non-cooperation movement?",
+    "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "Bhagat Singh", "Subhas Chandra Bose"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+
+  {
+    "index": 31,
+    "question": "What is the term for a star system with two stars orbiting each other?",
+    "options": ["Binary Star", "Red Giant", "Pulsar", "Quasar"],
+    "correct_answer": "Binary Star",
+    "category": "Space"
+  },
+  {
+    "index": 32,
+    "question": "What is the name of the spacecraft that was the first to reach interstellar space?",
+    "options": ["Voyager 1", "Voyager 2", "Pioneer 10", "New Horizons"],
+    "correct_answer": "Voyager 1",
+    "category": "Space"
+  },
+  {
+    "index": 33,
+    "question": "Which planet is known as the Earth's twin due to its similar size?",
+    "options": ["Venus", "Mars", "Mercury", "Uranus"],
+    "correct_answer": "Venus",
+    "category": "Space"
+  },
+  {
+    "index": 34,
+    "question": "What is the name of the largest volcano in the Solar System?",
+    "options": ["Olympus Mons", "Mount Everest", "Mauna Kea", "Mount Kilimanjaro"],
+    "correct_answer": "Olympus Mons",
+    "category": "Space"
+  },
+  {
+    "index": 35,
+    "question": "Which planet has the shortest day?",
+    "options": ["Mercury", "Venus", "Earth", "Jupiter"],
+    "correct_answer": "Jupiter",
+    "category": "Space"
+  },
+  {
+    "index": 36,
+    "question": "What phenomenon causes the auroras seen in the polar regions?",
+    "options": ["Solar Wind", "Lunar Eclipse", "Meteor Shower", "Black Hole"],
+    "correct_answer": "Solar Wind",
+    "category": "Space"
+  },
+  {
+    "index": 37,
+    "question": "Which planet is known for its Great Red Spot?",
+    "options": ["Jupiter", "Mars", "Saturn", "Neptune"],
+    "correct_answer": "Jupiter",
+    "category": "Space"
+  },
+  {
+    "index": 38,
+    "question": "What is the name of the space telescope launched in 1990 that has provided many deep-space images?",
+    "options": ["Hubble", "James Webb", "Chandra", "Spitzer"],
+    "correct_answer": "Hubble",
+    "category": "Space"
+  },
+  {
+    "index": 39,
+    "question": "What is the term for a group of galaxies bound together by gravity?",
+    "options": ["Galaxy Cluster", "Nebula", "Star System", "Supernova"],
+    "correct_answer": "Galaxy Cluster",
+    "category": "Space"
+  },
+  {
+    "index": 40,
+    "question": "Which space agency is known for the Apollo missions?",
+    "options": ["NASA", "ESA", "JAXA", "Roscosmos"],
+    "correct_answer": "NASA",
+    "category": "Space"
+  },
+
+  {
+    "index": 41,
+    "question": "What is the main purpose of an operating system?",
+    "options": ["Manage hardware and software resources", "Provide internet access", "Design graphics", "Store data"],
+    "correct_answer": "Manage hardware and software resources",
+    "category": "Technology"
+  },
+  {
+    "index": 42,
+    "question": "Which programming language is known as the language of the web?",
+    "options": ["JavaScript", "Python", "C++", "Java"],
+    "correct_answer": "JavaScript",
+    "category": "Technology"
+  },
+  {
+    "index": 43,
+    "question": "What is the name of the technology used for touchscreens on smartphones?",
+    "options": ["Capacitive", "Resistive", "Optical", "Infrared"],
+    "correct_answer": "Capacitive",
+    "category": "Technology"
+  },
+  {
+    "index": 44,
+    "question": "What is the name of Apple's virtual assistant?",
+    "options": ["Siri", "Alexa", "Cortana", "Google Assistant"],
+    "correct_answer": "Siri",
+    "category": "Technology"
+  },
+  {
+    "index": 45,
+    "question": "Which company is known for its search engine?",
+    "options": ["Google", "Microsoft", "Yahoo", "Bing"],
+    "correct_answer": "Google",
+    "category": "Technology"
+  },
+  {
+    "index": 46,
+    "question": "What is the purpose of a firewall in computer networks?",
+    "options": ["To block unauthorized access", "To speed up internet connection", "To increase storage space", "To manage emails"],
+    "correct_answer": "To block unauthorized access",
+    "category": "Technology"
+  },
+  {
+    "index": 47,
+    "question": "Which company developed the Windows operating system?",
+    "options": ["Microsoft", "Apple", "IBM", "Google"],
+    "correct_answer": "Microsoft",
+    "category": "Technology"
+  },
+  {
+    "index": 48,
+    "question": "What is the name of the open-source operating system developed by Linus Torvalds?",
+    "options": ["Linux", "Windows", "MacOS", "Unix"],
+    "correct_answer": "Linux",
+    "category": "Technology"
+  },
+  {
+    "index": 49,
+    "question": "Which social media platform is known for its 280-character limit?",
+    "options": ["Twitter", "Facebook", "Instagram", "LinkedIn"],
+    "correct_answer": "Twitter",
+    "category": "Technology"
+  },
+  {
+    "index": 50,
+    "question": "What technology is used to power e-commerce transactions?",
+    "options": ["SSL/TLS", "FTP", "HTTP", "IMAP"],
+    "correct_answer": "SSL/TLS",
+    "category": "Technology"
+  },
+
+  {
+    "index": 51,
+    "question": "Who was the first Mughal emperor of India?",
+    "options": ["Babur", "Akbar", "Shah Jahan", "Aurangzeb"],
+    "correct_answer": "Babur",
+    "category": "Indian History"
+  },
+  {
+    "index": 52,
+    "question": "Which Indian leader is known for his role in the Quit India Movement?",
+    "options": ["Mahatma Gandhi", "Subhas Chandra Bose", "Jawaharlal Nehru", "Sardar Patel"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 53,
+    "question": "What was the primary purpose of the Indian Council Act of 1909?",
+    "options": ["Increase Indian representation in government", "Promote industrial growth", "Support British military presence", "Encourage trade"],
+    "correct_answer": "Increase Indian representation in government",
+    "category": "Indian History"
+  },
+  {
+    "index": 54,
+    "question": "Which Indian ruler is known for the construction of the Red Fort?",
+    "options": ["Shah Jahan", "Akbar", "Babur", "Aurangzeb"],
+    "correct_answer": "Shah Jahan",
+    "category": "Indian History"
+  },
+  {
+    "index": 55,
+    "question": "Who was the leader of the Indian National Army during World War II?",
+    "options": ["Subhas Chandra Bose", "Jawaharlal Nehru", "Mahatma Gandhi", "Bhagat Singh"],
+    "correct_answer": "Subhas Chandra Bose",
+    "category": "Indian History"
+  },
+  {
+    "index": 56,
+    "question": "What was the main objective of the Indian Freedom Struggle?",
+    "options": ["To gain independence from British rule", "To increase trade", "To promote agriculture", "To strengthen military power"],
+    "correct_answer": "To gain independence from British rule",
+    "category": "Indian History"
+  },
+  {
+    "index": 57,
+    "question": "Which Indian freedom fighter was known for his role in the Chittagong Armoury Raid?",
+    "options": ["Subhas Chandra Bose", "Bhagat Singh", "Rajguru", "Sukhdev"],
+    "correct_answer": "Subhas Chandra Bose",
+    "category": "Indian History"
+  },
+  {
+    "index": 58,
+    "question": "Which Indian leader was known for his efforts in promoting education for women?",
+    "options": ["Jyotirao Phule", "Swami Vivekananda", "Raja Ram Mohan Roy", "Mahatma Gandhi"],
+    "correct_answer": "Jyotirao Phule",
+    "category": "Indian History"
+  },
+  {
+    "index": 59,
+    "question": "Who was the leader of the Indian independence movement's First War of Independence in 1857?",
+    "options": ["Mangal Pandey", "Rani Lakshmibai", "Bahadur Shah II", "Tatya Tope"],
+    "correct_answer": "Bahadur Shah II",
+    "category": "Indian History"
+  },
+  {
+    "index": 60,
+    "question": "Which Indian leader was known for his role in the Indian Renaissance?",
+    "options": ["Raja Ram Mohan Roy", "Swami Vivekananda", "Mahatma Gandhi", "Jawaharlal Nehru"],
+    "correct_answer": "Raja Ram Mohan Roy",
+    "category": "Indian History"
+  },
+
+  {
+    "index": 61,
+    "question": "What is the term for a star that has exploded?",
+    "options": ["Supernova", "Pulsar", "Neutron Star", "White Dwarf"],
+    "correct_answer": "Supernova",
+    "category": "Space"
+  },
+  {
+    "index": 62,
+    "question": "What is the name of the zone where a planet's gravitational influence dominates?",
+    "options": ["Hertzsprung-Russell Zone", "Habitable Zone", "Kuiper Belt", "Oort Cloud"],
+    "correct_answer": "Habitable Zone",
+    "category": "Space"
+  },
+  {
+    "index": 63,
+    "question": "What is the name of the effect where light from distant galaxies shifts towards the red end of the spectrum?",
+    "options": ["Redshift", "Blueshift", "Doppler Effect", "Gravitational Lensing"],
+    "correct_answer": "Redshift",
+    "category": "Space"
+  },
+  {
+    "index": 64,
+    "question": "Which space agency is known for the Mars rover missions?",
+    "options": ["NASA", "ESA", "JAXA", "Roscosmos"],
+    "correct_answer": "NASA",
+    "category": "Space"
+  },
+  {
+    "index": 65,
+    "question": "What is the name of the phenomenon where the Moon covers the Sun during a solar eclipse?",
+    "options": ["Total Solar Eclipse", "Partial Solar Eclipse", "Lunar Eclipse", "Annular Eclipse"],
+    "correct_answer": "Total Solar Eclipse",
+    "category": "Space"
+  },
+  {
+    "index": 66,
+    "question": "What is the term for a small celestial body that orbits the Sun?",
+    "options": ["Asteroid", "Comet", "Meteor", "Satellite"],
+    "correct_answer": "Asteroid",
+    "category": "Space"
+  },
+  {
+    "index": 67,
+    "question": "What is the name of the phenomenon where two stars are orbiting around each other?",
+    "options": ["Binary System", "Nebula", "Galaxy", "Quasar"],
+    "correct_answer": "Binary System",
+    "category": "Space"
+  },
+  {
+    "index": 68,
+    "question": "Which planet is known as the 'Morning Star' or 'Evening Star'?",
+    "options": ["Venus", "Mars", "Mercury", "Jupiter"],
+    "correct_answer": "Venus",
+    "category": "Space"
+  },
+  {
+    "index": 69,
+    "question": "What is the term for the region around a black hole from which nothing can escape?",
+    "options": ["Event Horizon", "Accretion Disk", "Singularity", "Photon Sphere"],
+    "correct_answer": "Event Horizon",
+    "category": "Space"
+  },
+  {
+    "index": 70,
+    "question": "What is the name of the layer of the Sun's atmosphere visible during a solar eclipse?",
+    "options": ["Corona", "Chromosphere", "Photosphere", "Core"],
+    "correct_answer": "Corona",
+    "category": "Space"
+  },
+
+  {
+    "index": 71,
+    "question": "What is the term for software that is designed to damage or disrupt computer systems?",
+    "options": ["Malware", "Antivirus", "Firewall", "Debugger"],
+    "correct_answer": "Malware",
+    "category": "Technology"
+  },
+  {
+    "index": 72,
+    "question": "What technology allows multiple devices to share a single internet connection?",
+    "options": ["Router", "Modem", "Switch", "Hub"],
+    "correct_answer": "Router",
+    "category": "Technology"
+  },
+  {
+    "index": 73,
+    "question": "What does 'SEO' stand for in digital marketing?",
+    "options": ["Search Engine Optimization", "Social Engagement Optimization", "System Efficiency Optimization", "Security Enhancement Operations"],
+    "correct_answer": "Search Engine Optimization",
+    "category": "Technology"
+  },
+  {
+    "index": 74,
+    "question": "Which technology is used for creating digital currencies?",
+    "options": ["Blockchain", "Cloud Computing", "Big Data", "Virtual Reality"],
+    "correct_answer": "Blockchain",
+    "category": "Technology"
+  },
+  {
+    "index": 75,
+    "question": "What is the term for a computer program that can replicate itself and spread to other computers?",
+    "options": ["Virus", "Worm", "Trojan", "Spyware"],
+    "correct_answer": "Worm",
+    "category": "Technology"
+  },
+  {
+    "index": 76,
+    "question": "What technology is used to create and manage virtual machines?",
+    "options": ["Virtualization", "Cloud Computing", "Data Mining", "Machine Learning"],
+    "correct_answer": "Virtualization",
+    "category": "Technology"
+  },
+  {
+    "index": 77,
+    "question": "Which programming language is widely used for web development?",
+    "options": ["JavaScript", "C#", "Swift", "Ruby"],
+    "correct_answer": "JavaScript",
+    "category": "Technology"
+  },
+  {
+    "index": 78,
+    "question": "What is the name of the cloud storage service provided by Google?",
+    "options": ["Google Drive", "iCloud", "OneDrive", "Dropbox"],
+    "correct_answer": "Google Drive",
+    "category": "Technology"
+  },
+  {
+    "index": 79,
+    "question": "What is the term for the physical components of a computer system?",
+    "options": ["Hardware", "Software", "Firmware", "Middleware"],
+    "correct_answer": "Hardware",
+    "category": "Technology"
+  },
+  {
+    "index": 80,
+    "question": "Which technology is used to provide high-speed internet connections?",
+    "options": ["Fiber Optics", "DSL", "Dial-Up", "Satellite"],
+    "correct_answer": "Fiber Optics",
+    "category": "Technology"
+  },
+
+
+  {
+    "index": 81,
+    "question": "Who was the leader of the Indian independence movement during the 1940s?",
+    "options": ["Jawaharlal Nehru", "Subhas Chandra Bose", "Mahatma Gandhi", "Sardar Patel"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 82,
+    "question": "Which Indian freedom fighter was known for his role in the Jallianwala Bagh massacre?",
+    "options": ["Udham Singh", "Bhagat Singh", "Chandra Sekhar Azad", "Rajguru"],
+    "correct_answer": "Udham Singh",
+    "category": "Indian History"
+  },
+  {
+    "index": 83,
+    "question": "Which Indian leader is known for his efforts in the abolition of untouchability?",
+    "options": ["B.R. Ambedkar", "Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel"],
+    "correct_answer": "B.R. Ambedkar",
+    "category": "Indian History"
+  },
+  {
+    "index": 84,
+    "question": "What was the main objective of the Partition of India in 1947?",
+    "options": ["To create separate nations for Hindus and Muslims", "To strengthen trade relations", "To promote cultural exchange", "To enhance military cooperation"],
+    "correct_answer": "To create separate nations for Hindus and Muslims",
+    "category": "Indian History"
+  },
+  {
+    "index": 85,
+    "question": "Which Indian leader is known for his role in the Indian independence movement and the Quit India Resolution?",
+    "options": ["Jawaharlal Nehru", "Mahatma Gandhi", "Subhas Chandra Bose", "Bhagat Singh"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 86,
+    "question": "What was the major event in Indian history that led to the formation of Pakistan?",
+    "options": ["Partition of India", "Sepoy Mutiny", "Salt March", "Independence Movement"],
+    "correct_answer": "Partition of India",
+    "category": "Indian History"
+  },
+  {
+    "index": 87,
+    "question": "Who was the first Indian to win the Nobel Prize?",
+    "options": ["Rabindranath Tagore", "C. V. Raman", "Mother Teresa", "Amartya Sen"],
+    "correct_answer": "Rabindranath Tagore",
+    "category": "Indian History"
+  },
+  {
+    "index": 88,
+    "question": "Which Indian leader was known for his role in the non-violent resistance against British rule?",
+    "options": ["Mahatma Gandhi", "Jawaharlal Nehru", "Subhas Chandra Bose", "Bhagat Singh"],
+    "correct_answer": "Mahatma Gandhi",
+    "category": "Indian History"
+  },
+  {
+    "index": 89,
+    "question": "Which Indian leader played a key role in the establishment of the Indian Constitution?",
+    "options": ["B.R. Ambedkar", "Mahatma Gandhi", "Jawaharlal Nehru", "Sardar Patel"],
+    "correct_answer": "B.R. Ambedkar",
+    "category": "Indian History"
+  },
+  {
+    "index": 90,
+    "question": "Which movement was led by Mahatma Gandhi to protest against British salt taxes?",
+    "options": ["Salt March", "Non-Cooperation Movement", "Civil Disobedience Movement", "Quit India Movement"],
+    "correct_answer": "Salt March",
+    "category": "Indian History"
+  },
+
+  {
+    "index": 91,
+    "question": "What is the name of the phenomenon where the Moon covers part of the Sun during a solar eclipse?",
+    "options": ["Partial Solar Eclipse", "Total Solar Eclipse", "Lunar Eclipse", "Annular Eclipse"],
+    "correct_answer": "Partial Solar Eclipse",
+    "category": "Space"
+  },
+  {
+    "index": 92,
+    "question": "Which planet is known for its rings?",
+    "options": ["Saturn", "Jupiter", "Uranus", "Neptune"],
+    "correct_answer": "Saturn",
+    "category": "Space"
+  },
+  {
+    "index": 93,
+    "question": "What is the term for a celestial object that emits light due to nuclear reactions?",
+    "options": ["Star", "Planet", "Asteroid", "Comet"],
+    "correct_answer": "Star",
+    "category": "Space"
+  },
+  {
+    "index": 94,
+    "question": "What is the term for a small rocky body that orbits the Sun between Mars and Jupiter?",
+    "options": ["Asteroid", "Meteor", "Comet", "Planet"],
+    "correct_answer": "Asteroid",
+    "category": "Space"
+  },
+  {
+    "index": 95,
+    "question": "Which celestial object has a tail that always points away from the Sun?",
+    "options": ["Comet", "Asteroid", "Meteor", "Planet"],
+    "correct_answer": "Comet",
+    "category": "Space"
+  },
+  {
+    "index": 96,
+    "question": "What is the name of the process by which a star evolves into a red giant?",
+    "options": ["Stellar Evolution", "Nuclear Fusion", "Supernova", "White Dwarf"],
+    "correct_answer": "Stellar Evolution",
+    "category": "Space"
+  },
+  {
+    "index": 97,
+    "question": "Which planet is known for its large storms and high winds?",
+    "options": ["Neptune", "Mars", "Earth", "Venus"],
+    "correct_answer": "Neptune",
+    "category": "Space"
+  },
+  {
+    "index": 98,
+    "question": "What is the name of the invisible force that attracts objects towards the center of the Earth?",
+    "options": ["Gravity", "Electromagnetic Force", "Nuclear Force", "Friction"],
+    "correct_answer": "Gravity",
+    "category": "Space"
+  },
+  {
+    "index": 99,
+    "question": "What is the term for the bright band of light visible in the night sky caused by millions of stars in the Milky Way galaxy?",
+    "options": ["Milky Way", "Aurora", "Zodiacal Light", "Nebula"],
+    "correct_answer": "Milky Way",
+    "category": "Space"
+  },
+  {
+    "index": 100,
+    "question": "Which planet is known for its extreme surface temperatures and dense atmosphere?",
+    "options": ["Venus", "Mercury", "Mars", "Uranus"],
+    "correct_answer": "Venus",
+    "category": "Space"
+  }
+]

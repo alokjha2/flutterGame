@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             color: Colors.purpleAccent.shade100.withOpacity(0.5),
           ),
 
-          RainAnimation(screenSize: size),
+          // RainAnimation(screenSize: size),
           // Content
           Center(
             child: Column(
