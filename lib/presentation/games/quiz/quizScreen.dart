@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:game/exports.dart';
 import 'package:game/presentation/games/quiz/widgets/body.dart';
 import 'package:game/presentation/games/quiz/widgets/question_controller.dart';
+import 'package:game/utils/constants.dart';
 import 'package:get/get.dart';
 
 
@@ -18,6 +19,20 @@ class QuizScreen extends StatelessWidget {
       appBar: AppBar(
         // Fluttter show the back button automatically
         backgroundColor: Colors.transparent,
+       leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: 
+              // SizedBox(width: 10), // Add some padding to the left
+              Container(
+                // decoration: BoxDecoration(color: kGrayColor),
+                child: Icon(
+                  Icons.arrow_back_ios, // Use the iOS-style back icon
+                  color: Colors.white, // Set the color of the icon
+                          ),
+              ),
+        ),
         elevation: 0,
         actions: [
           TextButton(onPressed: (){
