@@ -31,54 +31,53 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
           return Transform.scale(
             scale: 1.0 - (_controller.value * 0.1),
             child: SizedBox(
-      width: 220,
-      height: 90,
-      child: ElevatedButton(
-        onPressed: (){
-           Get.toNamed(AppRoutes.quiz);
-
-        },
-        style: ElevatedButton.styleFrom(
-          // backgroundColor: Colors.amber,
-
-          shape: RoundedRectangleBorder(
-
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        child: Ink(
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(8), // Adjust border radius as needed
-      gradient: LinearGradient(
-        colors: [Colors.lightBlue, Colors.blue], // Adjust colors as needed
-        begin: Alignment.centerLeft,
-        end: Alignment.centerRight,
-      ),
+      width: 200,
+      height: 80,
+      child: Container(
+  width: 150, // Adjust width as needed
+  height: 150, // Adjust height as needed
+  decoration: BoxDecoration(
+    shape: BoxShape.rectangle, // Circular shape
+    borderRadius: BorderRadius.all(Radius.circular(20)),
+    image: DecorationImage(
+      image: AssetImage('assets/images/blue.png'), // Path to the image asset
+      fit: BoxFit.cover, // Cover the entire container
     ),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0), // Adjust padding as needed
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/blue.png', // Path to the image asset
-            width: 24, // Adjust the width of the image as needed
-            height: 24, // Adjust the height of the image as needed
-            fit: BoxFit.cover,
-          ),
-          SizedBox(width: 8), // Adjust spacing between image and text
-          Text(
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.3), // Shadow color
+        spreadRadius: 2,
+        blurRadius: 5,
+        offset: Offset(0, 3), // Shadow position
+      ),
+    ],
+  ),
+  child: Material(
+    color: Colors.transparent, // Makes sure the Material background is transparent
+    borderRadius: BorderRadius.circular(150), // Circular border radius
+    child: InkWell(
+      onTap: () {
+        Get.toNamed(AppRoutes.quiz);
+      },
+      borderRadius: BorderRadius.circular(150), // Circular border radius
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16), // Adjust padding as needed
+          child: Text(
             'Play', // Text to display
             style: TextStyle(
-              fontSize: 16, // Adjust the font size as needed
-              color: Colors.white, // Adjust text color as needed
+              fontSize: 18, // Font size
+              fontWeight: FontWeight.bold, // Bold text
+              color: Colors.white, // Text color
             ),
           ),
-        ],
+        ),
       ),
     ),
   ),
 )
+
+
     )
           );
         },
