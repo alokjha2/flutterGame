@@ -6,23 +6,59 @@ import 'package:game/presentation/screens/profile/settings.dart';
 import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:audioplayers/audioplayers.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+    AudioPlayer? _audioPlayer;
+  bool _isPlayerInitialized = false;
+
   // PackageInfo? packageInfo;
   // UpdateResult? _result;
   var _startTime = 0;
   var _bytesPerSec;
   var _download;
 
-  @override
+ @override
   void initState() {
     super.initState();
-    checkForUpdate();
+    WidgetsBinding.instance.addObserver(this);
+    _initializeAudioPlayer();
   }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _audioPlayer?.dispose();
+    super.dispose();
+  }
+
+   _initializeAudioPlayer() async {
+    _audioPlayer = AudioPlayer();
+    // int result = await _audioPlayer!.setSource(AssetSource('background_music.mp3'));
+
+    // if (result == 1) {
+    //   setState(() {
+    //     _isPlayerInitialized = true;
+    //   });
+      _playBackgroundMusic();
+    // } else {
+    //   // Handle error, possibly by showing a user message or retrying
+    //   print('Error loading music file');
+    // }
+  }
+
+  Future<void> _playBackgroundMusic() async {
+    if (_isPlayerInitialized) {
+      await _audioPlayer!.setVolume(0.5);
+      await _audioPlayer!.setReleaseMode(ReleaseMode.loop); // Enable looping
+      await _audioPlayer!.play(AssetSource('sounds/bg.mp3'));
+    }
+  }
+
 
   Future<void> checkForUpdate() async {
      final snackBar = SnackBar(

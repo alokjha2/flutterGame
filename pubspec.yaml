@@ -46,6 +46,8 @@ dependencies:
   share_plus: 
   flutter_hooks: 
   zoom_widget: ^2.0.1
+  audioplayers:
+  flutter_svg:
   # updater: ^0.2.4
   # version_check: ^0.7.1
   # native_updater: ^0.1.1
@@ -75,5 +77,6 @@ flutter:
     - assets/images/.
     - assets/sounds/.
     - assets/json/.
+    - assets/icons/.
     - assets/brain_animation.json
   #   - images/a_dot_ham.jpeg
