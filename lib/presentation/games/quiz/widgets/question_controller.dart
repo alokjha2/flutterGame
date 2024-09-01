@@ -9,7 +9,7 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
   Timer? _timer;
   late AnimationController _animationController;
   late Animation<double> _animation;
-  
+
   var timerValue = 60.obs; // Timer value in seconds
   var questions = <Map<String, dynamic>>[].obs;
   var questionNumber = 1.obs;
@@ -17,6 +17,8 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
   var correctAnswer = ''.obs;
   var selectedAnswer = ''.obs;
   var skippedQuestion = 0.obs;
+  var score = 0.obs; // Track score
+  var maxSkips = 3; // Maximum number of skips
   var pageController = PageController();
 
   @override
@@ -98,6 +100,13 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
     _timer?.cancel();
     _animationController.stop();
 
+    // Check if the answer is correct or wrong
+    if (selectedAnswer.value == correctAnswer.value) {
+      score.value += 2; // Award 2 points for correct answer
+    } else {
+      score.value -= 1; // Deduct 1 point for wrong answer
+    }
+
     // After the answer is selected, move to the next question
     Future.delayed(Duration(seconds: 2), () {
       if (pageController.hasClients) {
@@ -109,14 +118,20 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
       _resetTimer();
     });
   }
-   void skipQuestion() {
-    // Stop timer and animation
-    _timer?.cancel();
-    _animationController.stop();
-    skippedQuestion.value++; 
 
-    // Move to the next question
-    nextQuestion();
+  void skipQuestion() {
+    if (skippedQuestion.value < maxSkips) {
+      // Stop timer and animation
+      _timer?.cancel();
+      _animationController.stop();
+      skippedQuestion.value++;
+
+      // Move to the next question
+      nextQuestion();
+    } else {
+      // Show message or handle the case where skips are exhausted
+      print("You have reached the maximum number of skips.");
+    }
   }
 
   void nextQuestion() {
