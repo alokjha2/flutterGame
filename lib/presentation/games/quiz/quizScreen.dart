@@ -5,11 +5,64 @@ import 'package:flutter/services.dart';
 import 'package:game/exports.dart';
 import 'package:game/presentation/games/quiz/widgets/body.dart';
 import 'package:game/presentation/games/quiz/widgets/question_controller.dart';
+import 'package:game/sounds.dart';
 import 'package:game/utils/constants.dart';
 import 'package:get/get.dart';
+import 'dart:ui';
+
+import 'package:game/components/homepage_btn.dart';
+import 'package:game/exports.dart';
+import 'package:game/presentation/screens/profile/settings.dart';
+import 'package:game/widgets/fancyButton.dart';
+import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:logger/logger.dart';
 
 
-class QuizScreen extends StatelessWidget {
+class QuizScreen extends StatefulWidget {
+  @override
+  State<QuizScreen> createState() => _QuizScreenState();
+}
+
+class _QuizScreenState extends State<QuizScreen>with WidgetsBindingObserver  {
+      AudioPlayer? _audioPlayer;
+        final audioController = AudioController();
+
+  @override
+  void initState() {
+    super.initState();
+    // _audioPlayer!.stop();
+    audioController.stop();
+    audioController.playSound(SfxType.background);
+    WidgetsBinding.instance.addObserver(this);
+    // audioController.
+    // checkForUpdate();
+    // _initializeAndPlayMusic();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    audioController.stop();
+    // _audioPlayer?.stop(); // Stop the music when disposing
+    // _audioPlayer?.dispose(); // Dispose of the AudioPlayer
+    super.dispose();
+  }
+
+
+
+// Future<void> _initializeAndPlayMusic() async {
+//   _audioPlayer = AudioPlayer();
+  
+//   await _audioPlayer!.setReleaseMode(ReleaseMode.loop); // Enable looping
+  
+//   final result = await _audioPlayer!.play(
+//     AssetSource('sounds/bg2.mp3'), 
+//     volume: 0.02 // Set the volume to a very low level
+//   );
+// }
+
   @override
   Widget build(BuildContext context) {
     QuestionController _controller = Get.put(QuestionController());

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game/sounds.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
@@ -9,6 +10,7 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
   Timer? _timer;
   late AnimationController _animationController;
   late Animation<double> _animation;
+  final audioController = AudioController();
 
   var timerValue = 60.obs; // Timer value in seconds
   var questions = <Map<String, dynamic>>[].obs;
@@ -103,7 +105,11 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
     // Check if the answer is correct or wrong
     if (selectedAnswer.value == correctAnswer.value) {
       score.value += 2; // Award 2 points for correct answer
+      audioController.playSound(SfxType.correctAnswer);
+
+      
     } else {
+      audioController.playSound(SfxType.wrongAnswer);
       score.value -= 1; // Deduct 1 point for wrong answer
     }
 

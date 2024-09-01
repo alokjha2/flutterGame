@@ -35,7 +35,7 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
       height: 90,
       child: ElevatedButton(
         onPressed: (){
-           Get.toNamed(AppRoutes.category);
+           Get.toNamed(AppRoutes.quiz);
 
         },
         style: ElevatedButton.styleFrom(
@@ -68,7 +68,7 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
           ),
           SizedBox(width: 8), // Adjust spacing between image and text
           Text(
-            'PlayBtn', // Text to display
+            'Play', // Text to display
             style: TextStyle(
               fontSize: 16, // Adjust the font size as needed
               color: Colors.white, // Adjust text color as needed

@@ -7,6 +7,7 @@ import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:logger/logger.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,51 +15,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     AudioPlayer? _audioPlayer;
-  bool _isPlayerInitialized = false;
 
-  // PackageInfo? packageInfo;
-  // UpdateResult? _result;
-  var _startTime = 0;
-  var _bytesPerSec;
-  var _download;
-
- @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     checkForUpdate();
-    // _initializeAudioPlayer();
+    // _initializeAndPlayMusic();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    // _audioPlayer?.dispose();
+    _audioPlayer?.stop(); // Stop the music when disposing
+    _audioPlayer?.dispose(); // Dispose of the AudioPlayer
     super.dispose();
   }
 
-   _initializeAudioPlayer() async {
-    _audioPlayer = AudioPlayer();
-    // int result = await _audioPlayer!.setSource(AssetSource('background_music.mp3'));
 
-    // if (result == 1) {
-    //   setState(() {
-    //     _isPlayerInitialized = true;
-    //   });
-      _playBackgroundMusic();
-    // } else {
-    //   // Handle error, possibly by showing a user message or retrying
-    //   print('Error loading music file');
-    // }
-  }
 
-  Future<void> _playBackgroundMusic() async {
-    if (_isPlayerInitialized) {
-      await _audioPlayer!.setVolume(0.5);
-      await _audioPlayer!.setReleaseMode(ReleaseMode.loop); // Enable looping
-      await _audioPlayer!.play(AssetSource('sounds/bg2.mp3'));
-    }
-  }
 
 
  Future<void> checkForUpdate() async {
@@ -66,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     InAppUpdate.checkForUpdate().then((info) {
       setState(() {
         if (info.updateAvailability == UpdateAvailability.updateAvailable) {
-          // print('update available');
           update();
         }
       });
