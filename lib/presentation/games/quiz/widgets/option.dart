@@ -43,7 +43,7 @@ class Option extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(color: getTheRightColor()),
             borderRadius: BorderRadius.circular(15),
-            color: getTheRightColor() == kGrayColor
+            color: getTheRightColor() == Colors.white
                 ? Colors.transparent
                 : getTheRightColor().withOpacity(0.2), // Light background for selected option
           ),

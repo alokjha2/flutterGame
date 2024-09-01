@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:game/presentation/games/quiz/widgets/question_controller.dart';
 import 'package:game/utils/constants.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
-// import 'package:quiz_app/controllers/question_controller.dart';
+import 'package:get/get.dart';
 import 'package:flutter_svg/svg.dart';
-
-// import '../../../constants.dart';
+// import 'package:quiz_app/controllers/question_controller.dart'; // Update with your path
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({
-    Key? key,
-  }) : super(key: key);
+  const ProgressBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +18,26 @@ class ProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: GetBuilder<QuestionController>(
-        init: QuestionController(),
         builder: (controller) {
           return Stack(
             children: [
-              // LayoutBuilder provide us the available space for the conatiner
-              // constraints.maxWidth needed for our animation
+              // LayoutBuilder provide us the available space for the container
               LayoutBuilder(
                 builder: (context, constraints) => Container(
-                  // from 0 to 1 it takes 60s
-                  // width: constraints.maxWidth * controller.animation.value,
+                  // width: constraints.maxWidth * (controller!..value),
                   decoration: BoxDecoration(
-                    gradient: kPrimaryGradient,
+                    gradient: kPrimaryGradient, // Use your gradient
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
               ),
               Positioned.fill(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: kDefaultPadding / 2),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Text("${(controller!.animation.value * 60).round()} sec"),
+                      Text("${controller.timerValue.value} sec"),
                       SvgPicture.asset("assets/icons/clock.svg"),
                     ],
                   ),

@@ -67,20 +67,20 @@ class Body extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(kDefaultPadding, 0, kDefaultPadding, kDefaultPadding),
                         child: Container(
-                          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15)), color: Colors.white),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)), color: Colors.white30),
                           child: Padding(
                            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                   
                                 Text(
                                   question['question'],
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
-                                  ),
+                                  style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: Colors.white),
                                   textAlign: TextAlign.center,
                                 ),
                                 SizedBox(height: 20),
