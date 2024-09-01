@@ -117,30 +117,30 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             ),
           ),
           // Rain animation
-Positioned(
-  bottom: 20,
-  left: 20,
-  child: ElevatedButton(
-    onPressed: () {
-      Get.to(() => SettingsScreen());
-      // Action for the button
-    },
-    style: ElevatedButton.styleFrom(
-      fixedSize: Size(70, 70),
-      backgroundColor: Colors.orange,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-        side: BorderSide(color: Colors.white, width: 4),
-      ),
-    ),
+// Positioned(
+//   bottom: 20,
+//   left: 20,
+//   child: ElevatedButton(
+//     onPressed: () {
+//       Get.to(() => SettingsScreen());
+//       // Action for the button
+//     },
+//     style: ElevatedButton.styleFrom(
+//       fixedSize: Size(70, 70),
+//       backgroundColor: Colors.orange,
+//       shape: RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(20.0),
+//         side: BorderSide(color: Colors.white, width: 4),
+//       ),
+//     ),
    
-      child: Icon(
-        Icons.settings_sharp,
-        size: 25,
-        color: Colors.white,
-      ),
-  ),
-),
+//       child: Icon(
+//         Icons.settings_sharp,
+//         size: 25,
+//         color: Colors.white,
+//       ),
+//   ),
+// ),
 
 
         ],

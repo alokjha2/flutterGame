@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:game/presentation/router/routes.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:game/presentation/router/routes.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -8,25 +10,15 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  List<String> _allCategories = [
-    "MBA", "Science", "Current Affairs", "Human Body", "Technology", 
-    "Health", "History", "Mathematics", "Physics", "Chemistry", 
-    "Biology", "Geography", "Entertainment", "Sports", "Literature",
-    "AI", "Blockchain", "Machine Learning", "USA", "India", "China",
-    "Germany", "France", "UK", "World War I", "World War II", "Ancient Rome",
-    "Renaissance", "Benjamin Franklin", "Albert Einstein", "Marie Curie",
-    "Mahatma Gandhi", "Astronomy", "Cybersecurity", "Algebra", "Geometry",
-    "Calculus", "Statistics", "Continents", "Oceans", "Rivers", "Mountains",
-    "Human Body", "Plants", "Animals", "Genetics"
-  ];
-
-  List<String> _filteredCategories = [];
+  List<Map<String, dynamic>> _categories = [];
+  List<Map<String, dynamic>> _filteredCategories = [];
   TextEditingController _searchController = TextEditingController();
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _filteredCategories = _allCategories;
+    _fetchCategories();
     _searchController.addListener(_filterCategories);
   }
 
@@ -36,11 +28,37 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.dispose();
   }
 
+  Future<void> _fetchCategories() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final response = await http.get(Uri.parse('http://192.168.3.240:5000/categories'));
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        setState(() {
+          _categories = data.cast<Map<String, dynamic>>();
+          _filteredCategories = _categories;
+          _isLoading = false;
+        });
+      } else {
+        throw Exception('Failed to load categories');
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      // Handle the error (e.g., show an error message to the user)
+      print('Error fetching categories: $e');
+    }
+  }
+
   void _filterCategories() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      _filteredCategories = _allCategories
-          .where((category) => category.toLowerCase().contains(query))
+      _filteredCategories = _categories
+          .where((category) => category['category'].toLowerCase().contains(query))
           .toList();
     });
   }
@@ -53,31 +71,35 @@ class _CategoryScreenState extends State<CategoryScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                labelText: 'Search Categories',
-                prefixIcon: Icon(Icons.search),
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+                children: [
+                  TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: 'Search Categories',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Number of columns
+                        crossAxisSpacing: 10.0, // Spacing between columns
+                        mainAxisSpacing: 10.0, // Spacing between rows
+                        childAspectRatio: 2, // Width to height ratio of each grid item
+                      ),
+                      itemCount: _filteredCategories.length,
+                      itemBuilder: (context, index) {
+                        return CategoryCard(
+                          category: _filteredCategories[index]['category'],
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of columns
-                  crossAxisSpacing: 10.0, // Spacing between columns
-                  mainAxisSpacing: 10.0, // Spacing between rows
-                  childAspectRatio: 2, // Width to height ratio of each grid item
-                ),
-                itemCount: _filteredCategories.length,
-                itemBuilder: (context, index) {
-                  return CategoryCard(category: _filteredCategories[index]);
-                },
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -92,7 +114,6 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print("hello");
         Get.toNamed(AppRoutes.quiz);
       },
       child: Card(

@@ -17,37 +17,37 @@ class SettingsScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: Text('Account'),
-            subtitle: Text('Manage your account settings'),
-            leading: Icon(Icons.person),
-            onTap: () {
-              Get.to(() => AccountScreen());
-            },
-          ),
+          // ListTile(
+          //   title: Text('Account'),
+          //   subtitle: Text('Manage your account settings'),
+          //   leading: Icon(Icons.person),
+          //   onTap: () {
+          //     Get.to(() => AccountScreen());
+          //   },
+          // ),
+
+          // ListTile(
+          //   title: Text('Friends'),
+          //   subtitle: Text('Manage your account settings'),
+          //   leading: Icon(Icons.person),
+          //   onTap: () {
+          //     Get.to(() => FriendListScreen());
+          //   },
+          // ),
+
+          // ListTile(
+          //   title: Text('Notifications'),
+          //   subtitle: Text('Manage notification settings'),
+          //   leading: Icon(Icons.notifications),
+          //   onTap: () {
+          //     Get.to(() => NotificationScreen());
+          //   },
+          // ),
 
           ListTile(
-            title: Text('Friends'),
-            subtitle: Text('Manage your account settings'),
-            leading: Icon(Icons.person),
-            onTap: () {
-              Get.to(() => FriendListScreen());
-            },
-          ),
-
-          ListTile(
-            title: Text('Notifications'),
-            subtitle: Text('Manage notification settings'),
-            leading: Icon(Icons.notifications),
-            onTap: () {
-              Get.to(() => NotificationScreen());
-            },
-          ),
-
-          ListTile(
-            title: Text('Share Ling'),
-            subtitle: Text('Sharing ling can help us alot'),
-            leading: Icon(Icons.notifications),
+            title: Text('Share Link'),
+            subtitle: Text('Sharing link can help us alot'),
+            leading: Icon(Icons.link),
             onTap: () {
               // Get.to(() => NotificationsScreen());
             },

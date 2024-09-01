@@ -25,11 +25,7 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-           Get.toNamed(AppRoutes.selectMatrix);
-      },
-      child: AnimatedBuilder(
+    return AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
           return Transform.scale(
@@ -39,11 +35,8 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
       height: 90,
       child: ElevatedButton(
         onPressed: (){
-           Get.toNamed(AppRoutes.gamesCategory);
-          // Navigator.of(context).push(GameScreen);
-//           Navigator.of(context).push(
-//   MaterialPageRoute(builder: (context) => GameScreen()),
-// );
+           Get.toNamed(AppRoutes.category);
+
         },
         style: ElevatedButton.styleFrom(
           // backgroundColor: Colors.amber,
@@ -89,7 +82,6 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
     )
           );
         },
-      ),
     );
   }
 
