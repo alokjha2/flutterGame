@@ -22,6 +22,7 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
   var score = 0.obs; // Track score
   var maxSkips = 3; // Maximum number of skips
   var pageController = PageController();
+  var answeredQuestions = <int>{}.obs; // Track answered question indices
 
   @override
   void onInit() {
@@ -92,6 +93,8 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
   }
 
   void checkAnswer(int index, Map<String, dynamic> question) {
+    if (isAnswered.value || answeredQuestions.contains(questionNumber.value - 1)) return;
+
     isAnswered.value = true;
     correctAnswer.value = question['correct_answer'];
     selectedAnswer.value = question['options'][index];
@@ -106,12 +109,13 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
     if (selectedAnswer.value == correctAnswer.value) {
       score.value += 2; // Award 2 points for correct answer
       audioController.playSound(SfxType.correctAnswer);
-
-      
     } else {
       audioController.playSound(SfxType.wrongAnswer);
       score.value -= 1; // Deduct 1 point for wrong answer
     }
+
+    // Mark question as answered
+    answeredQuestions.add(questionNumber.value - 1);
 
     // After the answer is selected, move to the next question
     Future.delayed(Duration(seconds: 2), () {
@@ -131,6 +135,9 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
       _timer?.cancel();
       _animationController.stop();
       skippedQuestion.value++;
+
+      // Mark current question as answered to prevent re-answering
+      answeredQuestions.add(questionNumber.value - 1);
 
       // Move to the next question
       nextQuestion();
