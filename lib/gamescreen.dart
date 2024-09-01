@@ -16,7 +16,7 @@ class _GameScreenState extends State<GameScreen> {
       ),
       body: Center(
         child: Text(
-          'Welcome to the Game!',
+          'Welcome to the Game! \n we are working on games currently. will release them in second update',
           style: TextStyle(fontSize: 24),
         ),
       ),

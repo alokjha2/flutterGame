@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:game/components/homepage_btn.dart';
 import 'package:game/exports.dart';
 import 'package:game/presentation/screens/profile/settings.dart';
 import 'package:game/widgets/fancyButton.dart';
 import 'package:get/get.dart';
+import 'package:in_app_update/in_app_update.dart';
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -14,6 +17,87 @@ class _HomeScreenState extends State<HomeScreen> {
   var _startTime = 0;
   var _bytesPerSec;
   var _download;
+
+  @override
+  void initState() {
+    super.initState();
+    checkForUpdate();
+  }
+
+  Future<void> checkForUpdate() async {
+     final snackBar = SnackBar(
+            content: Text('update available'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change
+              },
+            ),
+          );
+
+          // Show the SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // print('update available');
+          
+          update();
+
+    // print('checking for Update');
+    InAppUpdate.checkForUpdate().then((info) {
+      setState(() {
+        if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+           final snackBar = SnackBar(
+            content: Text('update available'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change
+              },
+            ),
+          );
+
+          // Show the SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // print('update available');
+          
+          update();
+        }
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void update() async {
+    print('Updating');
+     final snackBar = SnackBar(
+            content: Text('updating app'),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change
+              },
+            ),
+          );
+
+          // Show the SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    await InAppUpdate.startFlexibleUpdate();
+    InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {
+      print(e.toString());
+       final snackBar = SnackBar(
+            content: Text("error "+ e.toString()),
+            action: SnackBarAction(
+              label: 'Undo',
+              onPressed: () {
+                // Some code to undo the change
+              },
+            ),
+          );
+
+          // Show the SnackBar
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,87 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-    //             Container(
-    //               width: 220,
-    //   height: 90,
-    //   decoration: BoxDecoration(
-    //           image: DecorationImage(image: AssetImage("assets/images/blue.png"), fit: BoxFit.cover),
-    //     borderRadius: BorderRadius.circular(15),
-    //     boxShadow: [
-    //       BoxShadow(
-    //         color: Colors.black.withOpacity(0.3), // Shadow color
-    //         spreadRadius: 1,
-    //         blurRadius: 5,
-    //         offset: Offset(0, 3), // Adjust the offset to control the shadow position
-    //       ),
-    //     ],
-    //   ),
-    //   child: ClipRRect(
-    //     borderRadius: BorderRadius.circular(15),
-    //     child: BackdropFilter(
-    //       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-    //       child: Container(
-    //         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    //         decoration: BoxDecoration(
-    //           color: Colors.lightBlue.withOpacity(0.7),
-    //           borderRadius: BorderRadius.circular(15),
-    //           border: Border.all(
-    //             color: Colors.white.withOpacity(0.2),
-    //             width: 1,
-    //           ),
-    //         ),
-    //         child: GestureDetector(
-    //           onTap: (){
-    //                  Get.toNamed(AppRoutes.category);
 
-    //           },
-    //           child: Text(
-    //             "Quiz",
-    //             style: TextStyle(
-    //               fontSize: 16,
-    //               color: Colors.white,
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // ),
-
-
-                // SizedBox(height: 20), // Adjust spacing between buttons
-
-                // HomeFancyButton(text: 'Games', color: Colors.purple, onPressed: (){},),
-                // RectangleButton(
-                //   color: Colors.blue,
-                //   text: 'Play with friend',
-                //   onPressed: () {
-                //      Get.toNamed(AppRoutes.Auth);
-                    
-                //     // Action for Button 1
-                //   },
-                // ),
-                // SizedBox(height: 20), // Adjust spacing between buttons
-
-                // RectangleButton(
-                //   color: Colors.purple,
-                //   text: 'Phone MultiPlayer',
-                //   onPressed: () {
-                //      Get.toNamed(AppRoutes.phoneMultiPlayer);
-                    
-                //     // Action for Button 1
-                //   },
-                // ),
-                // SizedBox(height: 20), // Adjust spacing between buttons
-                // RectangleButton(
-                //   color: Colors.green,
-                //   text: 'Login',
-                //   onPressed: () {
-                //      Get.toNamed(AppRoutes.login);
-                //     // Action for Button 2
-                //   },
-                // ),
-                // SizedBox(height: 20), // Adjust spacing between buttons
                 BeatingHeartButton(),
               ],
             ),

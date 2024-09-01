@@ -39,11 +39,11 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
       height: 90,
       child: ElevatedButton(
         onPressed: (){
-          //  Get.toNamed(AppRoutes.gamesCategory);
+           Get.toNamed(AppRoutes.gamesCategory);
           // Navigator.of(context).push(GameScreen);
-          Navigator.of(context).push(
-  MaterialPageRoute(builder: (context) => GameScreen()),
-);
+//           Navigator.of(context).push(
+//   MaterialPageRoute(builder: (context) => GameScreen()),
+// );
         },
         style: ElevatedButton.styleFrom(
           // backgroundColor: Colors.amber,
@@ -75,7 +75,7 @@ class _BeatingHeartButtonState extends State<BeatingHeartButton>
           ),
           SizedBox(width: 8), // Adjust spacing between image and text
           Text(
-            'Play', // Text to display
+            'PlayBtn', // Text to display
             style: TextStyle(
               fontSize: 16, // Adjust the font size as needed
               color: Colors.white, // Adjust text color as needed
