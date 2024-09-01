@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     if (_isPlayerInitialized) {
       await _audioPlayer!.setVolume(0.5);
       await _audioPlayer!.setReleaseMode(ReleaseMode.loop); // Enable looping
-      await _audioPlayer!.play(AssetSource('sounds/bg.mp3'));
+      await _audioPlayer!.play(AssetSource('sounds/bg2.mp3'));
     }
   }
 

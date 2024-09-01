@@ -14,9 +14,13 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     QuestionController _questionController = Get.put(QuestionController());
     return Stack(
+      fit: StackFit.expand, // Ensure the stack expands to fill the available space
       children: [
-        // Background image (if any)
-        SvgPicture.asset("assets/icons/bg.svg", fit: BoxFit.fill),
+        // Background image
+        SvgPicture.asset(
+          "assets/icons/bg.svg",
+          fit: BoxFit.cover, // Ensure the image covers the whole screen
+        ),
         SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +55,7 @@ class Body extends StatelessWidget {
               ),
               Divider(thickness: 1.5),
               SizedBox(height: kDefaultPadding),
-               Expanded(
+              Expanded(
                 child: Obx(
                   () => PageView.builder(
                     physics: NeverScrollableScrollPhysics(),
@@ -62,35 +66,40 @@ class Body extends StatelessWidget {
                       final question = _questionController.questions[index];
                       return Column(
                         children: [
-                          Text(
-                            question['question'],
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                            child: Text(
+                              question['question'],
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                              ),
+                              textAlign: TextAlign.center,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                           SizedBox(height: 20),
-                          ...List.generate(4, (optionIndex) {
-                            return Option(
-                              text: question['options'][optionIndex],
-                              index: optionIndex,
-                              press: () => _questionController.checkAnswer(
-                                  optionIndex, question),
-                            );
-                          }),
-                          Spacer(),
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: 4,
+                              itemBuilder: (context, optionIndex) {
+                                return Option(
+                                  text: question['options'][optionIndex],
+                                  index: optionIndex,
+                                  press: () => _questionController.checkAnswer(optionIndex, question),
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       );
                     },
                   ),
-                
                 ),
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }
