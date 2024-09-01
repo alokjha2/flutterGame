@@ -19,9 +19,11 @@ class QuizScreen extends StatelessWidget {
         // Fluttter show the back button automatically
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // actions: [
-        //   ElevatedButton(onPressed: (){}, child: Text("Skip")),
-        // ],
+        actions: [
+          TextButton(onPressed: (){
+            Get.find<QuestionController>().skipQuestion();
+          }, child: Text("Skip", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400))),
+        ],
       ),
       body: Body(),
     );

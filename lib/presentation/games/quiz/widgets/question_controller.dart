@@ -2,30 +2,31 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:game/exports.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 class QuestionController extends GetxController with SingleGetTickerProviderMixin {
   Timer? _timer;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  
   var timerValue = 60.obs; // Timer value in seconds
-
   var questions = <Map<String, dynamic>>[].obs;
   var questionNumber = 1.obs;
   var isAnswered = false.obs;
   var correctAnswer = ''.obs;
   var selectedAnswer = ''.obs;
+  var skippedQuestion = 0.obs;
   var pageController = PageController();
-
-  late AnimationController _animationController;
-  late Animation _animation;
 
   @override
   void onInit() {
     super.onInit();
     _loadQuizQuestions();
+    _initializeTimer();
+  }
 
-    // Initialize the animation for the progress bar
+  void _initializeTimer() {
     _animationController = AnimationController(
       duration: Duration(seconds: 60),
       vsync: this,
@@ -36,32 +37,33 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
         update(); // Update UI when animation value changes
       });
 
-    // Start the timer
-    _startTimer();
+    // Reset timer and animation for the new question
+    _resetTimer();
   }
 
-  void _startTimer() {
-    // Initialize timer
+  void _resetTimer() {
+    _timer?.cancel(); // Cancel the existing timer if any
+    timerValue.value = 60; // Reset timer value
+    _animationController.reset(); // Reset animation controller
+    _animationController.forward(); // Start animation
+
+    // Start a new timer
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (timerValue.value > 0) {
         timerValue.value--;
       } else {
         timer.cancel();
-        // Trigger the next question or handle end of quiz
-        nextQuestion();
+        nextQuestion(); // Trigger next question when timer finishes
       }
     });
-
-    // Start the animation
-    _animationController.forward();
   }
 
   @override
   void onClose() {
     super.onClose();
-    _animationController.dispose(); // Properly dispose the animation controller
+    _animationController.dispose(); // Dispose the animation controller
     pageController.dispose();
-    _timer?.cancel(); // Cancel the timer if it's still running
+    _timer?.cancel(); // Cancel the timer if still running
   }
 
   void _loadQuizQuestions() async {
@@ -69,8 +71,8 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
       final String response = await rootBundle.loadString('assets/json/data.json');
       final List<dynamic> data = json.decode(response);
 
-      // Ensure each item in the list is a map
-      final List<Map<String, dynamic>> questionsList = data.map((item) => item as Map<String, dynamic>).toList();
+      final List<Map<String, dynamic>> questionsList = 
+          data.map((item) => item as Map<String, dynamic>).toList();
 
       questions.assignAll(questionsList);
     } catch (e) {
@@ -103,9 +105,18 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
             duration: Duration(milliseconds: 250), curve: Curves.ease);
       }
 
-      // Restart the timer
-      _startTimer();
+      // Reset timer and animation for the new question
+      _resetTimer();
     });
+  }
+   void skipQuestion() {
+    // Stop timer and animation
+    _timer?.cancel();
+    _animationController.stop();
+    skippedQuestion.value++; 
+
+    // Move to the next question
+    nextQuestion();
   }
 
   void nextQuestion() {
@@ -114,12 +125,8 @@ class QuestionController extends GetxController with SingleGetTickerProviderMixi
       pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);
 
-      // Reset the timer
-      timerValue.value = 60;
-
-      // Reset the counter and start the animation again
-      _animationController.reset();
-      _animationController.forward();
+      // Reset the timer and animation
+      _resetTimer();
     } else {
       // Navigate to ScoreScreen or handle end of quiz
       // Get.toNamed(AppRoutes.score);
