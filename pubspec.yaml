@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^6.2.1
   just_audio: ^0.9.38
   shared_preferences: ^2.3.4
+  shorebird_code_push: ^2.0.5
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +32,7 @@ flutter:
     - assets/sounds/
     - assets/images/
     - assets/json/
+    - shorebird.yaml
   fonts:
     - family: Idiqlat
       fonts:
